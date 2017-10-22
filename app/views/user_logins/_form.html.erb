@@ -1,29 +1,49 @@
-<%= form_for(@user_login) do |f| %>
-  <% if @user_login.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_login.errors.count, "error") %> prohibited this user_login from being saved:</h2>
+<div class="jumbotron text-center bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-left text-white">
+                <h1 class="display-3">Welcome to <storng>ProjectHub</strong></h1>
+                <hr>
+                <p>This app will make tracking group projects, assigning tasks and communicating within the group much easier. Also, the ability for a teacher or supervisor to see how a project is progressing allows them to make suggestions and evaluate each member’s contributions.</p>
+            </div>
+            <div class="col-md-6 text-left">
+                <div class="card">
+                    <div class="card-body">
+                        <%= form_for(@user_login) do |f| %>
+                            <% if @user_login.errors.any? %>
+                                <div id="error_explanation">
+                                <h2><%= pluralize(@user_login.errors.count, "error") %> prohibited this user_login from being saved:</h2>
 
-      <ul>
-      <% @user_login.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+                                <ul>
+                                <% @user_login.errors.full_messages.each do |message| %>
+                                    <li><%= message %></li>
+                                <% end %>
+                                </ul>
+                                </div>
+                            <% end %>
+
+                            <div class="form-group">
+                                <%= f.label :email %>
+                                <%= f.text_field :email, :class => 'form-control', :placeholder=> 'Email' %>
+                            </div>
+                            <div class="form-group">
+                                <%= f.label :password %><br>
+                                <%= f.text_field :password, :class => 'form-control', :placeholder => 'Password' %>
+                            </div>
+                            <div class="actions">
+                                <%= f.submit("Login", :class=>"btn btn-primary", :style=>"cursor:pointer") %>
+                            </div>
+                        <% end %>
+                        <hr>
+                        <small>Don't have a login? Please contact your administrator!</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :token %><br>
-    <%= f.text_field :token %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+<div class="container">
+    <div class="alert alert-danger text-center" role="alert">
+        Every single company will have their own portal. <strong>This one is specific to CMPT 276</strong>
+    </div>
+</div>
