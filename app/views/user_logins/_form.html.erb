@@ -10,17 +10,6 @@
                 <div class="card">
                     <div class="card-body">
                         <%= form_for(@user_login) do |f| %>
-                            <% if @user_login.errors.any? %>
-                                <div id="error_explanation">
-                                <h2><%= pluralize(@user_login.errors.count, "error") %> prohibited this user_login from being saved:</h2>
-
-                                <ul>
-                                <% @user_login.errors.full_messages.each do |message| %>
-                                    <li><%= message %></li>
-                                <% end %>
-                                </ul>
-                                </div>
-                            <% end %>
 
                             <div class="form-group">
                                 <%= f.label :email %>
@@ -33,6 +22,16 @@
                             <div class="actions">
                                 <%= f.submit("Login", :class=>"btn btn-primary", :style=>"cursor:pointer") %>
                             </div>
+                            <% if @user_login.errors.any? %>
+                                <br>
+                                <div id="error_explanation">
+                                    <div class="alert alert-danger text-left" role="alert">
+                                        <% @user_login.errors.full_messages.each do |message| %>
+                                            <%= message %><br>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            <% end %>
                         <% end %>
                         <hr>
                         <small>Don't have a login? Please contact your administrator!</small>
@@ -43,7 +42,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="alert alert-danger text-center" role="alert">
+    <div class="alert alert-dark text-center" role="alert">
         Every single company will have their own portal. <strong>This one is specific to CMPT 276</strong>
     </div>
 </div>
