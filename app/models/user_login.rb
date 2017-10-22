@@ -1,6 +1,9 @@
 class UserLoginValidation < ActiveModel::Validator
     def validate(record)
-        user = User.where('email = (?) AND password =  (?)', record.email, record.password).take
+        require 'digest'
+        md5 = Digest::MD5.new
+        password = md5.hexdigest record.password
+        user = User.where('email = (?) AND password =  (?)', record.email, password).take
         if user == nil
             record.errors[:base] << "Invalid Credentials"
         end

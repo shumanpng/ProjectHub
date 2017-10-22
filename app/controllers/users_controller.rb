@@ -26,7 +26,9 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    require 'digest'
+    md5 = Digest::MD5.new
+    @user.password = md5.hexdigest @user.password
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
