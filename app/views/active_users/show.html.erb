@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @active_user.user_id %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @active_user.token %>
+</p>
+
+<%= link_to 'Edit', edit_active_user_path(@active_user) %> |
+<%= link_to 'Back', active_users_path %>

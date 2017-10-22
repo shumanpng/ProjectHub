@@ -1,0 +1,11 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Name:</strong>
+    <%= @group.name %>
+  </p>
+
+  <%= link_to 'Edit', edit_group_path(@group, :token => @user_login.token) %> |
+  <%= link_to 'Back', groups_path(:token => @user_login.token) %>
+</div>
