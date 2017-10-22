@@ -18,17 +18,28 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <ul class="navbar-nav mr-auto">
-                    <% @current_url = request.fullpath %>
-                    <% if @current_url.exclude? "user_logins" %>
-
-                        <li class="nav-item">
-                            <%= link_to 'Groups', groups_path(:token => @current_url.partition('=').last) %>
+                <% @current_url = request.fullpath %>
+                <% if @current_url.exclude? "user_logins" %>
+                    <div class="navbar-nav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <%= link_to 'Groups', groups_path(:token => @current_url.partition('=').last) %>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profile
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <%= link_to 'Logout', new_user_login_path, :class=>"dropdown-item" %>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </div>
                         </li>
-                    <% end %>
-                    </ul>
-                </div>
+                    </ul> 
+                <% end %>
             </div>
         </nav>
         <%= yield %>
