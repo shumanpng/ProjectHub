@@ -25,9 +25,12 @@ class UserLoginsController < ApplicationController
   # POST /user_logins.json
   def create
     @user_login = UserLogin.new(user_login_params)
-
+    @user_login.token = SecureRandom.uuid
+    
     respond_to do |format|
       if @user_login.save
+        @user_login.password = '';
+        @user_login.save
         format.html { redirect_to @user_login, notice: 'User login was successfully created.' }
         format.json { render :show, status: :created, location: @user_login }
       else
