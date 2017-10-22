@@ -26,10 +26,10 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
-
+    token = params[:token]
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -41,9 +41,11 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
+    @group = Group.new(group_params)
+    token = params[:token]
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -69,8 +71,8 @@ class GroupsController < ApplicationController
     end
 
     def authenticate
-      user_login = UserLogin.where('token = (?)', params[:token]).take
-      if user_login == nil
+      @user_login = UserLogin.where('token = (?)', params[:token]).take
+      if @user_login == nil
         respond_to do |format|
           format.html { redirect_to new_user_login_path, notice: '' }
         end

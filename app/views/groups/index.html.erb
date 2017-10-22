@@ -25,5 +25,5 @@
 
   <br>
 
-  <%= link_to 'New Group', new_group_path, :class=>"btn btn-primary" %>
+  <%= link_to 'New Group', new_group_path(:token => @user_login.token), :class=>"btn btn-primary" %>
 </div>
