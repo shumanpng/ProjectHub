@@ -5,4 +5,8 @@ class WelcomeController < ApplicationController
 
   end
 
+  def login
+    puts "tried to login"
+  end
+
 end
