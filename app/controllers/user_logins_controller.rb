@@ -10,6 +10,9 @@ class UserLoginsController < ApplicationController
   # GET /user_logins/1
   # GET /user_logins/1.json
   def show
+    respond_to do |format|
+      format.html { redirect_to groups_path(:token => @user_login.token), notice: '' }
+    end
   end
 
   # GET /user_logins/new
