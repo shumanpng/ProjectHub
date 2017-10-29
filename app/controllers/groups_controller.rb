@@ -27,8 +27,21 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     token = params[:token]
+
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(token: token).take
+    @curr_user = User.where(email: @user_login.email).take
+
     respond_to do |format|
       if @group.save
+
+        # create a new group membership for new group w/ current user as admin
+        @new_membership = GroupMembership.create(group_id: @group.id, user_id: @curr_user.id, is_admin: true)
+
+        # associate new membership with the group and the user
+        @group.group_memberships << @new_membership
+        @curr_user.group_memberships << @new_membership
+
         format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
