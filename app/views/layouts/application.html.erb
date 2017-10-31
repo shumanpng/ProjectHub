@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ruby Getting Started on Heroku</title>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css' %>
+
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag '//code.jquery.com/jquery-3.2.1.slim.min.js' %>
+        <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' %>
+        <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light container">
+            <a class="navbar-brand" href="#">ProjectHub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <% @current_url = request.fullpath %>
+                <% if @current_url.exclude? "user_logins" %>
+                    <div class="navbar-nav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <%= link_to 'Groups', groups_path(:token => @current_url.partition('=').last) %>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profile
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <%= link_to 'Logout', new_user_login_path, :class=>"dropdown-item" %>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </div>
+                        </li>
+                    </ul> 
+                <% end %>
+            </div>
+        </nav>
+        <%= yield %>
+    </body>
+</html>
