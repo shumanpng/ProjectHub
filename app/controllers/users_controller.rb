@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy]
-
+  # before_action :authenticate, only: [:index, :show, :edit, :update, :destroy]
+  before_action :authenticate_user!, :except => [:show, :index, :edit, :update]
   # GET /users
   # GET /users.json
   def index
@@ -20,6 +20,17 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    # @user = User.new(user_params)
+    # token = params[:token]
+    # respond_to do |format|
+    #   if @user.update(user_params)
+    #     format.html { redirect_to user_path(:token => token, :id => @user.id), notice: 'User was successfully Edited!!!!!.' }
+    #     format.json { render :show, status: :ok, location: @user }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # POST /users
@@ -83,5 +94,5 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :is_admin, :password, :email, :date_created)
     end
-    
+
 end
