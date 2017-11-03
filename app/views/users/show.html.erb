@@ -25,5 +25,5 @@
   <%= @user.date_created %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_user_path(@user, :token => @user_login.token) %> |
+<%= link_to 'Back', users_path(:token => @user_login.token) %>

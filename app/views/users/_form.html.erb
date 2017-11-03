@@ -31,7 +31,12 @@
     <%= f.label :date_created %><br>
     <%= f.datetime_select :date_created %>
   </div>
+  <% if @user.to_key.present? %>
+      <%= f.hidden_field :token, value: @user_login.token %>
+      <%= hidden_field_tag 'token', @user_login.token %>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

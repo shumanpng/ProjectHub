@@ -30,10 +30,10 @@
     <%= f.text_field :email %>
   </div>
 
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path(@user, :token => @user_login.token) %>
