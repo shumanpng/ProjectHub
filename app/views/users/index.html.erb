@@ -23,8 +23,8 @@
         <td><%= user.password %></td>
         <td><%= user.email %></td>
         <td><%= user.date_created %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Show', users_path(:token => @user_login.token) %></td>
+        <td><%= link_to 'Edit', edit_user_path(user, :token => @user_login.token) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
