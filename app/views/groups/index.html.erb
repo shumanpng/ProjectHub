@@ -8,6 +8,7 @@
       <tr>
         <th>Name</th>
         <th colspan="3"></th>
+        <th>Action</th>
       </tr>
     </thead>
 
@@ -18,6 +19,21 @@
           <td><%= link_to 'Show', group %></td>
           <td><%= link_to 'Edit', edit_group_path(group) %></td>
           <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+          <td>
+            <!-- call function in group model -->
+            <% @access_type = group.typeOfAccess(group, @user_login.token) %>
+            <% if @access_type == 'view' %>
+              View group
+            <% elsif @access_type == 'join' %>
+              Join group
+            <% elsif @access_type == 'pending' %>
+              Request pending
+            <% else %>
+              Request denied
+            <% end %>
+          </td>
+
         </tr>
       <% end %>
     </tbody>
