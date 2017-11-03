@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
+    @tasks = Task.all
   end
 
   # GET /groups/1
