@@ -24,13 +24,13 @@
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @user_login.token) %>
             <% if @access_type == 'view' %>
-              View group
+              <%= link_to 'View Group', group_path(group, :token => @user_login.token) %>
             <% elsif @access_type == 'join' %>
-              Join group
+              Join Group
             <% elsif @access_type == 'pending' %>
-              Request pending
+              Request Pending
             <% else %>
-              Request denied
+              Request Denied
             <% end %>
           </td>
 
