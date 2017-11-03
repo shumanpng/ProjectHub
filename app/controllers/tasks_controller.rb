@@ -26,9 +26,26 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    token = params[:token]
+    group = params[:group]
+
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(token: token).take
+    # @curr_user = User.where(email: @user_login.email).take
+
+    # use the group instance and match group name to find current group
+    @curr_group = Group.where(name: group).take
 
     respond_to do |format|
       if @task.save
+
+        # create a new task for group with current group as group name
+        @new_task = Task.create(group: group)
+
+        # associate new membership with the group and the user
+        # @group.tasks << @new_task
+        # @curr_user.tasks << @new_task
+
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
