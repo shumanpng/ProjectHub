@@ -37,7 +37,13 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <!-- <%= f.text_field :state %> -->
+    <%= f.radio_button(:state, "Open") %>
+    <%= label_tag(:state, "Open") %>
+    <%= f.radio_button(:state, "In Progress") %>
+    <%= label_tag(:state, "In Progress") %>
+    <%= f.radio_button(:state, "Completed") %>
+    <%= label_tag(:state, "Completed") %>
   </div>
   <div class="field">
     <%= f.label :type %><br>
