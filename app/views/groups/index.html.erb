@@ -24,7 +24,7 @@
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @user_login.token) %>
             <% if @access_type == 'view' %>
-              <%= link_to 'View Group', group_path(group, :token => @user_login.token) %>
+              <%= link_to 'View Group', group_path(:id => group.id, :token => @user_login.token) %>
             <% elsif @access_type == 'join' %>
               <%= link_to 'Join Group', new_group_request_path(:id => group.id, :token => @user_login.token) %>
             <% elsif @access_type == 'pending' %>
