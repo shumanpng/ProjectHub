@@ -25,7 +25,8 @@
               <tr>
                 <td><%= request.user.name %></td>
                 <td><%= request.user.email %></td>
-                <td>Accept</td>
+                <td><%= link_to 'Accept', respond_to_request_path(:id => request.id,
+                  :group_id => @group.id, :token => @user_login.token, :type => 'accept') %></td>
                 <td><%= link_to 'Deny', respond_to_request_path(:id => request.id,
                   :group_id => @group.id, :token => @user_login.token, :type => 'deny') %></td>
               </tr>

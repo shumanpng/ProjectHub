@@ -82,6 +82,21 @@ class GroupRequestsController < ApplicationController
     @curr_request = GroupRequest.find(params[:id])
 
     if params[:type] == 'accept'
+      # change status of request
+      @curr_request.update_attribute(:status, 'accepted')
+
+      # find current group
+      @curr_group = Group.find(params[:group_id])
+
+      # find user who submitted the request
+      @requestee = User.find(@curr_request.user.id)
+
+      # create new group membership for user who submitted the request
+      @new_membership = GroupMembership.create(:group_id => @curr_group.id, :user_id => @requestee.id, :is_admin => false)
+
+      # associate new membership with the group and the user who submitted the request
+      @curr_group.group_memberships << @new_membership
+      @requestee.group_memberships << @new_membership
     else
       # change status of request
       @curr_request.update_attribute(:status, 'denied')
