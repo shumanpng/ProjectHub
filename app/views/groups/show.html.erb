@@ -25,10 +25,16 @@
               <tr>
                 <td><%= request.user.name %></td>
                 <td><%= request.user.email %></td>
-                <td><%= link_to 'Accept', respond_to_request_path(:id => request.id,
-                  :group_id => @group.id, :token => @user_login.token, :type => 'accept') %></td>
-                <td><%= link_to 'Deny', respond_to_request_path(:id => request.id,
-                  :group_id => @group.id, :token => @user_login.token, :type => 'deny') %></td>
+                <td><%= link_to respond_to_request_path(:id => request.id,
+                  :group_id => @group.id, :token => @user_login.token, :type => 'accept') do %>
+                  <i class="fa fa-thumbs-up fa-fw"></i>Accept
+                  <% end %>
+                </td>
+                <td><%= link_to respond_to_request_path(:id => request.id,
+                  :group_id => @group.id, :token => @user_login.token, :type => 'deny') do %>
+                  <i class="fa fa-thumbs-down fa-fw"></i>Deny
+                  <% end %>
+                </td>
               </tr>
           <% end %>
         </tbody>
