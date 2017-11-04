@@ -11,6 +11,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+
   end
 
   # GET /groups/new
@@ -20,6 +21,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    #@group = Group.edit
   end
 
   # POST /groups
@@ -41,7 +43,6 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
-    @group = Group.new(group_params)
     token = params[:token]
     respond_to do |format|
       if @group.update(group_params)

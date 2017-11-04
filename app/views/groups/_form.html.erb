@@ -16,6 +16,7 @@
     <%= f.text_field :name %>
   </div>
   <%= f.hidden_field :token, value: @user_login.token %>
+  <%= f.hidden_field :id, value: @group.id %>
   <%= hidden_field_tag 'token', @user_login.token %>
   <div class="actions">
     <%= f.submit %>
