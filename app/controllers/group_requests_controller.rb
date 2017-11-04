@@ -16,6 +16,22 @@ class GroupRequestsController < ApplicationController
   # GET /group_requests/new
   def new
     @group_request = GroupRequest.new
+    @group_request.status = 'pending'
+    @group_request.save
+
+    # find current group
+    @curr_group = Group.find(params[:id])
+
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(:token => params[:token]).take
+    @curr_user = User.where(:email => @user_login.email).take
+
+    # associate new request with the group and the user
+    @curr_group.group_requests << @group_request
+    @curr_user.group_requests << @group_request
+
+    # re-load group#index
+    redirect_to :controller => 'groups', :action => 'index', :token => params[:token]
   end
 
   # GET /group_requests/1/edit

@@ -26,7 +26,7 @@
             <% if @access_type == 'view' %>
               <%= link_to 'View Group', group_path(group, :token => @user_login.token) %>
             <% elsif @access_type == 'join' %>
-              Join Group
+              <%= link_to 'Join Group', new_group_request_path(:id => group.id, :token => @user_login.token) %>
             <% elsif @access_type == 'pending' %>
               Request Pending
             <% else %>
