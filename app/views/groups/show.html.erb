@@ -7,7 +7,7 @@
   </p>
 
   <!-- if user is a group admin, display table of pending requests -->
-  <% if @is_admin %>
+  <% if @is_grp_admin %>
     <p>Pending Requests:</p>
 
     <% if @pending_requests.exists? %>

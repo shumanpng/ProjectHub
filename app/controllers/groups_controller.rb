@@ -6,6 +6,17 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
+
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(:token => params[:token]).take
+    @curr_user = User.where(:email => @user_login.email).take
+
+    # check whether or not the user has an admin account
+    if User.where(:id => @curr_user.id, :is_admin => true).exists?
+      @is_acct_admin = true
+    else
+      @is_acct_admin = false
+    end
   end
 
   # GET /groups/1
@@ -20,9 +31,9 @@ class GroupsController < ApplicationController
 
     # check whether or not the user is the group admin
     if GroupMembership.where(:user_id => @curr_user.id, :group_id => @group.id, :is_admin => true).exists?
-      @is_admin = true
+      @is_grp_admin = true
     else
-      @is_admin = false
+      @is_grp_admin = false
     end
   end
 

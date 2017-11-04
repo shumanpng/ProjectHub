@@ -45,5 +45,8 @@
 
   <br>
 
-  <%= link_to 'New Group', new_group_path(:token => @user_login.token), :class=>"btn btn-primary" %>
+  <!-- only give regular users (not admins) ability to create a new group -->
+  <% if !@is_acct_admin %>
+    <%= link_to 'New Group', new_group_path(:token => @user_login.token), :class=>"btn btn-primary" %>
+  <% end %>
 </div>
