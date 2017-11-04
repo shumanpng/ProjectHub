@@ -78,6 +78,19 @@ class GroupRequestsController < ApplicationController
     end
   end
 
+  def respond_to_request
+    @curr_request = GroupRequest.find(params[:id])
+
+    if params[:type] == 'accept'
+    else
+      # change status of request
+      @curr_request.update_attribute(:status, 'denied')
+    end
+
+    # re-load group#show
+    redirect_to :controller => 'groups', :action => 'show', :token => params[:token], :id => params[:group_id]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group_request
