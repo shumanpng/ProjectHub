@@ -6,6 +6,7 @@
 <table>
   <thead>
     <tr>
+      <th>User id</th>
       <th>Name</th>
       <th>Is admin</th>
       <th>Password</th>
@@ -18,14 +19,15 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
+        <td><%= user.id %></td>
         <td><%= user.name %></td>
         <td><%= user.is_admin %></td>
         <td><%= user.password %></td>
         <td><%= user.email %></td>
         <td><%= user.date_created %></td>
-        <td><%= link_to 'Show', users_path(:token => @user_login.token) %></td>
+        <td><%= link_to 'Show', user_path(user, :token => @user_login.token) %></td>
         <td><%= link_to 'Edit', edit_user_path(user, :token => @user_login.token) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', user_path(user, :token => @user_login.token), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
