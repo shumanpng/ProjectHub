@@ -22,21 +22,14 @@
     <%= f.check_box :is_admin %>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
-    <%= f.hidden_field :token, value: @user_login.token %>
-    <%= hidden_field_tag 'token', @user_login.token %>
-  </div>
-
-
+  <%= f.hidden_field :token, value: @user_login.token %>
+  <%= hidden_field_tag 'token', @user_login.token %>
   <div class="actions">
-    <%= f.submit "submit" %>
+    <%= f.submit %>
   </div>
 <% end %>
 
-<%= link_to 'Back', users_path(@user, :token => @user_login.token) %>
+<%= link_to 'Back', user_path(@user, :token => @user_login.token) %>
