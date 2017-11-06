@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+
     # use the user login instance and match emails to find current user
     @user_login = UserLogin.where(:token => params[:token]).take
     @curr_user = User.where(:email => @user_login.email).take
@@ -35,6 +36,7 @@ class GroupsController < ApplicationController
     else
       @is_grp_admin = false
     end
+
   end
 
   # GET /groups/new
@@ -44,6 +46,10 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    #@members = GroupMembership.all
+    #@members = GroupMembership.joins("LEFT JOIN users ON users.id = group_memberships.user_id").select("group_memberships.*,users.name").where(:group_id => @group.id)
+    #@members = GroupMembership.eager_load(:users)
+    @members = User.joins(:group_memberships).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, users.name")
   end
 
   # POST /groups
@@ -78,7 +84,6 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
-    @group = Group.new(group_params)
     token = params[:token]
     respond_to do |format|
       if @group.update(group_params)
@@ -118,6 +123,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name)
+      params.require(:group).permit(:name,:description)
     end
 end

@@ -5,7 +5,10 @@
     <strong>Name:</strong>
     <%= @group.name %>
   </p>
-
+  <p>
+    <strong>Description:</strong>
+    <%= @group.description %>
+  </p>
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
     <p>Pending Requests:</p>
@@ -44,9 +47,10 @@
       <p>No active requests to show!</p>
     <% end %>
     <br>
+    <%= link_to 'Edit', edit_group_path(@group, :token => @user_login.token, :group_id => @group.id) %> |
   <% end %>
 
-  <%= link_to 'Edit', edit_group_path(@group, :token => @user_login.token) %> |
+
   <%= link_to 'Back', groups_path(:token => @user_login.token) %>
 
 
