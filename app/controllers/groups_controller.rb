@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    #@group = Group.edit
+    #@members = GroupMembership.all
   end
 
   # POST /groups
