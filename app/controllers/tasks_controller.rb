@@ -15,7 +15,19 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    token = params[:token]
+    groupname = params[:groupname]
+
+    # @group = Group.where(name: groupname).take
+    # @group = Group.find params[:groupname]
+    # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
+
+    @user_login = UserLogin.where(token: token).take
+    @curr_user = User.where(email: @user_login.try(:email)).take
+    @user_name = @curr_user
+    @task = Task.new({:group => groupname})
+    # @task = Task.new({:created_by => @user_name[:params]})
+
 
   end
 
@@ -28,7 +40,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     token = params[:token]
-    group = params[:group]
+    groupname = params[:groupname]
 
 
     # # use the user login instance and match emails to find current user
