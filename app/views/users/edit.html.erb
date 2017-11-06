@@ -25,6 +25,11 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password%> 
+  </div>
+
   <%= f.hidden_field :token, value: @user_login.token %>
   <%= hidden_field_tag 'token', @user_login.token %>
   <div class="actions">

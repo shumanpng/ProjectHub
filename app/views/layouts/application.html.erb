@@ -33,7 +33,9 @@
                                 Profile
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <%= link_to 'Setting', user_path(User.where(:email => @user_login.email).first, :token => @current_url.partition('=').last), :class=>"dropdown-item" %>
+
+                              <%= link_to 'Setting', user_path(User.where(:email => @user_login.email).first, :token => @current_url.partition('=').last), :class=>"dropdown-item" if @user_login.try(:email) %>
+
                               <%= link_to 'Logout', new_user_login_path, :class=>"dropdown-item" %>
                             </div>
                         </li>

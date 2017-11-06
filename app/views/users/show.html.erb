@@ -10,11 +10,6 @@
   <%= @user.is_admin %>
 </p>
 
-<!-- <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p> -->
-
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
@@ -23,6 +18,11 @@
 <p>
   <strong>Date created:</strong>
   <%= @user.date_created %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @user.password %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user, :token => @user_login.token) %> |
