@@ -6,12 +6,35 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
-    @tasks = Task.all
+
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(:token => params[:token]).take
+    @curr_user = User.where(:email => @user_login.email).take
+
+    # check whether or not the user has an admin account
+    if User.where(:id => @curr_user.id, :is_admin => true).exists?
+      @is_acct_admin = true
+    else
+      @is_acct_admin = false
+    end
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(:token => params[:token]).take
+    @curr_user = User.where(:email => @user_login.email).take
+
+    # get array of pending requests
+    @pending_requests = @group.group_requests.where(:status => 'pending')
+
+    # check whether or not the user is the group admin
+    if GroupMembership.where(:user_id => @curr_user.id, :group_id => @group.id, :is_admin => true).exists?
+      @is_grp_admin = true
+    else
+      @is_grp_admin = false
+    end
   end
 
   # GET /groups/new
@@ -28,8 +51,21 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     token = params[:token]
+
+    # use the user login instance and match emails to find current user
+    @user_login = UserLogin.where(token: token).take
+    @curr_user = User.where(email: @user_login.email).take
+
     respond_to do |format|
       if @group.save
+
+        # create a new group membership for new group w/ current user as admin
+        @new_membership = GroupMembership.create(group_id: @group.id, user_id: @curr_user.id, is_admin: true)
+
+        # associate new membership with the group and the user
+        @group.group_memberships << @new_membership
+        @curr_user.group_memberships << @new_membership
+
         format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
