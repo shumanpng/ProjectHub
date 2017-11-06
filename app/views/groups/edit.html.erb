@@ -12,10 +12,10 @@
 	    </thead>
 
 	    <tbody>
-	      <%= @members.each do |member| %>
+	      <% @members.each do |member| %>
 	       	<tr>
 	          <td><%= member.name %></td>
-	          <td><%= link_to 'Destroy', group_membership_path(:id => member.id,:token => @user_login.token), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	          <td><%= link_to 'Remove', group_membership_path(:id => member.id,:token => @user_login.token), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	      	</tr>
 	      <% end %>
 	  	</tbody>
