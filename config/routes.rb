@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   resources :groups
   resources :user_logins
   resources :active_users

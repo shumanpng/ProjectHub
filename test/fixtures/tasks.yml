@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  created_by: MyString
+  due_date: 2017-10-29 14:58:46
+  points: 1
+  group: MyString
+  state: MyString
+  type: 
+
+two:
+  title: MyString
+  description: MyText
+  created_by: MyString
+  due_date: 2017-10-29 14:58:46
+  points: 1
+  group: MyString
+  state: MyString
+  type: 
