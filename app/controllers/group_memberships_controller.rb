@@ -54,10 +54,11 @@ class GroupMembershipsController < ApplicationController
 
   # DELETE /group_memberships/1
   # DELETE /group_memberships/1.json
-  def destroy
+  def destroy 
+    @group_membership = GroupMembership.find(params[:id])
     @group_membership.destroy
     respond_to do |format|
-      format.html { redirect_to group_memberships_url, notice: 'Group membership was successfully destroyed.' }
+      format.html { redirect_to edit_group_path(:token => params[:token], :id => @group_membership.group_id), notice: 'Group membership was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -79,6 +80,6 @@ class GroupMembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_membership_params
-      params.require(:group_membership).permit(:user_id, :group_id, :is_admin)
+      params.require(:group_membership).permit(:id, :user_id, :group_id, :is_admin, :token)
     end
 end
