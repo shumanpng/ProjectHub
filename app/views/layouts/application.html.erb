@@ -23,7 +23,7 @@
                     <div class="navbar-nav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <%= link_to 'Groups', groups_path(:token => @current_url.partition('=').last) %>
+                                <%= link_to 'Groups', groups_path(:token => @current_url.partition('token=').last) %>
                               </li>
                         </ul>
                     </div>
