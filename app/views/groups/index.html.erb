@@ -16,7 +16,7 @@
       <% @groups.each do |group| %>
         <tr>
           <td><%= group.name %></td>
-          
+
           <td>
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @user_login.token) %>

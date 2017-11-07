@@ -40,15 +40,6 @@ class ActiveUsersController < ApplicationController
   # PATCH/PUT /active_users/1
   # PATCH/PUT /active_users/1.json
   def update
-    respond_to do |format|
-      if @active_user.update(active_user_params)
-        format.html { redirect_to @active_user, notice: 'Active user was successfully updated.' }
-        format.json { render :show, status: :ok, location: @active_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @active_user.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /active_users/1

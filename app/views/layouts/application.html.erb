@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ruby Getting Started on Heroku</title>
+        <title>Cmpt 276: ProjectHub</title>
         <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
         <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css' %>
 
@@ -24,21 +24,22 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <%= link_to 'Groups', groups_path(:token => @current_url.partition('=').last) %>
-                            </li>
+                              </li>
                         </ul>
                     </div>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Profile
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <%= link_to 'Logout', new_user_login_path, :class=>"dropdown-item" %>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Logout</a>
+
+                              <%= link_to 'Setting', user_path(User.where(:email => @user_login.email).first, :token => @current_url.partition('=').last), :class=>"dropdown-item" if @user_login.try(:email) %>
+
+                              <%= link_to 'Logout', new_user_login_path, :class=>"dropdown-item" %>
                             </div>
                         </li>
-                    </ul> 
+                    </ul>
                 <% end %>
             </div>
         </nav>
