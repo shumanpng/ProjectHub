@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
-
-
+  resources :group_requests
+  resources :group_memberships
   resources :groups
   resources :user_logins
   resources :active_users
   resources :companies
   resources :users
   resources :widgets
+  resources :tasks
+  resources :groups
+  resources :user_logins
+  resources :active_users
+  resources :companies
+  resources :users
+  resources :widgets
+
+  get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
 
 
   # The priority is based upon order of creation: first created -> highest priority.

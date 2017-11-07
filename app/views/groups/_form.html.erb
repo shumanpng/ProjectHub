@@ -15,7 +15,12 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
   <%= f.hidden_field :token, value: @user_login.token %>
+  <%= f.hidden_field :id, value: @group.id %>
   <%= hidden_field_tag 'token', @user_login.token %>
   <div class="actions">
     <%= f.submit %>

@@ -8,6 +8,7 @@
       <tr>
         <th>Name</th>
         <th colspan="3"></th>
+        <th>Action</th>
       </tr>
     </thead>
 
@@ -15,9 +16,24 @@
       <% @groups.each do |group| %>
         <tr>
           <td><%= group.name %></td>
-          <td><%= link_to 'Show', groups_path(:token => @user_login.token) %></td>
-          <td><%= link_to 'Edit', edit_group_path(group,:token => @user_login.token) %></td>
-          <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+          <td>
+            <!-- call function in group model -->
+            <% @access_type = group.typeOfAccess(group, @user_login.token) %>
+            <% if @access_type == 'view' %>
+              <%= link_to group_path(:id => group.id, :token => @user_login.token) do %>
+                <i class="fa fa-eye fa-fw"></i>View Group
+              <% end %>
+            <% elsif @access_type == 'join' %>
+              <%= link_to new_group_request_path(:id => group.id, :token => @user_login.token) do %>
+                <i class="fa fa-unlock fa-fw"></i>Join Group
+              <% end %>
+            <% elsif @access_type == 'pending' %>
+              <i class="fa fa-hourglass-half fa-fw"></i>Request Pending
+            <% else %>
+              <i class="fa fa-lock fa-fw"></i>Request Denied
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -25,5 +41,8 @@
 
   <br>
 
-  <%= link_to 'New Group', new_group_path(:token => @user_login.token), :class=>"btn btn-primary" %>
+  <!-- only give regular users (not admins) ability to create a new group -->
+  <% if !@is_acct_admin %>
+    <%= link_to 'New Group', new_group_path(:token => @user_login.token), :class=>"btn btn-primary" %>
+  <% end %>
 </div>
