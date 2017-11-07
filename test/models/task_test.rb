@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
+  # fixtures :tasks
   # test "the truth" do
   #   assert true
   # end
@@ -13,9 +14,23 @@ class TaskTest < ActiveSupport::TestCase
   # end
 
 
-  test "should report error" do
-    # some_undefined_variable is not defined elsewhere in the test case
-    # some_undefined_variable
-    assert true
+  # def test_true
+  #   assert true
+  # end
+
+  test "title must not be empty" do
+    task = Task.new('created_by' => 'Bob', 'state' => 'open')
+    assert(task.invalid?, 'task title cannot be nil')
   end
+
+  test "created by cannot be empty" do
+    task = Task.new('title' => 'write tests', 'state' => 'in progress')
+    assert(task.invalid?, 'task creator field cannot be nil')
+  end
+
+  test "state field cannot be empty" do
+    task = Task.new('title' => 'write tests', 'created_by' => 'Smith')
+    assert(task.invalid?, 'state field cannot be nil')
+  end
+
 end
