@@ -55,6 +55,6 @@
 
 
   <%= link_to 'Create New Task', new_task_path( :groupname => @group.name, :token => @user_login.token), :class=>"btn btn-primary"%>
-  <%= link_to 'View Tasks', tasks_path(:groupname => @group.name, :token => @user_login.token)%>
+  <%= link_to 'View Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name, :token => @user_login.token)%>
 
 </div>

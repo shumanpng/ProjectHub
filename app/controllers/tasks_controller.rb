@@ -17,6 +17,7 @@ class TasksController < ApplicationController
   def new
     token = params[:token]
     groupname = params[:groupname]
+    groupid = params[:groupid]
 
     # @group = Group.where(name: groupname).take
     # @group = Group.find params[:groupname]
@@ -24,8 +25,8 @@ class TasksController < ApplicationController
 
     @user_login = UserLogin.where(token: token).take
     @curr_user = User.where(email: @user_login.try(:email)).take
-    @user_name = @curr_user
-    @task = Task.new({:group => groupname})
+    # @user_name = @curr_user
+    @task = Task.new({:group_id => groupid, :group => groupname, :created_by => @curr_user.name})
     # @task = Task.new({:created_by => @user_name[:params]})
 
 
