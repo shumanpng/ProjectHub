@@ -22,6 +22,7 @@ class TasksController < ApplicationController
     # @group = Group.where(name: groupname).take
     # @group = Group.find params[:groupname]
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
+    @group = Group.where(id: groupid).take
 
     @user_login = UserLogin.where(token: token).take
     @curr_user = User.where(email: @user_login.try(:email)).take
