@@ -4,13 +4,20 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    groupid = params[:groupid]
+    groupname = params[:groupname]
+    @tasks = Task.where(group: groupname)
     # @tasks = Task.all
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    # groupid = params[:groupid]
+    #
+    # # @task = Task.select("title, description, created_by, due_date, points, group,
+    # #   state, task_type").where(:group_id => groupid)
+    # @task = Task.where(group_id: groupid)
   end
 
   # GET /tasks/new
