@@ -56,17 +56,17 @@ class TasksController < ApplicationController
       if @task.save
 
 
-        # # @group = Group.find(:id => groupID)
+        # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
         # # @group = Group.find(:id => groupID)
         # # # create a new task for group with current group as group name
-        # # @new_task = Task.create(group_id: groupID)
+        # @new_task = Task.create(group_id: @task.group_id)
         # # @new_task = Task.create(redirect_to :controller => 'groups',
         # #   :name => group_path(group_params))
         #
         # # associate new membership with the group and the user
-        # @group.tasks << @task
-        # @curr_user.tasks << @task
+        # @group.task << @new_task
+        # @curr_user.task << @new_task
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
