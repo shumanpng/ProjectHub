@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
 
   # GET /tasks
   # GET /tasks.json
@@ -15,16 +16,13 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    token = params[:token]
     groupname = params[:groupname]
 
     # @group = Group.where(name: groupname).take
     # @group = Group.find params[:groupname]
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
 
-    @user_login = UserLogin.where(token: token).take
-    @curr_user = User.where(email: @user_login.try(:email)).take
-    @user_name = @curr_user
+    @user_name = @current_user
     @task = Task.new({:group => groupname})
     # @task = Task.new({:created_by => @user_name[:params]})
 
@@ -39,7 +37,6 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    token = params[:token]
     groupname = params[:groupname]
 
 
@@ -103,6 +100,18 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def authenticate
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
+      if @user_login == nil
+        respond_to do |format|
+          format.html { redirect_to new_user_login_path, notice: '' }
+        end
+      else
+        @current_user = User.where(:email => @user_login.email).take
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
