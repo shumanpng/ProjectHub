@@ -8,11 +8,13 @@ class GroupsController < ApplicationController
     @groups = Group.all
 
     # check whether or not the user has an admin account
-    if User.where(:id => @current_user.id, :is_admin => true).exists?
-      @is_acct_admin = true
-    else
-      @is_acct_admin = false
-    end
+
+    # current_user.is_admin instead of this logic down here
+    # if User.where(:id => @current_user.id, :is_admin => true).exists?
+    #   @is_acct_admin = true
+    # else
+    #   @is_acct_admin = false
+    # end
   end
 
   # GET /groups/1
@@ -64,7 +66,7 @@ class GroupsController < ApplicationController
         @group.group_memberships << @new_membership
         @current_user.group_memberships << @new_membership
 
-        format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully created.' }
+        format.html { redirect_to group_path(:id => @group.id), notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -79,7 +81,7 @@ class GroupsController < ApplicationController
     token = params[:token]
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully updated.' }
+        format.html { redirect_to group_path(:id => @group.id), notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
