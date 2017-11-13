@@ -11,10 +11,8 @@ class UserLoginsController < ApplicationController
   # GET /user_logins/1.json
   def show
     session[:current_user_token] = @user_login.token
-    toks = session[:current_user_token]
-    puts toks
     respond_to do |format|
-      format.html { redirect_to groups_path(:token => @user_login.token), notice: '' }
+      format.html { redirect_to groups_path, notice: '' }
     end
   end
 
