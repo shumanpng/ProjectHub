@@ -1,6 +1,29 @@
-<h1>Editing User Login</h1>
+<h2>Editing Password</h2>
 
-<%= render 'form' %>
+<%= form_for(:user, :url => edit_user_path,:remote => true, :method => :post) do |f| %>
 
-<%= link_to 'Show', @user_login %> |
-<%= link_to 'Back', user_logins_path %>
+<div class="field">
+  <%= f.label :Old_password %><br>
+  <%= f.text_field :password%>
+</div>
+  <div class="field">
+    <%= f.label :New_password %><br>
+    <%= f.text_field :password%>
+  </div>
+  <br/>
+  <div class="field">
+    <%= f.label :Password_Confirmation %><br>
+    <%= f.text_field :password_confirmation%>
+  </div>
+  <br/>
+  <div class="actions">
+    <%= f.submit('Update Password', :class=>"btn btn-warning", :style=>"cursor:pointer") %>
+    <!-- <%= link_to('Update Password', user_path(User.where(:email => @user_login.email).first,
+    :token => @user_login.token), :class=>"btn btn-warning", :style=>"cursor:pointer",
+    :onclick => "$('#form_id').submit()") %> -->
+  </div>
+<% end %>
+
+<!-- <%= link_to('Update Password', user_path(User.where(:email => @user_login.email).first, :token => @user_login.token), :class=>"btn btn-warning", :style=>"cursor:pointer") %> -->
+<br/>
+<%= link_to('Back To Main Page', groups_path(:token => @user_login.token), :class=>"btn btn-primary", :style=>"cursor:pointer") %>

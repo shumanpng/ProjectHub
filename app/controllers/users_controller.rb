@@ -65,6 +65,11 @@ class UsersController < ApplicationController
     end
   end
 
+# # reset_password
+#   def reset_password
+#   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
