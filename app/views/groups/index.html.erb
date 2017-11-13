@@ -21,11 +21,11 @@
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @user_login.token) %>
             <% if @access_type == 'view' %>
-              <%= link_to group_path(:id => group.id, :token => @user_login.token) do %>
+              <%= link_to group_path(:id => group.id) do %>
                 <i class="fa fa-eye fa-fw"></i>View Group
               <% end %>
             <% elsif @access_type == 'join' %>
-              <%= link_to new_group_request_path(:id => group.id, :token => @user_login.token) do %>
+              <%= link_to new_group_request_path(:id => group.id) do %>
                 <i class="fa fa-unlock fa-fw"></i>Join Group
               <% end %>
             <% elsif @access_type == 'pending' %>
