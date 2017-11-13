@@ -10,6 +10,9 @@ class UserLoginsController < ApplicationController
   # GET /user_logins/1
   # GET /user_logins/1.json
   def show
+    session[:current_user_token] = @user_login.token
+    toks = session[:current_user_token]
+    puts toks
     respond_to do |format|
       format.html { redirect_to groups_path(:token => @user_login.token), notice: '' }
     end
@@ -32,7 +35,7 @@ class UserLoginsController < ApplicationController
     
     respond_to do |format|
       if @user_login.save
-        @user_login.password = '';
+        @user_login.password = ''
         @user_login.save
         format.html { redirect_to @user_login, notice: 'User login was successfully created.' }
         format.json { render :show, status: :created, location: @user_login }
