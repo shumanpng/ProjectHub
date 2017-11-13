@@ -5,6 +5,10 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
+    puts '---group show start---'
+    toks = session[:current_user_token]
+    puts toks
+    puts '---group show end---'
     @groups = Group.all
 
     # use the user login instance and match emails to find current user
@@ -22,7 +26,6 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-
     # use the user login instance and match emails to find current user
     @user_login = UserLogin.where(:token => params[:token]).take
     @curr_user = User.where(:email => @user_login.email).take
