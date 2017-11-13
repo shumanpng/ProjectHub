@@ -25,5 +25,5 @@
   <%= @user.password %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user, :token => @user_login.token) %> |
-<%= link_to 'Back', groups_path(:token => @user_login.token) %>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', groups_path %>
