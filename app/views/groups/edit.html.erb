@@ -15,12 +15,12 @@
 	      <% @members.each do |member| %>
 	       	<tr>
 	          <td><%= member.name %></td>
-	          <td><%= link_to 'Remove', group_membership_path(:id => member.id,:token => @user_login.token), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	          <td><%= link_to 'Remove', group_membership_path(:id => member.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	      	</tr>
 	      <% end %>
 	  	</tbody>
 	</table>
 
 
-    <%= link_to 'Back', groups_path(:token => @user_login.token) %>
+    <%= link_to 'Back', groups_path %>
 </div>
