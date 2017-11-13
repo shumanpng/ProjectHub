@@ -7,31 +7,25 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all
 
-    # use the user login instance and match emails to find current user
-    @user_login = UserLogin.where(:token => params[:token]).take
-    @curr_user = User.where(:email => @user_login.email).take
-
     # check whether or not the user has an admin account
-    if User.where(:id => @curr_user.id, :is_admin => true).exists?
-      @is_acct_admin = true
-    else
-      @is_acct_admin = false
-    end
+
+    # current_user.is_admin instead of this logic down here
+    # if User.where(:id => @current_user.id, :is_admin => true).exists?
+    #   @is_acct_admin = true
+    # else
+    #   @is_acct_admin = false
+    # end
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
 
-    # use the user login instance and match emails to find current user
-    @user_login = UserLogin.where(:token => params[:token]).take
-    @curr_user = User.where(:email => @user_login.email).take
-
     # get array of pending requests
     @pending_requests = @group.group_requests.where(:status => 'pending')
 
     # check whether or not the user is the group admin
-    if GroupMembership.where(:user_id => @curr_user.id, :group_id => @group.id, :is_admin => true).exists?
+    if GroupMembership.where(:user_id => @current_user.id, :group_id => @group.id, :is_admin => true).exists?
       @is_grp_admin = true
     else
       @is_grp_admin = false
@@ -60,19 +54,19 @@ class GroupsController < ApplicationController
 
     # use the user login instance and match emails to find current user
     @user_login = UserLogin.where(token: token).take
-    @curr_user = User.where(email: @user_login.email).take
+    @current_user = User.where(email: @user_login.email).take
 
     respond_to do |format|
       if @group.save
 
         # create a new group membership for new group w/ current user as admin
-        @new_membership = GroupMembership.create(group_id: @group.id, user_id: @curr_user.id, is_admin: true)
+        @new_membership = GroupMembership.create(group_id: @group.id, user_id: @current_user.id, is_admin: true)
 
         # associate new membership with the group and the user
         @group.group_memberships << @new_membership
-        @curr_user.group_memberships << @new_membership
+        @current_user.group_memberships << @new_membership
 
-        format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully created.' }
+        format.html { redirect_to group_path(:id => @group.id), notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -87,7 +81,7 @@ class GroupsController < ApplicationController
     token = params[:token]
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to group_path(:token => token, :id => @group.id), notice: 'Group was successfully updated.' }
+        format.html { redirect_to group_path(:id => @group.id), notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -113,11 +107,14 @@ class GroupsController < ApplicationController
     end
 
     def authenticate
-      @user_login = UserLogin.where('token = (?)', params[:token]).take
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
       if @user_login == nil
         respond_to do |format|
           format.html { redirect_to new_user_login_path, notice: '' }
         end
+      else
+        @current_user = User.where(:email => @user_login.email).take
       end
     end
 

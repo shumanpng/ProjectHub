@@ -28,13 +28,11 @@
               <tr>
                 <td><%= request.user.name %></td>
                 <td><%= request.user.email %></td>
-                <td><%= link_to respond_to_request_path(:id => request.id,
-                  :group_id => @group.id, :token => @user_login.token, :type => 'accept') do %>
+                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'accept') do %>
                   <i class="fa fa-thumbs-up fa-fw"></i>Accept
                   <% end %>
                 </td>
-                <td><%= link_to respond_to_request_path(:id => request.id,
-                  :group_id => @group.id, :token => @user_login.token, :type => 'deny') do %>
+                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'deny') do %>
                   <i class="fa fa-thumbs-down fa-fw"></i>Deny
                   <% end %>
                 </td>
@@ -47,14 +45,14 @@
       <p>No active requests to show!</p>
     <% end %>
     <br>
-    <%= link_to 'Edit', edit_group_path(@group, :token => @user_login.token, :group_id => @group.id) %> |
+    <%= link_to 'Edit', edit_group_path(:group_id => @group.id) %> |
   <% end %>
 
 
-  <%= link_to 'Back', groups_path(:token => @user_login.token) %>
+  <%= link_to 'Back', groups_path %>
 
 
-  <%= link_to 'Create New Task', new_task_path( :groupname => @group.name, :token => @user_login.token), :class=>"btn btn-primary"%>
-  <%= link_to 'View Tasks', tasks_path(:groupname => @group.name, :token => @user_login.token)%>
+  <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary"%>
+  <%= link_to 'View Tasks', tasks_path(:groupname => @group.name)%>
 
 </div>
