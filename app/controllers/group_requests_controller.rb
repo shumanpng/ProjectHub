@@ -22,16 +22,12 @@ class GroupRequestsController < ApplicationController
     # find current group
     @curr_group = Group.find(params[:id])
 
-    # use the user login instance and match emails to find current user
-    @user_login = UserLogin.where(:token => params[:token]).take
-    @curr_user = User.where(:email => @user_login.email).take
-
     # associate new request with the group and the user
     @curr_group.group_requests << @group_request
-    @curr_user.group_requests << @group_request
+    @current_user.group_requests << @group_request
 
     # re-load group#index
-    redirect_to :controller => 'groups', :action => 'index', :token => params[:token]
+    redirect_to :controller => 'groups', :action => 'index'
   end
 
   # GET /group_requests/1/edit
@@ -103,7 +99,7 @@ class GroupRequestsController < ApplicationController
     end
 
     # re-load group#show
-    redirect_to :controller => 'groups', :action => 'show', :token => params[:token], :id => params[:group_id]
+    redirect_to :controller => 'groups', :action => 'show', :id => params[:group_id]
   end
 
   private
