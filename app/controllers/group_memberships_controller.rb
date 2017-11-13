@@ -70,11 +70,14 @@ class GroupMembershipsController < ApplicationController
     end
 
     def authenticate
-      @user_login = UserLogin.where('token = (?)', params[:token]).take
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
       if @user_login == nil
         respond_to do |format|
           format.html { redirect_to new_user_login_path, notice: '' }
         end
+      else
+        @current_user = User.where(:email => @user_login.email).take
       end
     end
 
