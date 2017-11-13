@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106023658) do
+ActiveRecord::Schema.define(version: 20171113015427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,8 +104,9 @@ ActiveRecord::Schema.define(version: 20171106023658) do
     t.string   "password"
     t.string   "email"
     t.datetime "date_created"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "password_confirmation"
   end
 
   create_table "widgets", force: :cascade do |t|

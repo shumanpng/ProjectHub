@@ -25,16 +25,26 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+  <br/>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.text_field :password%> 
+    <%= f.text_field :password%>
   </div>
+<br/>
+  <div class="field">
+    <%= f.label :Password_Confirmation %><br>
+    <%= f.text_field :password_confirmation%>
+  </div>
+
+   <!-- <%= f.password_field :password_confirmation%> </p> -->
 
   <%= f.hidden_field :token, value: @user_login.token %>
   <%= hidden_field_tag 'token', @user_login.token %>
+
+  <br/>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit('Update', :class=>"btn btn-warning", :style=>"cursor:pointer") %>
   </div>
 <% end %>
-
-<%= link_to 'Back', user_path(@user, :token => @user_login.token) %>
+  <br/>
+<%= link_to('Back', user_path(@user, :token => @user_login.token), :class=>"btn btn-primary", :style=>"cursor:pointer") %>
