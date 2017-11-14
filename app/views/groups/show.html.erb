@@ -45,7 +45,7 @@
       <p>No active requests to show!</p>
     <% end %>
     <br>
-    <%= link_to 'Edit', edit_group_path(:group_id => @group.id) %> |
+    <%= link_to 'Edit', edit_group_path(:group_id => @group.id,:user_id => @current_user.id) %> |
   <% end %>
 
 

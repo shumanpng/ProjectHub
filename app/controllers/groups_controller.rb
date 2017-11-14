@@ -40,6 +40,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    
     #@members = GroupMembership.all
     #@members = GroupMembership.joins("LEFT JOIN users ON users.id = group_memberships.user_id").select("group_memberships.*,users.name").where(:group_id => @group.id)
     #@members = GroupMembership.eager_load(:users)
