@@ -43,7 +43,8 @@ class GroupsController < ApplicationController
     #@members = GroupMembership.all
     #@members = GroupMembership.joins("LEFT JOIN users ON users.id = group_memberships.user_id").select("group_memberships.*,users.name").where(:group_id => @group.id)
     #@members = GroupMembership.eager_load(:users)
-    @members = User.joins(:group_memberships).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, users.name")
+    #@members = User.joins(:group_memberships).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, users.name")
+    @members = GroupMembership.joins(:user).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, group_memberships.user_id, users.name")
   end
 
   # POST /groups
