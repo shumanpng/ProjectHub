@@ -58,7 +58,7 @@ class GroupMembershipsController < ApplicationController
     @group_membership = GroupMembership.find(params[:id])
     @group_membership.destroy
     respond_to do |format|
-      format.html { redirect_to edit_group_path(:id => @group_membership.group_id), notice: 'Group membership was successfully destroyed.' }
+      format.html { redirect_to edit_group_path(:id => @group_membership.group_id, :user_id => params[:user_id]), notice: 'Group membership was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

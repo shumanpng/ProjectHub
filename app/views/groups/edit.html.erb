@@ -16,7 +16,7 @@
 	       	<tr>
 	          <td><%= member.name %></td>
 	          <% if params[:user_id].to_i != member.user_id.to_i%>
-	          <td><%= link_to 'Remove', group_membership_path(:id => member.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	          <td><%= link_to 'Remove', group_membership_path(:id => member.id, :user_id => params[:user_id]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	          <% end %>
 	      	</tr>
 	      <% end %>
