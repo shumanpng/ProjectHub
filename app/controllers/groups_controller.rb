@@ -101,6 +101,14 @@ class GroupsController < ApplicationController
     end
   end
 
+  def process_leave_grp
+    # find current group using param from hidden field inside modal
+    @current_group = Group.find(params[:id])
+
+    # re-load groups#index
+    redirect_to :action => :index
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group

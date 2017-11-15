@@ -37,8 +37,8 @@
           <!-- if user is a member of group, display 'Leave Group' button -->
           <td>
             <% if @access_type == 'view' && !@is_acct_admin %>
-              <%= link_to 'Leave Group', groups_path, {'data-toggle' => 'modal', 'data-target' => '#exampleModalLong'} %>
-              <%= render 'leave_grp_modal' %> <!-- renders partial view (in views/groups/_leave_grp_modal.html.erb) -->
+              <%= link_to 'Leave Group', groups_path, data: { toggle: "modal", target: "#modal#{group.id}" } %>
+              <%= render 'groups/leave_grp_modal', :group => group %>
             <% end %>
           </td>
 
