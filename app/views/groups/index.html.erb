@@ -7,8 +7,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th colspan="3"></th>
-        <th>Action</th>
+        <th>Access</th>
       </tr>
     </thead>
 
@@ -34,6 +33,15 @@
               <i class="fa fa-lock fa-fw"></i>Request Denied
             <% end %>
           </td>
+
+          <!-- if user is a member of group, display 'Leave Group' button -->
+          <td>
+            <% if @access_type == 'view' && !@is_acct_admin %>
+              <%= link_to 'Leave Group', groups_path, {'data-toggle' => 'modal', 'data-target' => '#exampleModalLong'} %>
+              <%= render 'leave_grp_modal' %> <!-- renders partial view (in views/groups/_leave_grp_modal.html.erb) -->
+            <% end %>
+          </td>
+
         </tr>
       <% end %>
     </tbody>
