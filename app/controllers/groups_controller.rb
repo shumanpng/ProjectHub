@@ -15,6 +15,7 @@ class GroupsController < ApplicationController
     # else
     #   @is_acct_admin = false
     # end
+    @is_acct_admin = @current_user.is_admin
   end
 
   # GET /groups/1
