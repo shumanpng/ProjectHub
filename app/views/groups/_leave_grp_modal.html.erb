@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -13,9 +13,9 @@
             <%= hidden_field_tag 'id', group.id %>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          <!-- send data to groups#process_leave_group -->
-          <%= submit_tag 'Confirm', class: 'btn btn-success' %>
+          <button type="button" class="btn btn-danger cursor-pointer" data-dismiss="modal">Cancel</button>
+          <!-- send data to groups#process_leave_grp -->
+          <%= submit_tag 'Confirm', class: 'btn btn-success cursor-pointer' %>
         </div>
       <% end %>
     </div>
