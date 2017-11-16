@@ -43,10 +43,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    token = params[:token]
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_path(:token => token, :id => @user.id), notice: 'User was successfully updated.' }
+        format.html { redirect_to user_path(:id => @user.id), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -73,11 +72,14 @@ class UsersController < ApplicationController
     end
 
     def authenticate
-      @user_login = UserLogin.where('token = (?)', params[:token]).take
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
       if @user_login == nil
         respond_to do |format|
           format.html { redirect_to new_user_login_path, notice: '' }
         end
+      else
+        @current_user = User.where(:email => @user_login.email).take
       end
     end
 
