@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :process_leave_grp]
 
   # GET /groups
   # GET /groups.json
@@ -104,6 +104,16 @@ class GroupsController < ApplicationController
   def process_leave_grp
     # find current group using param from hidden field inside modal
     @current_group = Group.find(params[:id])
+
+    # get status of user relative to group by calling method in group model
+    @user_status = @current_group.get_user_status(@current_group, @current_user)
+
+    if @user_status == 'not admin'
+      # case a.: user is not the group admin, so can leave with no side-effects
+      # destroy their group membership
+      @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
+      @membership.destroy
+    end
 
     # re-load groups#index
     redirect_to :action => :index

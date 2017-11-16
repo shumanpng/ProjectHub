@@ -42,7 +42,7 @@
               <%= link_to 'Leave Group', groups_path, data: { toggle: "modal", target: "#modal#{group.id}" } %>
 
               <!-- render modal stored in views/groups/_leave_grp_modal.html.erb (a partial view) -->
-              <%= render 'groups/leave_grp_modal', :group => group %>
+              <%= render 'groups/leave_grp_modal', :group => group, :user => @current_user %>
             <% end %>
           </td>
 

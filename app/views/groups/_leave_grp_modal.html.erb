@@ -1,16 +1,26 @@
 <div class="modal fade" id="modal<%= group.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <!-- <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
         <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+      </div> -->
+
       <%= form_tag process_leave_grp_path do %>
+        <!-- get status of user relative to group by calling method in group model -->
+        <% @user_status = group.get_user_status(group, user) %>
+
         <div class="modal-body">
+          <% if @user_status == 'not admin' %>
+            <!-- case a. : user is not the group admin, so can leave with no side-effects -->
+            <p>Are you sure you want to leave '<%= group.name %>'?</p>
+          <% else %>
             ...
-            <%= hidden_field_tag 'id', group.id %>
+          <% end %>
+
+          <%= hidden_field_tag 'id', group.id %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger cursor-pointer" data-dismiss="modal">Cancel</button>
@@ -18,6 +28,7 @@
           <%= submit_tag 'Confirm', class: 'btn btn-success cursor-pointer' %>
         </div>
       <% end %>
+
     </div>
   </div>
 </div>
