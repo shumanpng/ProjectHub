@@ -110,9 +110,23 @@ class GroupsController < ApplicationController
 
     if @user_status == 'not admin'
       # case a.: user is not the group admin, so can leave with no side-effects
+
       # destroy their group membership
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
       @membership.destroy
+
+    elsif @user_status == 'one left'
+      # case b.: user is the group admin and there is one other member, so
+      # that member automatically becomes group admin.
+
+      # get group membership of remaining member and make them the new admin
+      @new_admin_membership = @current_group.group_memberships.where(:is_admin => false).first
+      @new_admin_membership.update_attribute(:is_admin, true)
+
+      # destroy current user's group membership
+      @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
+      @membership.destroy
+
     end
 
     # re-load groups#index

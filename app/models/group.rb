@@ -32,14 +32,30 @@ class Group < ActiveRecord::Base
     end
   end
 
-  # Takes current group object and current user object as inputs, and
+  # Takes group object and user object as inputs, and
   # returns the status of the user relative to the group.
-  # (used in the leave group modal)
+  # Pre-conditions: user is a member of the group and does not have an admin account.
   def get_user_status(group, user)
     if GroupMembership.where(:user_id => user.id, :group_id => group.id, :is_admin => false).exists?
       # case a.: user is not the group admin
       'not admin'
+    elsif GroupMembership.where(:group_id => group.id, :is_admin => false).count == 1
+      # case b.: user is the group admin, and there is one other member of the group
+      'one left'
     end
   end
 
+  # Takes a group object as input and returns an array of all users who are
+  # members of the group, but not group admin (as user objects).
+  def get_non_admin_members(group)
+    # iterate through all the group's memberships and append all non-admins to array
+    @non_admins = []
+    group.group_memberships.each do |member|
+      if member.is_admin == false
+        @user = User.find(member.user_id)
+        @non_admins << @user
+      end
+    end
+    return @non_admins
+  end
 end

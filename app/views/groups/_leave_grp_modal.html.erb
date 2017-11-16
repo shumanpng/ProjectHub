@@ -14,14 +14,26 @@
 
         <div class="modal-body">
           <% if @user_status == 'not admin' %>
-            <!-- case a. : user is not the group admin, so can leave with no side-effects -->
+            <!-- case a.: user is not the group admin, so can leave with no side-effects -->
             <p>Are you sure you want to leave '<%= group.name %>'?</p>
+
+          <% elsif @user_status == 'one left' %>
+            <!-- case b.: user is the group admin and there is one other member, so
+            that member automatically becomes group admin. -->
+
+            <!-- get array of non-admin group members by calling method in group model -->
+            <% @non_admins = group.get_non_admin_members(group) %>
+            <p>Are you sure you want to leave '<%= group.name %>'? You are the admin of
+            this group and the only other member is <%= @non_admins.first.name %>, so they will become
+            the new group admin.</p>
+
           <% else %>
             ...
           <% end %>
 
           <%= hidden_field_tag 'id', group.id %>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-danger cursor-pointer" data-dismiss="modal">Cancel</button>
           <!-- send data to groups#process_leave_grp -->
