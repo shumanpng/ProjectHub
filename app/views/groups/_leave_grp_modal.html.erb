@@ -24,8 +24,24 @@
             <!-- get array of non-admin group members by calling method in group model -->
             <% @non_admins = group.get_non_admin_members(group) %>
             <p>Are you sure you want to leave '<%= group.name %>'? You are the admin of
-            this group and the only other member is <%= @non_admins.first.name %>, so they will become
+            this group and the only other member is '<%= @non_admins.first.name %>', so they will become
             the new group admin.</p>
+
+          <% elsif @user_status == 'many left' %>
+            <!-- case c.: user is the group admin and there are multiple other members, so
+            they have to choose a new admin before they can leave. -->
+
+            <!-- get array of non-admin group members by calling method in group model -->
+            <% @non_admins = group.get_non_admin_members(group) %>
+            <p>Since you are the admin of '<%= group.name %>,' please select another
+            group member to become the new group admin before you leave:</p>
+
+            <!-- radio buttons for user to select new admin. new admin's id will get passed to controller -->
+            <div class="radio-button-container">
+              <% @non_admins.each do |member| %>
+                <%= radio_button_tag :new_admin_id, member.id %>&nbsp;&nbsp;&nbsp;<%= member.name %><br>
+              <% end %>
+            </div>
 
           <% else %>
             ...

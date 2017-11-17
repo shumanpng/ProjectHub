@@ -40,8 +40,11 @@ class Group < ActiveRecord::Base
       # case a.: user is not the group admin
       'not admin'
     elsif GroupMembership.where(:group_id => group.id, :is_admin => false).count == 1
-      # case b.: user is the group admin, and there is one other member of the group
+      # case b.: user is the group admin and there is one other member
       'one left'
+    elsif GroupMembership.where(:group_id => group.id, :is_admin => false).count > 1
+      # case c.: user is the group admin and there are multiple other members
+      'many left'
     end
   end
 

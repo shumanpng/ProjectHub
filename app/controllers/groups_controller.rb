@@ -127,6 +127,17 @@ class GroupsController < ApplicationController
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
       @membership.destroy
 
+    elsif @user_status == 'many left'
+      # case c.: user is the group admin and there are multiple other members, so
+      # they have to choose a new admin before they can leave.
+
+      # get group membership of the member the user selected and make them the new admin
+      @new_admin_membership = GroupMembership.where(:user_id => params[:new_admin_id], :group_id => @current_group.id).take
+      @new_admin_membership.update_attribute(:is_admin, true)
+
+      # destroy current user's group membership
+      @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
+      @membership.destroy
     end
 
     # re-load groups#index
