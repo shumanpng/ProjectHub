@@ -39,7 +39,8 @@
             <!-- radio buttons for user to select new admin. new admin's id will get passed to controller -->
             <div class="radio-button-container">
               <% @non_admins.each do |member| %>
-                <%= radio_button_tag :new_admin_id, member.id %>&nbsp;&nbsp;&nbsp;<%= member.name %><br>
+                <!-- note: the 'false' signifies that the button shouldn't be checked by default -->
+                <%= radio_button_tag :new_admin_id, member.id, false, class: 'radio-btn' %>&nbsp;&nbsp;&nbsp;<%= member.name %><br>
               <% end %>
             </div>
 
@@ -52,8 +53,15 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-danger cursor-pointer" data-dismiss="modal">Cancel</button>
+
           <!-- send data to groups#process_leave_grp -->
-          <%= submit_tag 'Confirm', class: 'btn btn-success cursor-pointer' %>
+          <!-- disable submit for case c. to prevent from submitting form without selecting
+          a new group admin (validated in js file) -->
+          <% if @user_status == 'many left' %>
+            <%= submit_tag 'Confirm', disabled: true, class: 'btn btn-success cursor-pointer submit-btn cursor-not-allowed' %>
+          <% else %>
+            <%= submit_tag 'Confirm', disabled: false, class: 'btn btn-success cursor-pointer submit-btn' %>
+          <% end %>
         </div>
       <% end %>
 
