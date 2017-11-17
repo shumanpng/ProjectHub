@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   def index
     groupid = params[:groupid]
     groupname = params[:groupname]
+    @group = Group.where(id: groupid).take
     @tasks = Task.where(group: groupname)
     # @tasks = Task.all
   end
