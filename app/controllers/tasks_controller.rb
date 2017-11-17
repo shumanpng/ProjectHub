@@ -31,9 +31,7 @@ class TasksController < ApplicationController
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
     @group = Group.where(id: groupid).take
 
-
-    @user_name = @current_user
-    @task = Task.new({:group => groupname})
+    @task = Task.new({:group => groupname, :created_by => @current_user.name})
     # @task = Task.new({:created_by => @user_name[:params]})
 
 
