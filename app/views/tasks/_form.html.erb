@@ -25,7 +25,7 @@
     </div>
     <div class="field">
       <%= f.label :created_by %><br>
-      <%= f.text_field :created_by %>
+      <%= f.text_field :created_by, :readonly => true %>
     </div>
     <div class="field">
       <%= f.label :due_date %><br>
@@ -37,7 +37,7 @@
     </div>
     <div class="field">
       <%= f.label :group %><br>
-      <%= f.text_field :group %>
+      <%= f.text_field :group, :readonly => true %>
     </div>
     <div class="field">
       <%= f.label :state %><br>
