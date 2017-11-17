@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong>Due date:</strong>
-  <%= @task.due_date %>
+  <strong>Deadline:</strong>
+  <%= @task.deadline %>
 </p>
 
 <p>
@@ -35,10 +35,6 @@
   <%= @task.state %>
 </p>
 
-<p>
-  <strong>Task type:</strong>
-  <%= @task.task_type %>
-</p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path(:groupname => @task.group) %>

@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
+    groupname = params[:groupname]
     @groups = Group.all
 
     # check whether or not the user has an admin account

@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   def index
     groupid = params[:groupid]
     groupname = params[:groupname]
+    @group = Group.where(name: groupname).take
     @tasks = Task.where(group: groupname)
     # @tasks = Task.all
   end
@@ -31,9 +32,7 @@ class TasksController < ApplicationController
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
     @group = Group.where(id: groupid).take
 
-
-    @user_name = @current_user
-    @task = Task.new({:group => groupname})
+    @task = Task.new({:group => groupname, :created_by => @current_user.name})
     # @task = Task.new({:created_by => @user_name[:params]})
 
 
@@ -48,6 +47,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     groupname = params[:groupname]
+
+    # @current_user.tasks << @task
 
 
     # # use the user login instance and match emails to find current user
@@ -71,7 +72,7 @@ class TasksController < ApplicationController
         #
         # # associate new membership with the group and the user
         # @group.task << @new_task
-        # @curr_user.task << @new_task
+        # @current_user.tasks << @task
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
@@ -126,6 +127,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :created_by, :due_date, :points, :group, :state, :task_type, :group_id)
+      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id)
     end
 end
