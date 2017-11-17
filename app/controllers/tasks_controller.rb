@@ -48,6 +48,8 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     groupname = params[:groupname]
 
+    # @current_user.tasks << @task
+
 
     # # use the user login instance and match emails to find current user
     # @user_login = UserLogin.where(token: token).take
@@ -70,7 +72,7 @@ class TasksController < ApplicationController
         #
         # # associate new membership with the group and the user
         # @group.task << @new_task
-        # @curr_user.task << @new_task
+        # @current_user.tasks << @task
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
