@@ -138,6 +138,17 @@ class GroupsController < ApplicationController
       # destroy current user's group membership
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
       @membership.destroy
+
+    else
+      # case d.: user is the group admin but there are no other members, so the group
+      # will be deleted once they leave.
+
+      # destroy current user's group membership
+      @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
+      @membership.destroy
+
+      # destroy group and all its child objects (i.e. group memberships and group requests)
+      @current_group.destroy
     end
 
     # re-load groups#index

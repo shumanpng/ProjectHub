@@ -1,9 +1,11 @@
 class Group < ActiveRecord::Base
   has_many :tasks
 
-  has_many :group_memberships
+  # note: ':dependent => :destroy' deletes all of a group's child objects
+  # (here, group memberships and group requests) when the group is destroyed
+  has_many :group_memberships, :dependent => :destroy
   has_many :users, :through => :group_memberships
-  has_many :group_requests
+  has_many :group_requests, :dependent => :destroy
 
   # Decides the type of access a user has to a group (based on account type and
   # on the status of their group request).
@@ -45,6 +47,9 @@ class Group < ActiveRecord::Base
     elsif GroupMembership.where(:group_id => group.id, :is_admin => false).count > 1
       # case c.: user is the group admin and there are multiple other members
       'many left'
+    else
+      # case d.: user is the group admin but there are no other members
+      'none left'
     end
   end
 

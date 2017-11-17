@@ -45,7 +45,10 @@
             </div>
 
           <% else %>
-            ...
+            <!-- case d.: user is the group admin but there are no other members, so
+            the group will be deleted once they leave -->
+            <p>Are you sure you want to leave '<%= group.name %>'? You are the group
+            admin and there are no other members, so the group will be deleted once you leave.</p>
           <% end %>
 
           <%= hidden_field_tag 'id', group.id %>
