@@ -40,21 +40,27 @@
   <%= @task.task_type %>
 </p>
 
-<strong>Comments</strong><br>
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path(:groupname => @task.group) %>
+
+
+<br><br><strong>Comments</strong><br>
+<%if !@comments.any? %>
+  <i>No Comments</i>
+<% else %>
 <table>
   <thead>
   </thead>
 
   <tbody>
-    <% @comments.each do |comment| %>
+    <%= @comments.each do |comment| %>
       <tr>
         <%= comment.task_comment %>
       </tr><br>
       <tr> 
         Written by <%= comment.user_name %>
-      </tr><br>
+      </tr><br><br>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path(:groupname => @task.group) %>
+<% end %>

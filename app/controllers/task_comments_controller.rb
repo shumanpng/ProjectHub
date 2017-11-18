@@ -69,6 +69,6 @@ class TaskCommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_comment_params
-      params.require(:task_comment).permit(:user_id, :group_id, :task_id, :grp_admin, :task_comment)
+      params.require(:task_comment).permit(:user_id, :user_name, :group_id, :task_id, :grp_admin, :task_comment)
     end
 end
