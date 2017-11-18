@@ -43,6 +43,18 @@ class ChangePasswordsController < ApplicationController
       @change_password = ChangePassword.find(params[:id])
     end
 
+    def authenticate
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
+      if @user_login == nil
+        respond_to do |format|
+          format.html { redirect_to new_user_login_path, notice: '' }
+        end
+      else
+        @current_user = User.where(:email => @user_login.email).take
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def change_password_params
       params.require(:change_password).permit(:current_password, :new_password, :confirm_password)
