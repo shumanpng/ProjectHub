@@ -1,6 +1,7 @@
 class TaskCommentsController < ApplicationController
-  before_action :set_task_comment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
+  before_action :set_task_comment, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /task_comments
   # GET /task_comments.json
@@ -15,7 +16,7 @@ class TaskCommentsController < ApplicationController
 
   # GET /task_comments/new
   def new
-    @task_comment = TaskComment.new({:user_name => @current_user.name,:user_id => @current_user.id})
+    @task_comment = TaskComment.new
   end
 
   # GET /task_comments/1/edit
@@ -26,7 +27,6 @@ class TaskCommentsController < ApplicationController
   # POST /task_comments.json
   def create
     @task_comment = TaskComment.new(task_comment_params)
-
     respond_to do |format|
       if @task_comment.save
         format.html { redirect_to @task_comment, notice: 'Task comment was successfully created.' }
