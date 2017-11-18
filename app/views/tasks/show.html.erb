@@ -41,5 +41,20 @@
 </p>
 
 <strong>Comments</strong><br>
+<table>
+  <thead>
+    <br>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <%= comment.task_comment %>
+      </tr>
+      <tr> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path(:groupname => @task.group) %>
