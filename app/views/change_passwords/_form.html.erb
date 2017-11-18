@@ -24,6 +24,7 @@
     <%= f.text_field :confirm_password %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+      <%= f.submit("Save", :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer") %>
+      <%= link_to 'Back', user_path(@current_user), :class=>"btn btn-sm btn-primary"%>
   </div>
 <% end %>
