@@ -11,6 +11,8 @@
     </div>
   <% end %>
   <%= f.hidden_field :user_name, :value => @current_user.name%>
+  <%= f.hidden_field :user_id, :value => @current_user.id%>
+  <%= f.hidden_field :task_id, :value => params[:id]%>
   <div class="field">
     <%= f.label :group_id %><br>
     <%= f.number_field :group_id %>
