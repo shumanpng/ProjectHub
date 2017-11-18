@@ -37,16 +37,6 @@ class ChangePasswordsController < ApplicationController
     end
   end
 
-  # DELETE /change_passwords/1
-  # DELETE /change_passwords/1.json
-  def destroy
-    @change_password.destroy
-    respond_to do |format|
-      format.html { redirect_to change_passwords_url, notice: 'Change password was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_change_password
