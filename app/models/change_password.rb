@@ -27,6 +27,10 @@ class ChangePasswordValidation < ActiveModel::Validator
         else
             record.errors[:base] << "Your password must contain at least 1 capital."
         end
+
+        if record.confirm_password.length <= 5
+            record.errors[:base] << "Your password is not long enough."
+        end
         
         #password = md5.hexdigest record.password
         #user = User.where('email = (?) AND password =  (?)', record.email, password).take
