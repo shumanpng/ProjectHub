@@ -1,5 +1,5 @@
 class ChangePasswordsController < ApplicationController
-  before_action :set_change_password, only: [:show, :edit, :update, :destroy]
+  before_action :set_change_password, only: [:show, :edit]
 
   # GET /change_passwords
   # GET /change_passwords.json
