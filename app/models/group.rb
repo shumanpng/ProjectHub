@@ -65,4 +65,10 @@ class Group < ActiveRecord::Base
     end
     return @non_admins
   end
+
+  # takes a group as input and returns the id of its admin
+  def get_admin(group)
+    @admin_membership = GroupMembership.where(:group_id => group.id, :is_admin => true).take
+    return @admin_membership.user_id
+  end
 end
