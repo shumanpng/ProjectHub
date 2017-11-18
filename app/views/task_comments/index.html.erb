@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>User</th>
+      <th>User Name</th>
       <th>Group</th>
       <th>Task</th>
       <th>Grp admin</th>
@@ -17,7 +17,7 @@
   <tbody>
     <% @task_comments.each do |task_comment| %>
       <tr>
-        <td><%= task_comment.user_id %></td>
+        <td><%= task_comment.user_name %></td>
         <td><%= task_comment.group_id %></td>
         <td><%= task_comment.task_id %></td>
         <td><%= task_comment.grp_admin %></td>
