@@ -15,6 +15,12 @@ class ChangePasswordValidation < ActiveModel::Validator
         if record.new_password != record.confirm_password
             record.errors[:base] << "Your passwords do not match."
         end
+
+        if record.confirm_password =~ /\d/         # Calling String's =~ method.
+            # valid
+        else
+            record.errors[:base] << "Your password must contain at least 1 number."
+        end
         
         #password = md5.hexdigest record.password
         #user = User.where('email = (?) AND password =  (?)', record.email, password).take
