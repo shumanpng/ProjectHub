@@ -27,7 +27,7 @@ class ChangePasswordsController < ApplicationController
   def create
     @change_password = ChangePassword.new(change_password_params)
     @change_password.token = session[:current_user_token]
-    respond_to do |format|
+    respond_to do |format| 
       if @change_password.save
         require 'digest'
         md5 = Digest::MD5.new
