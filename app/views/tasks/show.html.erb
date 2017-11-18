@@ -64,4 +64,4 @@
   </tbody>
 </table>
 <% end %>
-<%= link_to 'New Comment', new_task_comment_path %>
+<%= link_to 'New Comment', new_task_comment_path(:task_id => params[:id]) %>

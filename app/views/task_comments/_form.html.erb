@@ -12,15 +12,8 @@
   <% end %>
   <%= f.hidden_field :user_name, :value => @current_user.name%>
   <%= f.hidden_field :user_id, :value => @current_user.id%>
-  <%= f.hidden_field :task_id, :value => params[:id]%>
-  <div class="field">
-    <%= f.label :group_id %><br>
-    <%= f.number_field :group_id %>
-  </div>
-  <div class="field">
-    <%= f.label :task_id %><br>
-    <%= f.number_field :task_id %>
-  </div>
+  <%= f.hidden_field :task_id, :value => params[:task_id]%>
+  
   <div class="field">
     <%= f.label :grp_admin %><br>
     <%= f.check_box :grp_admin %>

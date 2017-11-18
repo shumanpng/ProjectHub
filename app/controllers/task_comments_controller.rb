@@ -29,7 +29,7 @@ class TaskCommentsController < ApplicationController
     @task_comment = TaskComment.new(task_comment_params)
     respond_to do |format|
       if @task_comment.save
-        format.html { redirect_to @task_comment, notice: 'Task comment was successfully created.' }
+        format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully created.' }
         format.json { render :show, status: :created, location: @task_comment }
       else
         format.html { render :new }
