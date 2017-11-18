@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Change Passwords</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Current password</th>
+      <th>New password</th>
+      <th>Confirm password</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @change_passwords.each do |change_password| %>
+      <tr>
+        <td><%= change_password.current_password %></td>
+        <td><%= change_password.new_password %></td>
+        <td><%= change_password.confirm_password %></td>
+        <td><%= link_to 'Show', change_password %></td>
+        <td><%= link_to 'Edit', edit_change_password_path(change_password) %></td>
+        <td><%= link_to 'Destroy', change_password, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Change password', new_change_password_path %>
