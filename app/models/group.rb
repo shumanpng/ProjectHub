@@ -7,6 +7,9 @@ class Group < ActiveRecord::Base
   has_many :users, :through => :group_memberships
   has_many :group_requests, :dependent => :destroy
 
+  validates :name, :presence => true, :uniqueness => true
+
+
   # Decides the type of access a user has to a group (based on account type and
   # on the status of their group request).
   def typeOfAccess(group, curr_user)

@@ -1,6 +1,22 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
+  fixtures :groups	 # temporarily includes users in test/fixtures/users.yml for testing
+
+  # This test is needed because a lot of the implementation of Tasks relies on having
+  # unique group names
+  test 'no duplicate names' do
+    g = Group.new
+    assert(g.invalid?, 'name is nil')
+
+    g.name = 'Gryffindor'
+    puts groups(:one).name
+    assert(g.invalid?, 'a group with this name already exists')
+
+    g.name = 'Hufflepuff'
+    assert(g.valid?, 'group has a unique name')
+  end
+
   test 'get_user_status returns correct case' do
     # note: need to explicitly pass in unique id's when creating user objects below because
     # the method compares id's of different users, but calling create in test environment
