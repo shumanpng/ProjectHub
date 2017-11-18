@@ -17,9 +17,15 @@ class ChangePasswordValidation < ActiveModel::Validator
         end
 
         if record.confirm_password =~ /\d/         # Calling String's =~ method.
-            # valid
+            # valid contains number
         else
             record.errors[:base] << "Your password must contain at least 1 number."
+        end
+
+        if record.confirm_password =~ /[A-Z]/
+            # valid contains upper case
+        else
+            record.errors[:base] << "Your password must contain at least 1 capital."
         end
         
         #password = md5.hexdigest record.password
