@@ -2,6 +2,9 @@ class ChangePasswordValidation < ActiveModel::Validator
     def validate(record)
         
         puts record.token
+        user_login = UserLogin.where('token = (?)', record.token).take
+        current_user = User.where(:email => user_login.email).take
+        puts current_user
         #require 'digest'
         #md5 = Digest::MD5.new
         #password = md5.hexdigest record.password
