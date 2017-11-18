@@ -1,6 +1,6 @@
 class ChangePasswordsController < ApplicationController
   before_action :set_change_password, only: [:show, :edit]
-  before_action :authenticate, only: [:index, :show, :edit, :new]
+  before_action :authenticate, only: [:index, :show, :edit, :new, :create]
 
   # GET /change_passwords
   # GET /change_passwords.json
@@ -29,6 +29,11 @@ class ChangePasswordsController < ApplicationController
     @change_password.token = session[:current_user_token]
     respond_to do |format|
       if @change_password.save
+        require 'digest'
+        md5 = Digest::MD5.new
+        puts @current_user
+        @current_user.password = md5.hexdigest @change_password.confirm_password
+        @current_user.save
         format.html { redirect_to @change_password, notice: 'Change password was successfully created.' }
         format.json { render :show, status: :created, location: @change_password }
       else
