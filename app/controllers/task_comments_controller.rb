@@ -15,7 +15,7 @@ class TaskCommentsController < ApplicationController
 
   # GET /task_comments/new
   def new
-    @task_comment = TaskComment.new
+    @task_comment = TaskComment.new({:user_name => @current_user.name,:user_id => @current_user.id})
   end
 
   # GET /task_comments/1/edit
