@@ -1,28 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </p>
 
-<p>
-  <strong>Is admin:</strong>
-  <%= @user.is_admin %>
-</p>
+  <p>
+    <strong>Is admin:</strong>
+    <%= @user.is_admin %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <strong>Date created:</strong>
-  <%= @user.date_created %>
-</p>
+  <p>
+    <strong>Date created:</strong>
+    <%= @user.date_created %>
+  </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= link_to 'Change Password', new_change_password_path%>
-</p>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', groups_path %>
+  <p>
+    <strong>Password:</strong>
+    <%= link_to 'Change Password', new_change_password_path%>
+  </p>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Back', groups_path %>
+</div>
