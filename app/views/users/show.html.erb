@@ -22,8 +22,7 @@
 
 <p>
   <strong>Password:</strong>
-  <%= @user.password %>
+  <%= link_to 'Change Password', new_change_password_path%>
 </p>
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', groups_path %>
