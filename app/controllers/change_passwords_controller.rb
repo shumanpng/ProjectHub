@@ -34,7 +34,7 @@ class ChangePasswordsController < ApplicationController
         puts @current_user
         @current_user.password = md5.hexdigest @change_password.confirm_password
         @current_user.save
-        format.html { redirect_to @change_password, notice: 'Change password was successfully created.' }
+        format.html { redirect_to @current_user, notice: 'Change password was successfully created.' }
         format.json { render :show, status: :created, location: @change_password }
       else
         format.html { render :new }
