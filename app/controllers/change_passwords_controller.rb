@@ -26,7 +26,7 @@ class ChangePasswordsController < ApplicationController
   # POST /change_passwords.json
   def create
     @change_password = ChangePassword.new(change_password_params)
-
+    @change_password.token = session[:current_user_token]
     respond_to do |format|
       if @change_password.save
         format.html { redirect_to @change_password, notice: 'Change password was successfully created.' }
