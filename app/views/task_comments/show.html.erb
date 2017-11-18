@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task_comment.user_id %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @task_comment.group_id %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @task_comment.task_id %>
+</p>
+
+<p>
+  <strong>Grp admin:</strong>
+  <%= @task_comment.grp_admin %>
+</p>
+
+<p>
+  <strong>Task comment:</strong>
+  <%= @task_comment.task_comment %>
+</p>
+
+<%= link_to 'Edit', edit_task_comment_path(@task_comment) %> |
+<%= link_to 'Back', task_comments_path %>

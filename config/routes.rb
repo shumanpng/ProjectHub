@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :task_comments
   resources :group_requests
   resources :group_memberships
   resources :groups

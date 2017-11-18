@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Task Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Group</th>
+      <th>Task</th>
+      <th>Grp admin</th>
+      <th>Task comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_comments.each do |task_comment| %>
+      <tr>
+        <td><%= task_comment.user_id %></td>
+        <td><%= task_comment.group_id %></td>
+        <td><%= task_comment.task_id %></td>
+        <td><%= task_comment.grp_admin %></td>
+        <td><%= task_comment.task_comment %></td>
+        <td><%= link_to 'Show', task_comment %></td>
+        <td><%= link_to 'Edit', edit_task_comment_path(task_comment) %></td>
+        <td><%= link_to 'Destroy', task_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task comment', new_task_comment_path %>
