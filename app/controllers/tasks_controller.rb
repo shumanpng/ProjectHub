@@ -26,13 +26,17 @@ class TasksController < ApplicationController
   def new
     groupname = params[:groupname]
     groupid = params[:groupid]
+    # @groupmemberships = GroupMembership.where(:group_id => groupid)
 
     # @group = Group.where(name: groupname).take
     # @group = Group.find params[:groupname]
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
-    @group = Group.where(id: groupid).take
+    @group = Group.where(name: groupname).take
+    @groupmemberships = @group.group_memberships
+    @users = User.all
 
-    @task = Task.new({:group => groupname, :created_by => @current_user.name})
+
+    @task = Task.new({:group_id => @group.id, :group => groupname, :created_by => @current_user.name})
     # @task = Task.new({:created_by => @user_name[:params]})
 
 
@@ -127,6 +131,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id)
+      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id, :assigned_to)
     end
 end
