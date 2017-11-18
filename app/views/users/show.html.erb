@@ -25,6 +25,6 @@
     <strong>Password:</strong>
     <%= link_to 'Change Password', new_change_password_path%>
   </p>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Edit', edit_user_path(@user), :class=>"btn btn-sm btn-primary", :style=>"cursor:pointer" %>
   <%= link_to 'Back', groups_path %>
 </div>
