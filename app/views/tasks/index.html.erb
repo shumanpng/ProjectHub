@@ -28,7 +28,7 @@
         <td><%= task.group %></td>
         <td><%= task.state %></td>
         <td><%= task.task_type %></td>
-        <td><%= link_to 'Show', task %></td>
+        <td><%= link_to 'Show', task_path(task, :group_id => params[:groupid]) %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -38,4 +38,4 @@
 
 <br>
 
-<%= link_to 'Back to Group Page', groups_path %>
+<%= link_to 'Back to Group Page', group_path(params[:groupid]) %>
