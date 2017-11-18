@@ -7,16 +7,6 @@ class GroupsController < ApplicationController
   def index
     groupname = params[:groupname]
     @groups = Group.all
-
-    # check whether or not the user has an admin account
-
-    # current_user.is_admin instead of this logic down here
-    # if User.where(:id => @current_user.id, :is_admin => true).exists?
-    #   @is_acct_admin = true
-    # else
-    #   @is_acct_admin = false
-    # end
-    @is_acct_admin = @current_user.is_admin
   end
 
   # GET /groups/1
@@ -42,7 +32,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    
+
     #@members = GroupMembership.all
     #@members = GroupMembership.joins("LEFT JOIN users ON users.id = group_memberships.user_id").select("group_memberships.*,users.name").where(:group_id => @group.id)
     #@members = GroupMembership.eager_load(:users)
