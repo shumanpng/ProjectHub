@@ -1,2 +1,3 @@
 class TaskComment < ActiveRecord::Base
+	belongs_to :user
 end
