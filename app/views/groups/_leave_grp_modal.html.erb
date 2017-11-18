@@ -1,0 +1,73 @@
+<div class="modal fade" id="modal<%= group.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+
+      <%= form_tag process_leave_grp_path do %>
+        <!-- get status of user relative to group by calling method in group model -->
+        <% @user_status = group.get_user_status(group, user) %>
+
+        <div class="modal-body">
+          <% if @user_status == 'not admin' %>
+            <!-- case a.: user is not the group admin, so can leave with no side-effects -->
+            <p>Are you sure you want to leave '<%= group.name %>'?</p>
+
+          <% elsif @user_status == 'one left' %>
+            <!-- case b.: user is the group admin and there is one other member, so
+            that member automatically becomes group admin. -->
+
+            <!-- get array of non-admin group members by calling method in group model -->
+            <% @non_admins = group.get_non_admin_members(group) %>
+            <p>Are you sure you want to leave '<%= group.name %>'? You are the admin of
+            this group and the only other member is '<%= @non_admins.first.name %>', so they will become
+            the new group admin.</p>
+
+          <% elsif @user_status == 'many left' %>
+            <!-- case c.: user is the group admin and there are multiple other members, so
+            they have to choose a new admin before they can leave. -->
+
+            <!-- get array of non-admin group members by calling method in group model -->
+            <% @non_admins = group.get_non_admin_members(group) %>
+            <p>Since you are the admin of '<%= group.name %>,' please select another
+            group member to become the new group admin before you leave:</p>
+
+            <!-- radio buttons for user to select new admin. new admin's id will get passed to controller -->
+            <div class="radio-button-container">
+              <% @non_admins.each do |member| %>
+                <!-- note: the 'false' signifies that the button shouldn't be checked by default -->
+                <%= radio_button_tag :new_admin_id, member.id, false, class: 'radio-btn' %>&nbsp;&nbsp;&nbsp;<%= member.name %><br>
+              <% end %>
+            </div>
+
+          <% else %>
+            <!-- case d.: user is the group admin but there are no other members, so
+            the group will be deleted once they leave -->
+            <p>Are you sure you want to leave '<%= group.name %>'? You are the group
+            admin and there are no other members, so the group will be deleted once you leave.</p>
+          <% end %>
+
+          <%= hidden_field_tag 'id', group.id %>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger cursor-pointer" data-dismiss="modal">Cancel</button>
+
+          <!-- send data to groups#process_leave_grp -->
+          <!-- disable submit for case c. to prevent from submitting form without selecting
+          a new group admin (validated in js file) -->
+          <% if @user_status == 'many left' %>
+            <%= submit_tag 'Confirm', disabled: true, class: 'btn btn-success cursor-pointer submit-btn cursor-not-allowed' %>
+          <% else %>
+            <%= submit_tag 'Confirm', disabled: false, class: 'btn btn-success cursor-pointer submit-btn' %>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

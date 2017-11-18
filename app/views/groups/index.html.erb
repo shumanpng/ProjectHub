@@ -7,8 +7,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th colspan="3"></th>
-        <th>Action</th>
+        <th>Access</th>
       </tr>
     </thead>
 
@@ -34,6 +33,19 @@
               <i class="fa fa-lock fa-fw"></i>Request Denied
             <% end %>
           </td>
+
+          <!-- if user is a member of group, display 'Leave Group' button -->
+          <td>
+            <% if @access_type == 'view' && !@is_acct_admin %>
+              <!-- add link to toggle the modal. Since the modal displays info specific to each group, the
+              modal has to have unique id's depending on which group is calling it -->
+              <%= link_to 'Leave Group', groups_path, data: { toggle: "modal", target: "#modal#{group.id}" } %>
+
+              <!-- render modal stored in views/groups/_leave_grp_modal.html.erb (a partial view) -->
+              <%= render 'groups/leave_grp_modal', :group => group, :user => @current_user %>
+            <% end %>
+          </td>
+
         </tr>
       <% end %>
     </tbody>
