@@ -36,7 +36,7 @@
 
           <!-- if user is a member of group, display 'Leave Group' button -->
           <td>
-            <% if @access_type == 'view' && !@is_acct_admin %>
+            <% if @access_type == 'view' && @current_user.is_admin == false %>
               <!-- add link to toggle the modal. Since the modal displays info specific to each group, the
               modal has to have unique id's depending on which group is calling it -->
               <%= link_to 'Leave Group', groups_path, data: { toggle: "modal", target: "#modal#{group.id}" } %>
@@ -54,7 +54,7 @@
   <br>
 
   <!-- only give regular users (not admins) ability to create a new group -->
-  <% if !@is_acct_admin %>
+  <% if @current_user.is_admin == false %>
     <%= link_to 'New Group', new_group_path, :class=>"btn btn-primary" %>
   <% end %>
 </div>
