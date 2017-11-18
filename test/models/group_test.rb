@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
-  fixtures :groups	 # temporarily includes users in test/fixtures/users.yml for testing
+  fixtures :groups	 # temporarily includes users in test/fixtures/groups.yml for testing
 
   # This test is needed because a lot of the implementation of Tasks relies on having
   # unique group names
@@ -21,6 +21,9 @@ class GroupTest < ActiveSupport::TestCase
     # note: need to explicitly pass in unique id's when creating user objects below because
     # the method compares id's of different users, but calling create in test environment
     # for some reason only generates 'nil' id's.
+
+    # note: when testing methods that use db calls, must save new objects to the db
+    # (eg. by using 'create' rather than just 'new')
 
     # set up situation for case d.
     u1 = User.create(:id => 1)
@@ -42,5 +45,34 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal('not admin', g.get_user_status(g, u3), 'case a.: user is not the group admin')
     assert_equal('many left', g.get_user_status(g, u1), 'case c.: user is the group
     admin and there are multiple other members')
+  end
+
+  test 'typeOfAccess returns correct type' do
+    # note: have to pass in emails and names when creating users because their presence
+    # is validated (otherwise, they won't save). Didn't have to in test above bc that
+    # method didn't call db to look for any User objects, whereas this one does
+
+    # create new group
+    g = Group.create(:id => 1)
+
+    # create new admin user
+    u1 = User.create(:id => 1, :is_admin => true, :name => 'Harry', :email => 'harry@hogwarts.com')
+    assert_equal('view', g.typeOfAccess(g, u1), 'user is an admin; they have access to all groups')
+
+
+    # create new non-admin user
+    u2 = User.create(:id => 2, :is_admin => false, :name => 'Ron', :email => 'ron@hogwarts.com')
+    assert_equal('join', g.typeOfAccess(g, u2), 'user has not sent a group request')
+
+    gr = GroupRequest.create(:user_id => u2.id, :group_id => g.id, :status => 'pending')
+    assert_equal('pending', g.typeOfAccess(g, u2), 'user has sent a request')
+
+    gr.update_attribute('status', 'denied')
+    # note: this is the same as gr.status = 'denied', followed by gr.save
+    assert_equal('denied', g.typeOfAccess(g, u2), "user's request was denied")
+
+    gr.update_attribute('status', 'accepted')
+    gm = GroupMembership.create(:user_id => u2.id, :group_id => g.id)
+    assert_equal('view', g.typeOfAccess(g, u2), 'user is already a member of group')
   end
 end
