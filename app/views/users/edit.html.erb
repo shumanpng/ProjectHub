@@ -22,11 +22,11 @@
       <%= f.label :email %><br>
       <%= f.text_field :email %>
     </div>
-    
+    <br>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit("Save", :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer") %>
+      <%= link_to 'Back', user_path(@user), :class=>"btn btn-sm btn-primary"%>
     </div>
   <% end %>
-
-  <%= link_to 'Back', user_path(@user) %>
+  <br>
 </div>
