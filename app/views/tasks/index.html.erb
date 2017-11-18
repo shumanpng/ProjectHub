@@ -19,6 +19,8 @@
 
   <tbody>
     <% @tasks.each do |task| %>
+      <% user = User.where(:id => task.assigned_to).take %>
+
       <tr>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
@@ -27,9 +29,9 @@
         <td><%= task.points %></td>
         <td><%= task.group %></td>
         <td><%= task.state %></td>
-        <td><%= task.assigned_to %></td>
+        <td><%= user.name %></td>
         <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
+        <td><%= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

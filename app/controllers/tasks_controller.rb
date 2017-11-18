@@ -9,6 +9,7 @@ class TasksController < ApplicationController
     groupname = params[:groupname]
     @group = Group.where(name: groupname).take
     @tasks = Task.where(group: groupname)
+    @users = User.all
     # @tasks = Task.all
   end
 
@@ -44,6 +45,9 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    groupname = params[:groupname]
+    @group = Group.where(:name => groupname).take
+    @groupmemberships = @group.group_memberships
   end
 
   # POST /tasks
