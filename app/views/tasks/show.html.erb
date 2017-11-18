@@ -50,8 +50,9 @@
     <% @comments.each do |comment| %>
       <tr>
         <%= comment.task_comment %>
-      </tr>
+      </tr><br>
       <tr> 
+        Written by <%= comment.user_name %>
       </tr>
     <% end %>
   </tbody>
