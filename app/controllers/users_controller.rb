@@ -64,6 +64,11 @@ class UsersController < ApplicationController
     end
   end
 
+# # reset_password
+#   def reset_password
+#   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -85,7 +90,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :is_admin, :password, :email, :date_created)
+      params.require(:user).permit(:name, :is_admin, :password, :email, :date_created, :password_confirmation)
     end
 
 end

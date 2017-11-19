@@ -20,7 +20,10 @@
                             </div>
                             <div class="actions">
                                 <%= f.submit("Login", :class=>"btn btn-primary", :style=>"cursor:pointer") %>
+
+                                <%= link_to("Sign up", new_user_path, :class=>"btn btn-primary", :style=>"cursor:pointer") %>
                             </div>
+
                             <% if @user_login.errors.any? %>
                                 <br>
                                 <div id="error_explanation">
