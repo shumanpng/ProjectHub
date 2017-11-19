@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     groupid = params[:groupid]
     groupname = params[:groupname]
     @group = Group.where(name: groupname).take
-    @tasks = Task.where(group: groupname).paginate(page: params[:page], per_page: 5)
+    @tasks = Task.where(group: groupname).paginate(page: params[:page], per_page: 8)
     @users = User.all
     # @tasks = Task.all
   end
