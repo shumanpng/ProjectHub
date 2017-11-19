@@ -7,3 +7,11 @@
 
 
 }
+
+.pagination {
+  .previous_page { background:#6FBEE5; color:white }
+  .previous_page.disabled { background: white; color: #777 }
+  .current { background: #B0E4FE }
+  .next_page { background: #6FBEE5; color: white }
+  .next_page.disabled { background: white; color: #777 }
+}

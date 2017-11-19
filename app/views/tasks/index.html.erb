@@ -2,6 +2,9 @@
 
 <h1>Listing Tasks</h1>
 
+<div class="pagination">
+</div>
+
 <%= will_paginate @tasks %>
 <table style="width:1000px">
   <thead>
@@ -49,5 +52,7 @@
 
 
 <%= will_paginate @tasks %>
+
+
 
 <%= link_to 'Back to Group Page', group_path(@group.id)%>
