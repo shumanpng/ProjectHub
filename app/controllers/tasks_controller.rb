@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :vote_for_points]
 
   # GET /tasks
   # GET /tasks.json
@@ -105,6 +105,12 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def vote_for_points
+    @curr_task = Task.find(params[:id])
+
+
   end
 
   private
