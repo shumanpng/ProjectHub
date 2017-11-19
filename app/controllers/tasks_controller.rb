@@ -1,31 +1,38 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    groupid = params[:groupid]
+    groupname = params[:groupname]
+    @group = Group.where(name: groupname).take
+    @tasks = Task.where(group: groupname)
     # @tasks = Task.all
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    # groupid = params[:groupid]
+    #
+    # # @task = Task.select("title, description, created_by, due_date, points, group,
+    # #   state, task_type").where(:group_id => groupid)
+    # @task = Task.where(group_id: groupid)
   end
 
   # GET /tasks/new
   def new
-    token = params[:token]
     groupname = params[:groupname]
+    groupid = params[:groupid]
 
     # @group = Group.where(name: groupname).take
     # @group = Group.find params[:groupname]
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
+    @group = Group.where(id: groupid).take
 
-    @user_login = UserLogin.where(token: token).take
-    @curr_user = User.where(email: @user_login.try(:email)).take
-    @user_name = @curr_user
-    @task = Task.new({:group => groupname})
+    @task = Task.new({:group => groupname, :created_by => @current_user.name})
     # @task = Task.new({:created_by => @user_name[:params]})
 
 
@@ -39,8 +46,9 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    token = params[:token]
     groupname = params[:groupname]
+
+    # @current_user.tasks << @task
 
 
     # # use the user login instance and match emails to find current user
@@ -54,17 +62,17 @@ class TasksController < ApplicationController
       if @task.save
 
 
-        # # @group = Group.find(:id => groupID)
+        # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
         # # @group = Group.find(:id => groupID)
         # # # create a new task for group with current group as group name
-        # # @new_task = Task.create(group_id: groupID)
+        # @new_task = Task.create(group_id: @task.group_id)
         # # @new_task = Task.create(redirect_to :controller => 'groups',
         # #   :name => group_path(group_params))
         #
         # # associate new membership with the group and the user
-        # @group.tasks << @task
-        # @curr_user.tasks << @task
+        # @group.task << @new_task
+        # @current_user.tasks << @task
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
@@ -105,8 +113,20 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def authenticate
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
+      if @user_login == nil
+        respond_to do |format|
+          format.html { redirect_to new_user_login_path, notice: '' }
+        end
+      else
+        @current_user = User.where(:email => @user_login.email).take
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :created_by, :due_date, :points, :group, :state, :type, :group_id)
+      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id)
     end
 end
