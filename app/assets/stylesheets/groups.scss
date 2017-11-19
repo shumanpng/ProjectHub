@@ -17,6 +17,20 @@
 }
 
 
+/* group dashboard header info */
+
+h3 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.header {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  color: #b7b7b7;
+  margin: 25px 0 9px 0;
+}
+
+
 /* display members */
 
 .btn-space {
@@ -24,7 +38,7 @@
 }
 
 .display-members {
-  margin-bottom: 175px;
+  margin-bottom: 100px;
 }
 
 .member-container {
@@ -35,18 +49,19 @@
 
 .member-container > .letter-container {
   text-transform: capitalize;
-  background-color: #c6e4ff;
+  background-color: #def2c4;
   border-radius: 50%;
   width: 65px;
   height: 65px;
-  font-size: 40px;
+  font-size: 35px;
   color: white;
   font-weight: bold;
   text-align: center;
+  line-height: 65px;
 }
 
 .member-container > .admin-color {
-  background-color: #fccc5d;
+  background-color: #c2e1f0;
 }
 
 .member-container > p:nth-of-type(1) {

@@ -1,17 +1,21 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @group.name %>
-  </p>
-  <p>
-    <strong>Description:</strong>
-    <%= @group.description %>
-  </p>
+  <h3><%= @group.name %></h3>
+  <% if @group.description != '' && @group.description != nil %>
+    <p>
+      <span class="header">ABOUT:</span>&nbsp;
+      <%= @group.description %>
+    </p>
+  <% end %>
+
+  <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
+  <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
+
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
-    <p>Pending Requests:</p>
+    <br></br>
+    <p class="header">PENDING REQUESTS:</p>
 
     <% if @pending_requests.exists? %>
       <table>
@@ -44,12 +48,9 @@
       <!-- there are no pending requests -->
       <p>No active requests to show!</p>
     <% end %>
-    <br>
   <% end %>
 
-  <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
-  <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
-
+  <br>
   <% if @is_grp_admin %>
     <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm btn-space' %>
   <% end %>
