@@ -1,9 +1,32 @@
 <%= form_tag vote_for_points_path do %>
-<p> UR HEEREEEE YAAYYY!</p>
+
+  <h3> How many points do you think should be assigned to this task?</h3>
+
+  <p>
+    <strong>Points:</strong>
+    <%= @task.points %>
+  </p>
+
+  <%= stylesheet_link_tag "tasks.scss" %>
 
 
+  <%= form_for(@task) do |f| %>
+    <div class = "bgcolor">
+      <div class="field">
+        <%= f.radio_button :points, '1 (Easy)' %>
+        <%= label_tag("1 (Easy)") %><br>
+        <%= f.radio_button(:points, "2 (Medium)") %>
+        <%= label_tag("2 (Medium)") %><br>
+        <%= f.radio_button(:points, "3 (Hard)") %>
+        <%= label_tag("3 (Hard)") %><br>
+      </div>
+      <div class="actions">
+        <%= f.submit 'Vote'%>
+      </div>
+    </div>
+  <% end %>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', edit_task_path %>
+  <%= link_to 'Show', task_path %> |
+  <%= link_to 'Back', edit_task_path %>
 
 <%end%>

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :polls
   resources :change_passwords
   resources :group_requests
   resources :group_memberships
