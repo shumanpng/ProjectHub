@@ -21,15 +21,7 @@
     <%= @user.date_created %>
   </p>
 
-<<<<<<< HEAD
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
 
-<%= link_to('Edit', edit_user_path(@user, :token => @user_login.token), :class=>"btn btn-warning", :style=>"cursor:pointer") %> |
-<%= link_to('Back', groups_path(:token => @user_login.token), :class=>"btn btn-primary", :style=>"cursor:pointer") %>
-=======
   <p>
     <strong>Password:</strong>
     <%= link_to 'Change Password', new_change_password_path%>
@@ -37,4 +29,3 @@
   <%= link_to 'Edit', edit_user_path(@user), :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer" %>
   <%= link_to 'Back', groups_path, :class=>"btn btn-sm btn-primary", :style=>"cursor:pointer" %>
 </div>
->>>>>>> 9dfd49a337266c9f26b4da78c0315d5d3f125e4f
