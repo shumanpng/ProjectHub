@@ -1,6 +1,5 @@
 class Group < ActiveRecord::Base
   has_many :tasks
-  has_many :polls
 
   # note: ':dependent => :destroy' deletes all of a group's child objects
   # (here, group memberships and group requests) when the group is destroyed
