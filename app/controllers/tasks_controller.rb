@@ -7,10 +7,42 @@ class TasksController < ApplicationController
   def index
     groupid = params[:groupid]
     groupname = params[:groupname]
+
+    ## Code from: http://filterrific.clearcove.ca/pages/action_controller_api.html ##
+    @filterrific = initialize_filterrific(
+     Task,
+       params[:filterrific],
+       select_options: {
+         sorted_by: Task.options_for_sorted_by,
+         with_state: Task.options_for_select
+       },
+       persistence_id: 'false',
+       default_filter_params: {},
+       available_filters: [],
+     ) or return
+     ## end of code ##
+
     @group = Group.where(name: groupname).take
-    @tasks = Task.where(group: groupname).paginate(page: params[:page], per_page: 8)
+    # @tasks = Task.where(group: groupname).paginate(page: params[:page], per_page: 8)
+    @tasks = @filterrific.find.page(params[:page]).where(group: groupname).paginate(page: params[:page],      per_page: 8)
+
     @users = User.all
     # @tasks = Task.all
+
+    ## Code from: http://filterrific.clearcove.ca/pages/action_controller_api.html ##
+    # Respond to html for initial page load and to js for AJAX filter updates.
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
+    rescue ActiveRecord::RecordNotFound => e
+      # There is an issue with the persisted param_set. Reset it.
+      puts "Had to reset filterrific params: #{ e.message }"
+      redirect_to(reset_filterrific_url(format: :html)) and return
+    ## end of code ##
+
+
   end
 
   # GET /tasks/1
