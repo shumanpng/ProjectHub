@@ -1,5 +1,52 @@
-<h1>New User</h1>
+<% @page_title = "UserAuth | Signup" %>
 
-<%= render 'form' %>
+<h2>User Sign Up Page</h2>
 
-<%= link_to 'Back', users_path%>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :is_admin %><br>
+    <%= f.check_box :is_admin %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_created %><br>
+    <%= f.datetime_select :date_created, :readonly => true%>
+  </div>
+
+  <% if @user.to_key.present? %>
+      <%= f.hidden_field :token, value: @user_login.token %>
+      <%= hidden_field_tag 'token', @user_login.token %>
+  <% end %>
+  <br/>
+  <div class="actions">
+    <%= f.submit('Signup', :class=>"btn btn-success", :style=>"cursor:pointer")%>
+  </div>
+
+<% end %>
+
+  <br/>
+<%= link_to('Back To Front Page', new_user_login_path, :class=>"btn btn-primary", :style=>"cursor:pointer")%>
