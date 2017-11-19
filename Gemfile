@@ -39,3 +39,6 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 gem 'font-awesome-rails'
+
+gem 'filterrific'
+gem 'will_paginate'
