@@ -47,6 +47,9 @@
     <br>
   <% end %>
 
+  <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
+  <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
+
   <% if @is_grp_admin %>
     <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm btn-space' %>
   <% end %>

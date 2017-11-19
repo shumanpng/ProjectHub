@@ -1,0 +1,25 @@
+<div class="display-members">
+  <p>Group members:</p>
+  <% group.users.each do |user| %>
+    <div class="member-container">
+      <!-- displays a circle with the first letter of the user's name. the group admin's
+      circle is a different color. -->
+      <% if user.id == group.get_admin(group) %>
+        <div class="letter-container admin-color">
+          <p><%= user.name[0] %></p>
+        </div>
+      <% else %>
+        <div class="letter-container">
+          <p><%= user.name[0] %></p>
+        </div>
+      <% end %>
+      <!-- the split method splits a string by whitespaces into an array -->
+      <% user.name.split.each do |name| %>
+        <p><%= name %></p>
+      <% end %>
+      <% if user.id == curr_user.id %>
+        <p>(You)</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

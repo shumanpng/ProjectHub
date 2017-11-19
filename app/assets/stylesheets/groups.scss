@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* styles for 'leave group' modal */
+/* 'leave group' modal */
 
 .cursor-pointer {
   cursor: pointer;
@@ -17,8 +17,42 @@
 }
 
 
-/*  */
+/* display members */
 
 .btn-space {
   margin-bottom: 4px;
+}
+
+.display-members {
+  margin-bottom: 175px;
+}
+
+.member-container {
+  float: left;
+  text-align: center;
+  margin-right: 30px;
+}
+
+.member-container > .letter-container {
+  text-transform: capitalize;
+  background-color: #c6e4ff;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.member-container > .admin-color {
+  background-color: #fccc5d;
+}
+
+.member-container > p:nth-of-type(1) {
+  margin-top: 15px;
+}
+
+.member-container > p {
+  line-height: 30%;
 }
