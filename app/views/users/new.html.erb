@@ -2,8 +2,6 @@
 
 <h2>User Sign Up Page</h2>
 
-<!-- <%= render 'form' %> -->
-
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -32,10 +30,6 @@
   <div class="field">
     <%= f.label :password %><br>
     <%= f.text_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :Password_Confirmation %><br>
-    <%= f.text_field :password_confirmation%>
   </div>
 
   <div class="field">
