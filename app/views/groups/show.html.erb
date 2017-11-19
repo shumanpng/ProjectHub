@@ -9,13 +9,9 @@
     </p>
   <% end %>
 
-  <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
-  <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
-
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
-    <br></br>
-    <p class="header">PENDING REQUESTS:</p>
+    <p class="header pending-requests">PENDING REQUESTS:</p>
 
     <% if @pending_requests.exists? %>
       <table>
@@ -32,11 +28,11 @@
               <tr>
                 <td><%= request.user.name %></td>
                 <td><%= request.user.email %></td>
-                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'accept') do %>
+                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'accept'), :class => 'table-link' do %>
                   <i class="fa fa-thumbs-up fa-fw"></i>Accept
                   <% end %>
                 </td>
-                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'deny') do %>
+                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'deny'), :class => 'table-link' do %>
                   <i class="fa fa-thumbs-down fa-fw"></i>Deny
                   <% end %>
                 </td>
@@ -50,11 +46,12 @@
     <% end %>
   <% end %>
 
-  <br>
+  <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
+  <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
+
   <% if @is_grp_admin %>
-    <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm btn-space' %>
+    <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
   <% end %>
-  <br>
   <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
   <%= link_to 'View Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-success btn-sm'%>
   <br></br>

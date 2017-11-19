@@ -33,12 +33,8 @@ h3 {
 
 /* display members */
 
-.btn-space {
-  margin-bottom: 4px;
-}
-
 .display-members {
-  margin-bottom: 100px;
+  margin-bottom: 175px;
 }
 
 .member-container {
@@ -49,7 +45,7 @@ h3 {
 
 .member-container > .letter-container {
   text-transform: capitalize;
-  background-color: #def2c4;
+  background-color: #e5c7f9;
   border-radius: 50%;
   width: 65px;
   height: 65px;
@@ -65,9 +61,10 @@ h3 {
 }
 
 .member-container > p:nth-of-type(1) {
-  margin-top: 15px;
+  margin-top: 14px;
 }
 
 .member-container > p {
-  line-height: 30%;
+  line-height: 20%;
+  font-size: 14px;
 }
