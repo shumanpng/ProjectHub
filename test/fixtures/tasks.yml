@@ -9,6 +9,7 @@ one:
   group: MyString
   state: MyString
   task_type:
+  assigned_to:
 
 two:
   title: MyString
@@ -19,3 +20,4 @@ two:
   group: MyString
   state: MyString
   task_type:
+  assigned_to:
