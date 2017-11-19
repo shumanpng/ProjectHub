@@ -18,7 +18,7 @@
           <!-- if user is the group admin, display a star (with tooltip) -->
           <td>
             <% if @current_user.id == group.get_admin(group) %>
-              <i class="fa fa-star admin-tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="You are the <br> group admin"></i>
+              <i class="fa fa-star fa-fw admin-tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="You are the <br> group admin"></i>
             <% end %>
           </td>
 
