@@ -35,6 +35,16 @@
   <%= @task.state %>
 </p>
 
+<p>
+  <strong>Assignee:</strong>
+  <% user = User.where(:id => @task.assigned_to).take %>
+  <% if user == nil %>
+    <%= %>
+  <% else %>
+    <%= user.name %>
+  <% end %>
+</p>
+
 
 <%= link_to 'Edit', edit_task_path(@task, :groupname => @task.group) %> |
 <%= link_to 'Back', tasks_path(:groupname => @task.group) %>
