@@ -53,7 +53,7 @@
     <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
   <% end %>
   <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
-  <%= link_to 'View Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-success btn-sm'%>
+  <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-success btn-sm'%>
   <br></br>
   <%= link_to 'Back', groups_path %>
 </div>
@@ -64,7 +64,7 @@
     locals: { tasks: @opentasks }
   ) %>
 
-  <%= render(
+  <%#= render(
     partial: 'tasks/listingroup',
     locals: { tasks: @grouptasks }
   ) %>

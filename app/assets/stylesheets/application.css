@@ -56,8 +56,12 @@ td {
   margin-right: 4px;
 }
 
-.task-table {
-  margin-left: 500px;
+.all-tasks-table{
+  margin-left: 10px;
+}
+
+.all-tasks-view-back-button {
+  margin-left: 10px;
 }
 
 div.scroll {
@@ -70,7 +74,7 @@ div.scroll {
   height:300px;
   overflow:auto;
   margin-top:20px;
-  width: 400px;
+  width: 320px;
   position: absolute;
 }
 
