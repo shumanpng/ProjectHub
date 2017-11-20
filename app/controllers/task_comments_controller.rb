@@ -43,7 +43,7 @@ class TaskCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @task_comment.update(task_comment_params)
-        format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully updated.' }
+        format.html { redirect_to task_path(:id => task_comment_params[:task_id],:group_id => params[:group_id]), notice: 'Task comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_comment }
       else
         format.html { render :edit }
@@ -56,8 +56,9 @@ class TaskCommentsController < ApplicationController
   # DELETE /task_comments/1.json
   def destroy
     @task_comment.destroy
+
     respond_to do |format|
-      format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully destroyed.' }
+      format.html { redirect_to task_path(:id => params[:task_id], :group_id => params[:group_id]), notice: 'Task comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

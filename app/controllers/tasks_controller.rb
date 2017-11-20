@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @comments = TaskComment.where(task_id: params[:id])
+    @comments = TaskComment.where(task_id: params[:id]).order(:id)
     #@isadmin = GroupMembership.where(group_id: params[:groupid], is_admin: true)
     # groupid = params[:groupid]
     #
