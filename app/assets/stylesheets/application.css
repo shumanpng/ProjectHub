@@ -74,15 +74,19 @@ div.scroll {
   height:300px;
   overflow:auto;
   margin-top:20px;
-  width: 320px;
-  position: absolute;
+  width: 500px;
+  /*position: absolute;*/
 }
 
 .table-size {
-  width: 40%;
+  width: 50%;
 }
 
 .open-tasks-table {
   margin-left: 580px;
   margin-top: -400px;
+}
+
+.in-progress-tasks-table {
+  margin-left: 580px;
 }
