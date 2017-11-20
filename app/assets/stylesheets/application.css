@@ -70,8 +70,15 @@ div.scroll {
   height:300px;
   overflow:auto;
   margin-top:20px;
+  width: 400px;
+  position: absolute;
 }
 
 .table-size {
   width: 40%;
+}
+
+.open-tasks-table {
+  margin-left: 450px;
+  margin-top: -400px;
 }
