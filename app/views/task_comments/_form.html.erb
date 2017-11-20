@@ -10,14 +10,14 @@
       </ul>
     </div>
   <% end %>
+
   <%= f.hidden_field :user_name, :value => @current_user.name%>
   <%= f.hidden_field :user_id, :value => @current_user.id%>
+  <%= f.hidden_field :isadmin, :value => @current_user.is_admin%>
+  <%= f.check_box :isadmin, :checked => @current_user.is_admin, :style => "display: none;" %>
   <%= f.hidden_field :task_id, :value => params[:task_id]%>
-  
-  <div class="field">
-    <%= f.label :grp_admin %><br>
-    <%= f.check_box :grp_admin %>
-  </div>
+
+
   <div class="field">
     <%= f.label :task_comment %><br>
     <%= f.text_area :task_comment %>

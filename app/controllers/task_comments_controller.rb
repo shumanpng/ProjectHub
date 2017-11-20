@@ -1,7 +1,7 @@
 class TaskCommentsController < ApplicationController
   before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
   before_action :set_task_comment, only: [:show, :edit, :update, :destroy]
-  
+
 
   # GET /task_comments
   # GET /task_comments.json
@@ -82,6 +82,6 @@ class TaskCommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_comment_params
-      params.require(:task_comment).permit(:user_id, :user_name, :group_id, :task_id, :grp_admin, :task_comment)
+      params.require(:task_comment).permit(:user_id, :user_name, :group_id, :task_id, :grp_admin, :task_comment, :isadmin)
     end
 end
