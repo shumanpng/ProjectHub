@@ -59,7 +59,9 @@
       </tr><br>
       <tr>
         <i>Written by
-
+          <% if comment.isadmin %>
+          ADMIN
+          <% end %>
         <%= comment.user_name %>
         <% if comment.user_id == @current_user.id %></i>
         <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id]) %>
