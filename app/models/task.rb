@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  acts_as_votable
   # belongs_to :group
   belongs_to :user
   # validates_length_of :title, :minimum => 1

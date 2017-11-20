@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :companies
   resources :users
   resources :widgets
-  resources :tasks
   resources :groups
   resources :user_logins
   resources :active_users
@@ -21,6 +20,12 @@ Rails.application.routes.draw do
 
   get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
 
+  resources :tasks do
+    member do
+      put "positive" => "tasks#upvote"
+      put "negative" => "tasks#downvote"
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
