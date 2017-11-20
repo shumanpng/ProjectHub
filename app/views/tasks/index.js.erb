@@ -1,0 +1,9 @@
+<%# Code reference: http://filterrific.clearcove.ca/pages/action_view_api.html %>
+
+<%# app/views/tasks/index.js.erb %>
+
+<% js = escape_javascript(
+  render(partial: 'tasks/list',
+  locals: { tasks: @tasks })
+) %>
+$("#filterrific_results").html("<%= js %>");
