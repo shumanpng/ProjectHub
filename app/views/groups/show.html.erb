@@ -59,6 +59,7 @@
 </div>
 
 <div>
+
   <%= render(
     partial: 'tasks/list_open_tasks_in_group',
     locals: { tasks: @opentasks }
@@ -69,5 +70,9 @@
     locals: { tasks: @inprogresstasks }
   ) %>
 
+  <%= render(
+    partial: 'tasks/list_completed_tasks_in_group',
+    locals: { tasks: @completedtasks }
+  ) %>
 
 </div>
