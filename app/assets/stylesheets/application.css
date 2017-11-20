@@ -84,7 +84,9 @@ td {
 
 .open-tasks-table {
   margin-left: 580px;
-  margin-top: -400px;
+  margin-top: -450px;
+  /*margin-top: 0px;*/
+  /*position: absolute;*/
 }
 
 .in-progress-tasks-table {
