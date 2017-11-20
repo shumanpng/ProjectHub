@@ -15,6 +15,9 @@ class GroupsController < ApplicationController
     # get array of pending requests
     @pending_requests = @group.group_requests.where(:status => 'pending')
 
+    # get array of tasks of the group
+    @grouptasks = Task.where(:group => @group.name)
+
     # check whether or not the user is the group admin
     if GroupMembership.where(:user_id => @current_user.id, :group_id => @group.id, :is_admin => true).exists?
       @is_grp_admin = true

@@ -2,12 +2,9 @@
 <table style="width:1250px">
   <thead>
     <tr>
-      <!-- <th style="width:180px">Title</th> -->
-     <th><%= filterrific_sorting_link(@filterrific, :title) %></th>
+      <th style="width:180px">Title</th>
       <th style="width:200px">Description</th>
-      <th style="width:130px">
-       <%= filterrific_sorting_link(@filterrific, :created_by) %>
-      </th>
+      <th style="width:130px">Created by</th>
       <th style="width:150px">Deadline</th>
       <th style="width:70px">Points</th>
       <th style="wdith:180px">Group</th>
@@ -21,7 +18,7 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
+    <% @grouptasks.each do |task| %>
       <% user = User.where(:id => task.assigned_to).take %>
 
       <tr>
@@ -51,5 +48,5 @@
 <br>
 
 
-<%= will_paginate @tasks %>
+<%#= will_paginate @tasks %>
 </div>

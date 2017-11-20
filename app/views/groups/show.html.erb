@@ -57,3 +57,10 @@
   <br></br>
   <%= link_to 'Back', groups_path %>
 </div>
+
+<div>
+  <%= render(
+    partial: 'tasks/listingroup',
+    locals: { tasks: @grouptasks }
+  ) %>
+</div>
