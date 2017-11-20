@@ -51,9 +51,9 @@
     </div>
 
     <div class="field">
-      <%= f.label :Assignee %><br>
       <% if @groupmemberships == nil %>
       <% else %>
+        <%= f.label :Assignee %><br>
         <% @groupmemberships.each do |g| %>
           <% user = User.where(:id => g.user_id).take %>
           <%= f.radio_button(:assigned_to, user.id) %>

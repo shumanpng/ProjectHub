@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Tasks</h1>
+<h3><%= @group.name %> Tasks</h3>
 
 <div class="pagination">
 </div>
@@ -20,8 +20,7 @@
       @filterrific.select_options[:with_state],
       { include_blank: '- Any -' }
     ) %>
-  </div>
-  <div>
+    &nbsp; &nbsp; &nbsp;
     Sorted by
     <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
   </div>
@@ -32,7 +31,7 @@
      <% @tasks.each do |task| %>
      <% @groupname = task.group %>
      <% end %>
-    <%= link_to('Reload tasks', tasks_path(:groupname => @groupname)) %>
+    <%= link_to('Reload tasks', tasks_path(:groupname => @groupname), :class=>"btn btn-primary btn-sm", :style=>"background: #6FBEE5") %>
 
   </div>
   <%# add an automated spinner to your form when the list is refreshed %>

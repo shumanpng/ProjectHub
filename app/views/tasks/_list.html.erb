@@ -3,10 +3,12 @@
 
 <div id="filterrific_results">
 
+</br>
   <div>
      <%= page_entries_info tasks %>
    </div>
 
+ </br>
  <%= will_paginate @tasks %>
  <table style="width:1250px">
    <thead>
@@ -64,5 +66,5 @@
 </div>
 
 
- <%#= link_to 'Back to Group Page', group_path(@group.id)%>
- <%= link_to 'Back to Group Page', groups_path %>
+ <%= link_to 'Back to Group Page', group_path(@group.id)%>
+ <%#= link_to 'Back to Group Page', groups_path %>
