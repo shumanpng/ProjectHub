@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :vote_for_points]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :vote_for_points]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :vote_for_points, :upvote, :downvote]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :vote_for_points, :upvote, :downvote]
 
   # GET /tasks
   # GET /tasks.json
@@ -110,7 +110,19 @@ class TasksController < ApplicationController
   def vote_for_points
     @curr_task = Task.find(params[:id])
 
+  end
 
+# upvote_from user
+# downvote_from user
+  def upvote
+    @curr_task = Task.find(params[:id])
+    @task.upvote_from @current_user
+    redirect_to :back
+  end
+  def downvote
+    @curr_task = Task.find(params[:id])
+    @task.downvote_from @current_user
+    redirect_to :back
   end
 
   private
