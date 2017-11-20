@@ -41,7 +41,7 @@
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path(:groupname => @task.group) %>
+<%= link_to 'Back', tasks_path(:groupname => @task.group, :groupid => params[:group_id]) %>
 
 
 <br><br><strong>Comments</strong><br>
@@ -64,7 +64,8 @@
           <% end %>
         <%= comment.user_name %>
         <% if comment.user_id == @current_user.id %></i>
-        <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id]) %>
+        <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id]) %> |
+        <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
       </tr><br><br>
     <% end %>
