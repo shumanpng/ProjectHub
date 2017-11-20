@@ -35,7 +35,7 @@
   <%= render_filterrific_spinner %>
 <% end %>
 
-<#%= render(
+<%= render(
   partial: 'tasks/list',
   locals: { tasks: @tasks }
 ) %>
@@ -63,7 +63,7 @@
       <% user = User.where(:id => task.assigned_to).take %>
 
       <tr>
-        <td><%= task.title %></td>
+        <td><%= link_to(task.title, task_path(task)) %></td>
         <td><%= task.description %></td>
         <td><%= task.created_by %></td>
         <td><%= task.deadline %></td>
@@ -77,7 +77,7 @@
             <%= user.name %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', task %></td>
+        <td><%#= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -92,4 +92,5 @@
 
 
 
-<%= link_to 'Back to Group Page', group_path(@group.id)%>
+<%#= link_to 'Back to Group Page', group_path(@group.id)%>
+<%= link_to 'Back to Group Page', groups_path %>

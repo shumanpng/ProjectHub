@@ -1,0 +1,46 @@
+<%# app/views/tasks/_list.html.erb %>
+<%# code from: http://filterrific.clearcove.ca/pages/action_view_api.html %>
+
+<div id="filterrific_results">
+
+  <div>
+     <%= page_entries_info tasks %>
+   </div>
+
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Created by</th>
+      <th>Deadline</th>
+      <th>Points</th>
+      <th>Group</th>
+      <th>State</th>
+      <th>Assignee</th>
+
+    </tr>
+
+    <% tasks.each do |task| %>
+        <td><%= link_to(task.title, task_path(task)) %></td>
+
+        <% user = User.where(:id => task.assigned_to).take %>
+        <tr>
+          <td><%= task.description %></td>
+          <td><%= task.created_by %></td>
+          <td><%= task.deadline %></td>
+          <td><%= task.points %></td>
+          <td><%= task.group %></td>
+          <td><%= task.state %></td>
+          <td>
+            <% if user == nil %>
+              <%= %>
+            <% else %>
+              <%= user.name %>
+            <% end %>
+          </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate tasks %>

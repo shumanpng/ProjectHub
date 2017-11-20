@@ -8,6 +8,9 @@ class TasksController < ApplicationController
     groupid = params[:groupid]
     groupname = params[:groupname]
 
+    @group = Group.where(name: groupname).take
+    @users = User.all
+
     ## Code from: http://filterrific.clearcove.ca/pages/action_controller_api.html ##
     @filterrific = initialize_filterrific(
      Task,
@@ -22,11 +25,10 @@ class TasksController < ApplicationController
      ) or return
      ## end of code ##
 
-    @group = Group.where(name: groupname).take
     # @tasks = Task.where(group: groupname).paginate(page: params[:page], per_page: 8)
     @tasks = @filterrific.find.page(params[:page]).where(group: groupname).paginate(page: params[:page],      per_page: 8)
 
-    @users = User.all
+
     # @tasks = Task.all
 
     ## Code from: http://filterrific.clearcove.ca/pages/action_controller_api.html ##
