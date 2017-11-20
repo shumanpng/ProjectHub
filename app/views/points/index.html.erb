@@ -14,8 +14,7 @@
 </h3>
 
 
-<% @points.each do |point| %>
-
+<% @points.each_with_index do |point, index| %>
       <div><h2><%= point.level %>:<h2></div>
 
       <!-- Upvote -->
@@ -27,16 +26,27 @@
     </br>
     </button>
       <!-- Downvote -->
-      <button type="button" class="btn btn-info" aria-label="Left Align">
+      <!-- <button type="button" class="btn btn-info" aria-label="Left Align">
       <%= link_to negative_point_path(point),class:"btn btn-primary btn-lg", method: :put do %>
         <span class="glyphicon glyphicon-thumbs-down glyphicon-align-centre" aria-hidden="true"></span>
         <span class="badge"><%= point.get_downvotes.size %></span>
       <% end %>
-    </button></br>
+    </button></br> -->
+</br>
+    <%if @current_user.voted_as_when_voted_for point%>
+      <%if index != @points.size %>
+        <%point.unliked_by @current_user%>
+        <%if index != @points.size %>
+          <%point.unliked_by @current_user%>
+        <% end %>
+      <% end %>
+    <% end %>
+
 
 
 <% end %>
-
+<!-- <% @current_url = request.fullpath%>
+@group.id => @current_url.partition("group_id=").last -->
 
 </br>
 <%= link_to 'Back to Task Page', tasks_path, :class=>"btn btn-sm btn-primary"%>
