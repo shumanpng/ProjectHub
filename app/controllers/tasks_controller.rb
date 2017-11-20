@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    groupid = params[:groupid]
+    # groupid = params[:groupid]
     groupname = params[:groupname]
 
     @group = Group.where(name: groupname).take

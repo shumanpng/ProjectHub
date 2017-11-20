@@ -6,9 +6,9 @@
 </div>
 <%= form_for_filterrific @filterrific do |f| %>
   <div>
-    Search
+    <!-- Search -->
     <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-    <%= f.text_field(
+    <%#= f.text_field(
       :search_query,
       class: 'filterrific-periodically-observed'
     ) %>
@@ -26,10 +26,14 @@
     <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
   </div>
   <div>
-    <%= link_to(
-      'Reset filters',
-      reset_filterrific_url,
-    ) %>
+    <%#= link_to('Reset filters',reset_filterrific_url) %>
+  </div>
+  <div>
+     <% @tasks.each do |task| %>
+     <% @groupname = task.group %>
+     <% end %>
+    <%= link_to('Reload tasks', tasks_path(:groupname => @groupname)) %>
+
   </div>
   <%# add an automated spinner to your form when the list is refreshed %>
   <%= render_filterrific_spinner %>
