@@ -42,10 +42,8 @@ class Task < ActiveRecord::Base
       }.join(' AND '),
       *terms.map { |e| [e] * num_or_conds }.flatten
     )
-
-
-
   }
+  
   scope :sorted_by, lambda { |sort_option|
     direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
     case sort_option.to_s
@@ -54,7 +52,7 @@ class Task < ActiveRecord::Base
     when /^created_by/
       order("LOWER(tasks.created_by) #{ direction }")
     # when /^created_at/
-    #   order("LOWER(tasks.created_at) #{ direction }")
+      # order("LOWER(tasks.created_at) #{ direction }")
     else
       # raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
     end
@@ -65,8 +63,9 @@ class Task < ActiveRecord::Base
     where(state: [*states])
 
   }
-  scope :with_created_at_gte, lambda { |ref_date|
 
+  scope :with_created_at_gte, lambda { |ref_date|
+    where(created_at: [*created_at])
   }
 
   # This method provides select options for the `sorted_by` filter select input.
