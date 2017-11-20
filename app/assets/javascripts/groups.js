@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
-document.addEventListener("turbolinks:load", function() {
-  // display tooltip on hover over star in group index
-  $('.admin-tooltip').tooltip();
-})
+// document.addEventListener("turbolinks:load", function() {
+//   // display tooltip on hover over star in group index
+//   $('.admin-tooltip').tooltip();
+// })
