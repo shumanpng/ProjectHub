@@ -43,7 +43,7 @@ class Task < ActiveRecord::Base
       *terms.map { |e| [e] * num_or_conds }.flatten
     )
   }
-  
+
   scope :sorted_by, lambda { |sort_option|
     direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
     case sort_option.to_s
@@ -60,7 +60,7 @@ class Task < ActiveRecord::Base
   }
   # filters on Task state attribute
   scope :with_state, lambda { |states|
-    where(state: [*states])
+    # where(state: [*state])
 
   }
 

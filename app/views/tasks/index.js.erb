@@ -3,6 +3,7 @@
 <%# app/views/tasks/index.js.erb %>
 
 <% js = escape_javascript(
-  render(partial: 'tasks/list', locals: { tasks: @tasks })
+  render(partial: 'tasks/list',
+  locals: { tasks: @tasks })
 ) %>
 $("#filterrific_results").html("<%= js %>");

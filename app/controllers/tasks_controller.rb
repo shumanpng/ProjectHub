@@ -18,10 +18,10 @@ class TasksController < ApplicationController
        select_options: {
          sorted_by: Task.options_for_sorted_by,
          with_state: Task.options_for_select
-       },
-       persistence_id: 'false',
-       default_filter_params: {},
-       available_filters: [],
+       }
+       # persistence_id: 'false',
+       # default_filter_params: {},
+       # available_filters: [],
      ) or return
      ## end of code ##
 
