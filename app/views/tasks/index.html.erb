@@ -4,7 +4,7 @@
 
 <div class="pagination">
 </div>
-<%= form_for_filterrific @filterrific do |f| %>
+<%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
   <div>
     <!-- Search -->
     <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
@@ -37,7 +37,9 @@
   </div>
   <%# add an automated spinner to your form when the list is refreshed %>
   <%= render_filterrific_spinner %>
+    <%= f.submit 'Filter' %>
 <% end %>
+
 
 <%= render(
   partial: 'tasks/list',
