@@ -46,8 +46,18 @@ class Task < ActiveRecord::Base
 
 
   }
-  scope :sorted_by, lambda { |sort_key|
-    # Sorts students by sort_key
+  scope :sorted_by, lambda { |sort_option|
+    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+    case sort_option.to_s
+    when /^title/
+      order("LOWER(tasks.title) #{ direction }")
+    when /^created_by/
+      order("LOWER(tasks.created_by) #{ direction }")
+    # when /^created_at/
+    #   order("LOWER(tasks.created_at) #{ direction }")
+    else
+      # raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+    end
 
   }
   # filters on Task state attribute
@@ -63,9 +73,12 @@ class Task < ActiveRecord::Base
   # It is called in the controller as part of `initialize_filterrific`.
   def self.options_for_sorted_by
     [
+      ['Task title (a-z)', 'title_asc'],
+      ['Task title (z-a)', 'title_desc'],
       ['Created by (a-z)', 'created_by_asc'],
-      ['Dated created (newest first)', 'created_at_desc'],
-      ['Date created (oldest first)', 'created_at_asc'],
+      ['Created by (z-a)', 'created_by_desc']
+      # ['Dated created (newest first)', 'created_at_desc'],
+      # ['Date created (oldest first)', 'created_at_asc'],
       # ['Created_by (a-z)', 'country_name_asc']
     ]
   end
