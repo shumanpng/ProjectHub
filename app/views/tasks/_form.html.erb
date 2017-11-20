@@ -17,7 +17,7 @@
   <div class = "bgcolor">
     <div class="field">
       <%= f.label :title %><br>
-      <%= f.text_field :title %>
+      <%= f.text_field :title, required: true %>
     </div>
     <div class="field">
       <%= f.label :description %><br>
@@ -51,11 +51,15 @@
     </div>
 
     <div class="field">
-      <%= f.label :Assignee %><br>
-      <% @groupmemberships.each do |g| %>
-        <% user = User.where(:id => g.user_id).take %>
-        <%= f.radio_button(:assigned_to, user.id) %>
-        <%= label_tag(:assigned_to, user.name) %>
+      <% if @groupmemberships != nil %>
+        <%= f.label :Assignee %><br>
+        <% @groupmemberships.each do |g| %>
+          <% user = User.where(:id => g.user_id).take %>
+          <%= f.radio_button(:assigned_to, user.id) %>
+          <%= label_tag(:assigned_to, user.name) %>
+        <% end %>
+      <% else %>
+        <% tasks_path %>
       <% end %>
 
     </div>
