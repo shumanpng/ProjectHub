@@ -57,7 +57,7 @@ class TaskCommentsController < ApplicationController
   def destroy
     @task_comment.destroy
     respond_to do |format|
-      format.html { redirect_to task_comments_url, notice: 'Task comment was successfully destroyed.' }
+      format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
