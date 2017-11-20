@@ -9,22 +9,22 @@
 
   <table>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Created by</th>
-      <th>Deadline</th>
-      <th>Points</th>
-      <th>Group</th>
-      <th>State</th>
-      <th>Assignee</th>
+      <th style="width:180px">Title</th>
+      <th style="width:200px">Description</th>
+      <th style="width:130px">Created by</th>
+      <th style="width:150px">Deadline</th>
+      <th style="width:70px">Points</th>
+      <th style="wdith:100px">Group</th>
+      <th style="width:100px">State</th>
+      <th style="width:130px">Assignee</th>
 
     </tr>
 
     <% tasks.each do |task| %>
-        <td><%= link_to(task.title, task_path(task)) %></td>
 
         <% user = User.where(:id => task.assigned_to).take %>
         <tr>
+          <td><%= link_to(task.title, task_path(task)) %></td>
           <td><%= task.description %></td>
           <td><%= task.created_by %></td>
           <td><%= task.deadline %></td>
