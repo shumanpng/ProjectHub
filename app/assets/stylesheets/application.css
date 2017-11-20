@@ -64,22 +64,22 @@ td {
   margin-left: 10px;
 }
 
-div.scroll {
+/*div.scroll {
   width: 100px;
   height: 10px;
   overflow: scroll;
-}
+}*/
 
 .table-scroll {
   height:300px;
   overflow:auto;
   margin-top:20px;
-  width: 500px;
+  width: 550px;
   /*position: absolute;*/
 }
 
 .table-size {
-  width: 50%;
+  width: 100%;
 }
 
 .open-tasks-table {
