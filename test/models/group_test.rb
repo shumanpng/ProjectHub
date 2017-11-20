@@ -75,4 +75,17 @@ class GroupTest < ActiveSupport::TestCase
     gm = GroupMembership.create(:user_id => u2.id, :group_id => g.id)
     assert_equal('view', g.typeOfAccess(g, u2), 'user is already a member of group')
   end
+
+  test 'get_admin returns correct admin id' do
+    # add a group admin to a group
+    u1 = User.create(:id => 1, :name => 'Snape', :email => 'sever@us.ca')
+    g = Group.create(:id => 1)
+    gm1 = GroupMembership.create(:group_id => g.id, :user_id => u1.id, :is_admin => true)
+    assert_equal(1, g.get_admin(g), 'admin only member; their id is returned')
+
+    # add a non-admin to the same group
+    u2 = User.create(:id => 2, :name => 'Dumbledore', :email => 'wizardz_rule@gmail.com')
+    gm2 = GroupMembership.create(:group_id => g.id, :user_id => u2.id, :is_admin => false)
+    assert_equal(1, g.get_admin(g), "> 1 member in group; admin's id is returned")
+  end
 end

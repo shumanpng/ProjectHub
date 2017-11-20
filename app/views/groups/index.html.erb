@@ -1,50 +1,69 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <h1>Listing Groups</h1>
+  <% if @current_user.is_admin %>
+    <h3>Dashboard &mdash; Admin</h3>
+  <% else %>
+    <h3>Dashboard</h3>
+  <% end %>
 
   <table>
     <thead>
       <tr>
+        <% if !@current_user.is_admin %><th><i class="fa fa-star"></i></th><% end %>
         <th>Name</th>
         <th>Access</th>
+        <% if !@current_user.is_admin %><th>Leave</th><% end %>
       </tr>
     </thead>
 
     <tbody>
       <% @groups.each do |group| %>
         <tr>
+          <!-- if user is the group admin, display a star (with tooltip) -->
+          <% if !@current_user.is_admin %>
+            <td>
+              <% if @current_user.id == group.get_admin(group) %>
+                <i class="fa fa-star fa-fw admin-tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="You are the <br> group admin"></i>
+              <% end %>
+            </td>
+          <% end %>
+
           <td><%= group.name %></td>
 
           <td>
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @current_user) %>
             <% if @access_type == 'view' %>
-              <%= link_to group_path(:id => group.id) do %>
-                <i class="fa fa-eye fa-fw"></i>View Group
+              <%= link_to group_path(:id => group.id), :class => 'table-link' do %>
+                <i class="fa fa-unlock fa-fw"></i>View Group
               <% end %>
             <% elsif @access_type == 'join' %>
-              <%= link_to new_group_request_path(:id => group.id) do %>
-                <i class="fa fa-unlock fa-fw"></i>Join Group
+              <%= link_to new_group_request_path(:id => group.id), :class => 'table-link' do %>
+                <i class="fa fa-plus fa-fw"></i>Join Group
               <% end %>
             <% elsif @access_type == 'pending' %>
-              <i class="fa fa-hourglass-half fa-fw"></i>Request Pending
+              <i class="fa fa-clock-o fa-fw"></i>Request Pending
             <% else %>
               <i class="fa fa-lock fa-fw"></i>Request Denied
             <% end %>
           </td>
 
           <!-- if user is a member of group, display 'Leave Group' button -->
-          <td>
-            <% if @access_type == 'view' && @current_user.is_admin == false %>
-              <!-- add link to toggle the modal. Since the modal displays info specific to each group, the
-              modal has to have unique id's depending on which group is calling it -->
-              <%= link_to 'Leave Group', groups_path, data: { toggle: "modal", target: "#modal#{group.id}" } %>
+          <% if !@current_user.is_admin %>
+            <td>
+              <% if @access_type == 'view' && @current_user.is_admin == false %>
+                <!-- add link to toggle the modal. Since the modal displays info specific to each group, the
+                modal has to have unique id's depending on which group is calling it -->
+                <%= link_to groups_path, data: { toggle: "modal", target: "#modal#{group.id}" }, :class => 'table-link' do %>
+                  <i class="fa fa-close fa-fw"></i>Leave Group
+                <% end %>
 
-              <!-- render modal stored in views/groups/_leave_grp_modal.html.erb (a partial view) -->
-              <%= render 'groups/leave_grp_modal', :group => group, :user => @current_user %>
-            <% end %>
-          </td>
+                <!-- render modal stored in views/groups/_leave_grp_modal.html.erb (a partial view) -->
+                <%= render 'groups/leave_grp_modal', :group => group, :user => @current_user %>
+              <% end %>
+            </td>
+          <% end %>
 
         </tr>
       <% end %>

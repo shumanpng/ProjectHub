@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-
     # get array of pending requests
     @pending_requests = @group.group_requests.where(:status => 'pending')
 
@@ -22,7 +21,6 @@ class GroupsController < ApplicationController
     else
       @is_grp_admin = false
     end
-
   end
 
   # GET /groups/new

@@ -10,6 +10,9 @@
         <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' %>
         <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' %>
         <%= csrf_meta_tags %>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600|Roboto" rel="stylesheet">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,20 +27,20 @@
                         <div class="navbar-nav">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <%= link_to 'Groups', groups_path %>
+                                    <%= link_to 'Dashboard', groups_path, :class => 'nav-link' %>
                                 </li>
                             </ul>
                         </div>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Profile
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                <%= link_to 'Setting', user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
+                                <%= link_to '<i class="fa fa-gear fa-fw"></i>Settings'.html_safe, user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
 
-                                <%= link_to 'Logout', new_user_login_path, :class=>"dropdown-item" %>
+                                <%= link_to '<i class="fa fa-sign-out fa-fw"></i>Logout'.html_safe, new_user_login_path, :class=>"dropdown-item" %>
                                 </div>
                             </li>
                         </ul>
