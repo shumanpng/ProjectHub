@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     member do
       put "positive" => "points#upvote"
       put "negative" => "points#downvote"
+
+      get "positive" => "points#upvote"
+      get "negative" => "points#downvote"
     end
   end
 

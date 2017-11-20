@@ -1,21 +1,42 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<head>
+  <title>Voting Poll</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"%>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"%>
+  <%= javascript_include_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"%>
+</head>
+<h3> How many points do you think should be assigned to this task?</h3>
 
-<h1>Listing Points</h1>
+<h3>
+  <strong>Points:</strong>
+
+</h3>
+
 
 <% @points.each do |point| %>
-    <button type="button" class="btn btn-success" aria-label="Left Align">
-      <div><%= point.level %></div>
+
+      <div><h2><%= point.level %>:<h2></div>
 
       <!-- Upvote -->
-      <%= link_to positive_point_path(point), method: :put do %>
-          Upvote
-          <%= point.get_upvotes.size %>
+      <button type="button" class="btn btn-info" aria-label="Left Align">
+      <%= link_to positive_point_path(point), class:"btn btn-primary btn-lg", method: :put do %>
+          <span class="glyphicon glyphicon-thumbs-up glyphicon-align-centre" aria-hidden="true"></span>
+          <span class="badge"><%= point.get_upvotes.size %></span>
       <% end %>
-
+    </br>
+    </button>
       <!-- Downvote -->
-      <%= link_to negative_point_path(point), method: :put do %>
-        Downvote
-        <%= point.get_downvotes.size %>
+      <button type="button" class="btn btn-info" aria-label="Left Align">
+      <%= link_to negative_point_path(point),class:"btn btn-primary btn-lg", method: :put do %>
+        <span class="glyphicon glyphicon-thumbs-down glyphicon-align-centre" aria-hidden="true"></span>
+        <span class="badge"><%= point.get_downvotes.size %></span>
       <% end %>
+    </button></br>
+
 
 <% end %>
+
+
+</br>
+<%= link_to 'Back to Task Page', tasks_path, :class=>"btn btn-sm btn-primary"%>

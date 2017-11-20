@@ -2,10 +2,16 @@ class PointsController < ApplicationController
   before_action :set_point, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :upvote, :downvote]
 
+  layout false
+
   # GET /points
   # GET /points.json
   def index
     @points = Point.all
+    groupid = params[:groupid]
+    groupname = params[:groupname]
+    @group = Group.where(name: groupname).take
+    @tasks = Task.where(group: groupname)
   end
 
   # GET /points/1
@@ -64,12 +70,12 @@ class PointsController < ApplicationController
 
 
   # upvote_from user
-  # downvote_from user
     def upvote
       # @curr_point = Point.find(params[:id])
       @point.upvote_from @current_user
       redirect_to :back
     end
+    # downvote_from user
     def downvote
       # @curr_point = Point.find(params[:id])
       @point.downvote_from @current_user
