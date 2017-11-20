@@ -14,16 +14,17 @@ Rails.application.routes.draw do
   resources :companies
   resources :users
   resources :widgets
+  resources :tasks
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
 
   get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
 
-  resources :tasks do
+  resources :points do
     member do
-      put "positive" => "tasks#upvote"
-      put "negative" => "tasks#downvote"
+      put "positive" => "points#upvote"
+      put "negative" => "points#downvote"
     end
   end
 

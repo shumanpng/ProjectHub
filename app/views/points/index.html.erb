@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Points</h1>
+
+<% @points.each do |point| %>
+    <button type="button" class="btn btn-success" aria-label="Left Align">
+      <div><%= point.level %></div>
+
+      <!-- Upvote -->
+      <%= link_to positive_point_path(point), method: :put do %>
+          Upvote
+          <%= point.get_upvotes.size %>
+      <% end %>
+
+      <!-- Downvote -->
+      <%= link_to negative_point_path(point), method: :put do %>
+        Downvote
+        <%= point.get_downvotes.size %>
+      <% end %>
+
+<% end %>
