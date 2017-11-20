@@ -10,7 +10,6 @@
   <table>
     <thead>
       <tr>
-        <% if !@current_user.is_admin %><th><i class="fa fa-star"></i></th><% end %>
         <th>Name</th>
         <th>Access</th>
         <% if !@current_user.is_admin %><th>Leave</th><% end %>
@@ -20,17 +19,8 @@
     <tbody>
       <% @groups.each do |group| %>
         <tr>
-          <!-- if user is the group admin, display a star (with tooltip) -->
-          <% if !@current_user.is_admin %>
-            <td>
-              <% if @current_user.id == group.get_admin(group) %>
-                <i class="fa fa-star fa-fw admin-tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="You are the <br> group admin"></i>
-              <% end %>
-            </td>
-          <% end %>
-
           <td><%= group.name %></td>
-
+          
           <td>
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @current_user) %>
