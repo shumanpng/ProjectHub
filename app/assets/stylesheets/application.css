@@ -59,3 +59,19 @@ td {
 .task-table {
   margin-left: 500px;
 }
+
+div.scroll {
+  width: 100px;
+  height: 10px;
+  overflow: scroll;
+}
+
+.table-scroll {
+  height:300px;
+  overflow:auto;
+  margin-top:20px;
+}
+
+.table-size {
+  width: 40%;
+}
