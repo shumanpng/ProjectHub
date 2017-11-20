@@ -61,7 +61,9 @@
         <i>Written by
 
         <%= comment.user_name %>
-
+        <% if comment.user_id == @current_user.id %></i>
+        <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id]) %>
+        <% end %>
       </tr><br><br>
     <% end %>
   </tbody>
