@@ -2,5 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @task_comment %> |
-<%= link_to 'Back', task_comments_path %>
+<%= link_to 'Back', task_path(params[:task_id]) %>

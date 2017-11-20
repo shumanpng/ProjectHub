@@ -43,7 +43,7 @@ class TaskCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @task_comment.update(task_comment_params)
-        format.html { redirect_to @task_comment, notice: 'Task comment was successfully updated.' }
+        format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_comment }
       else
         format.html { render :edit }
