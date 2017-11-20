@@ -26,7 +26,7 @@ class TasksController < ApplicationController
      ## end of code ##
 
     # @tasks = Task.where(group: groupname).paginate(page: params[:page], per_page: 8)
-    @tasks = @filterrific.find.page(params[:page]).where(group: groupname).paginate(page: params[:page],      per_page: 8)
+    @tasks = @filterrific.find.page(params[:page]).where(group: groupname).paginate(page: params[:page],      per_page: 6)
 
 
     # @tasks = Task.all
