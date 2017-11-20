@@ -17,6 +17,8 @@ class GroupsController < ApplicationController
 
     # get array of tasks of the group
     @grouptasks = Task.where(:group => @group.name)
+    # get array of tasks of the group where state = Open
+    @opentasks = Task.where(:group => @group.name, :state => "Open")
 
     # check whether or not the user is the group admin
     if GroupMembership.where(:user_id => @current_user.id, :group_id => @group.id, :is_admin => true).exists?

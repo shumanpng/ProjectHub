@@ -60,7 +60,14 @@
 
 <div>
   <%= render(
+    partial: 'tasks/listopentasksingroup',
+    locals: { tasks: @opentasks }
+  ) %>
+
+  <%= render(
     partial: 'tasks/listingroup',
     locals: { tasks: @grouptasks }
   ) %>
+
+
 </div>
