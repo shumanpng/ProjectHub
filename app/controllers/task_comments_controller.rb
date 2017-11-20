@@ -16,7 +16,8 @@ class TaskCommentsController < ApplicationController
 
   # GET /task_comments/new
   def new
-    @task_comment = TaskComment.new
+    @task_comment = TaskComment.new()
+    @group_id = params[:group_id]
   end
 
   # GET /task_comments/1/edit
@@ -29,7 +30,7 @@ class TaskCommentsController < ApplicationController
     @task_comment = TaskComment.new(task_comment_params)
     respond_to do |format|
       if @task_comment.save
-        format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully created.' }
+        format.html { redirect_to task_path(:id => task_comment_params[:task_id], :group_id => task_comment_params[:group_id]), notice: 'Task comment was successfully created.' }
         format.json { render :show, status: :created, location: @task_comment }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class TaskCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @task_comment.update(task_comment_params)
-        format.html { redirect_to task_path(:id => task_comment_params[:task_id],:group_id => params[:group_id]), notice: 'Task comment was successfully updated.' }
+        format.html { redirect_to task_path(:id => task_comment_params[:task_id],:group_id => task_comment_params[:group_id]), notice: 'Task comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_comment }
       else
         format.html { render :edit }
@@ -58,7 +59,7 @@ class TaskCommentsController < ApplicationController
     @task_comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to task_path(:id => params[:task_id], :group_id => params[:group_id]), notice: 'Task comment was successfully destroyed.' }
+      format.html { redirect_to task_path(:id => params[:task_id], :group_id => task_comment_params[:group_id]), notice: 'Task comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

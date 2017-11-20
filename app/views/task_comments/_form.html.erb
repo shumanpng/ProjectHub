@@ -16,6 +16,8 @@
   <%= f.hidden_field :isadmin, :value => @current_user.is_admin%>
   <%= f.check_box :isadmin, :checked => @current_user.is_admin, :style => "display: none;" %>
   <%= f.hidden_field :task_id, :value => params[:task_id]%>
+  <%= f.hidden_field :group_id, :value => params[:group_id]%>
+  <%= f.hidden_field :lol, :value => "l000l"%>
 
 
   <div class="field">
