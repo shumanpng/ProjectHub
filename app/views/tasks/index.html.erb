@@ -29,7 +29,7 @@
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <td><%= link_to 'Vote for Points!', points_path(:group_id => @group.id,:task_id => task.group_id)%></td>
+      <td><%= link_to 'Vote for Points!', points_path(:group_id => @group.id,:task_id => task, :groupname => @group.name)%></td>
       </tr>
 
     <% end %>
