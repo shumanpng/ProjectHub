@@ -1,5 +1,5 @@
 
-<p class="font-weight-bold">In Progress Tasks</p>
+<p class="font-weight-bold">In Progress</p>
   <table class="table table-sm">
     <thead class="thead-dark">
       <tr>
@@ -9,9 +9,8 @@
         <th>Deadline</th>
         <th>Points</th>
         <!-- <th style="wdith:180px">Group</th> -->
-        <th>State</th>
         <th>Assignee</th>
-        <th colspan="1"></th>
+        <th></th>
 
 
 
@@ -26,10 +25,9 @@
           <td><%= link_to(task.title, task_path(task)) %></td>
           <!-- <td><%#= task.description %></td> -->
           <td><%= task.created_by %></td>
-          <td><%= task.deadline %></td>
+          <td><%= task.deadline.to_date %></td>
           <td><%= task.points %></td>
           <!-- <td><%#= task.group %></td> -->
-          <td><%= task.state %></td>
 
           <td>
             <% if user == nil %>
@@ -52,5 +50,3 @@
   </table>
 
   <br>
-
-

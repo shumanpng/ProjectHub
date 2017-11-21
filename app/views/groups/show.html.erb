@@ -68,6 +68,7 @@
   <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
   <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
 
+  <p>TASKS:</p>
     <%= render(
       partial: 'tasks/list_open_tasks_in_group',
       locals: { tasks: @opentasks }

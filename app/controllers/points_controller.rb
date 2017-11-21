@@ -2,8 +2,6 @@ class PointsController < ApplicationController
   before_action :set_point, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :upvote, :downvote]
 
-  layout false
-
   # GET /points
   # GET /points.json
   def index
