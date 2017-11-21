@@ -4,41 +4,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
 </head>
-<h3> How many points do you think should be assigned to this task?</h3>
 
-<h3>
-  <strong>Points:</strong>
-</h3>
+<body>
+  <div style="margin: 40px 0 0 40px">
+    <h4> How many points do you think should be assigned to this task?</h4><br>
 
+    <% @points.each_with_index do |point, index| %>
+          <!-- Upvote -->
+          <%= link_to positive_point_path(point), class: "like", class:"btn btn-primary btn-md", method: :put do %>
+              <span style="margin-right: 6px"><%= point.level %></span>
+              <span class="fa fa-thumbs-up fa-fw" aria-hidden="true"></span>
+              <span class="badge"><%= point.get_upvotes.size %></span>
+          <% end %>
 
-<% @points.each_with_index do |point, index| %>
-      <!-- Upvote -->
-      <button type="button" class="btn btn-danger" aria-label="Left Align">
-        <div><h2><%= point.level %><h2></div>
-      <%= link_to positive_point_path(point), class: "like", class:"btn btn-primary btn-lg", method: :put do %>
-          <span class="fa fa-thumbs-up fa-fw" aria-hidden="true"></span>
-          <span class="badge"><%= point.get_upvotes.size %></span>
-      <% end %>
-    </br>
-    </button>
+        <%if @current_user.voted_as_when_voted_for point%>
+        <%=point.vote_registered?%>
+        <!-- if the user voted '1' -->
+          <%if index != @points.size %>
+            <%point.unliked_by @current_user%>
+          <% end %>
+          <!-- if the user voted '2' -->
+          <%if index != @points.size %>
+            <%point.unliked_by @current_user%>
+          <% end %>
+        <% end %>
 
-    <%if @current_user.voted_as_when_voted_for point%>
-    <%=point.vote_registered?%>
-    <!-- if the user voted '1' -->
-      <%if index != @points.size %>
-        <%point.unliked_by @current_user%>
-      <% end %>
-      <!-- if the user voted '2' -->
-      <%if index != @points.size %>
-        <%point.unliked_by @current_user%>
-      <% end %>
+        <!-- <%if point.vote_registered?%> -->
+        <!-- <%end%> -->
+
     <% end %>
 
-    <!-- <%if point.vote_registered?%> -->
-    <!-- <%end%> -->
-
-<% end %>
-
-
-</br></br></br>
-<%= link_to 'Back to Task Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-primary"%>
+    </br></br></br>
+    <%= link_to 'Back to Tasks Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-warning"%>
+  </div>
+</body>
