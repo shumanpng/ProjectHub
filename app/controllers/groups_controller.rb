@@ -7,24 +7,22 @@ class GroupsController < ApplicationController
   def index
     groupname = params[:groupname]
     @groups = Group.all
-
-    # check whether or not the user has an admin account
-
-    # current_user.is_admin instead of this logic down here
-    # if User.where(:id => @current_user.id, :is_admin => true).exists?
-    #   @is_acct_admin = true
-    # else
-    #   @is_acct_admin = false
-    # end
-    @is_acct_admin = @current_user.is_admin
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
-
     # get array of pending requests
     @pending_requests = @group.group_requests.where(:status => 'pending')
+
+    # get array of tasks of the group
+    @grouptasks = Task.where(:group => @group.name)
+    # get array of tasks of the group where state = Open
+    @opentasks = Task.where(:group => @group.name, :state => "Open")
+    # get array of tasks of the group where state = In Progress
+    @inprogresstasks = Task.where(:group => @group.name, :state => "In Progress")
+    # get array of tasks of the group where state = Completed
+    @completedtasks = Task.where(:group => @group.name, :state => "Completed")
 
     # check whether or not the user is the group admin
     if GroupMembership.where(:user_id => @current_user.id, :group_id => @group.id, :is_admin => true).exists?
@@ -32,7 +30,6 @@ class GroupsController < ApplicationController
     else
       @is_grp_admin = false
     end
-
   end
 
   # GET /groups/new
@@ -42,7 +39,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    
+
     #@members = GroupMembership.all
     #@members = GroupMembership.joins("LEFT JOIN users ON users.id = group_memberships.user_id").select("group_memberships.*,users.name").where(:group_id => @group.id)
     #@members = GroupMembership.eager_load(:users)

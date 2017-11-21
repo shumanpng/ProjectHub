@@ -3,17 +3,12 @@ Rails.application.routes.draw do
   resources :group_requests
   resources :group_memberships
   resources :groups
+  resources :widgets
   resources :user_logins
   resources :active_users
   resources :companies
   resources :users
-  resources :widgets
-  resources :groups
-  resources :user_logins
-  resources :active_users
-  resources :companies
-  resources :users
-  resources :widgets
+  resources :task_comments
   resources :tasks
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request

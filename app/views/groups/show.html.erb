@@ -1,21 +1,40 @@
+<div class="bg-dark">
+  <br>
+  <div class="container bg-dark" style="color:white">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="bd-pageheader">
+          <h1><%= @group.name %></h1>
+          <h2 class="lead">Group.</h2>
+          <% if @group.description != '' && @group.description != nil %>
+            <p class="lead">
+              <small class="text-muted"><%= @group.description %></small>
+            </p>
+          <% end %>
+        </div>
+      </div>
+      <div class="text-right">
+        <% if @is_grp_admin %>
+          <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
+        <% end %>
+          <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
+          <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-primary btn-sm'%>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @group.name %>
-  </p>
-  <p>
-    <strong>Description:</strong>
-    <%= @group.description %>
-  </p>
+
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
-    <p>Pending Requests:</p>
+    <p class="header pending-requests">PENDING REQUESTS:</p>
 
     <% if @pending_requests.exists? %>
-      <table>
-        <thead>
+      <table class="table table-sm">
+        <thead class="thead-dark">
           <tr>
             <th>Name</th>
             <th>Email</th>
@@ -28,11 +47,11 @@
               <tr>
                 <td><%= request.user.name %></td>
                 <td><%= request.user.email %></td>
-                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'accept') do %>
+                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'accept'), :class => 'table-link' do %>
                   <i class="fa fa-thumbs-up fa-fw"></i>Accept
                   <% end %>
                 </td>
-                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'deny') do %>
+                <td><%= link_to respond_to_request_path(:id => request.id, :group_id => @group.id, :type => 'deny'), :class => 'table-link' do %>
                   <i class="fa fa-thumbs-down fa-fw"></i>Deny
                   <% end %>
                 </td>
@@ -44,17 +63,25 @@
       <!-- there are no pending requests -->
       <p>No active requests to show!</p>
     <% end %>
-    <br>
-    <%= link_to 'Edit', edit_group_path(:group_id => @group.id) %> |
   <% end %>
 
+  <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
+  <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
 
-  <%= link_to 'Back', groups_path %>
+    <%= render(
+      partial: 'tasks/list_open_tasks_in_group',
+      locals: { tasks: @opentasks }
+    ) %>
 
 
+    <%= render(
+      partial: 'tasks/list_in_progress_tasks_in_group',
+      locals: { tasks: @inprogresstasks }
+    ) %>
 
-  <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary"%>
-  <%= link_to 'View Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name)%>
 
-
+    <%= render(
+      partial: 'tasks/list_completed_tasks_in_group',
+      locals: { tasks: @completedtasks }
+    ) %>
 </div>

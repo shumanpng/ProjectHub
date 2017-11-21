@@ -18,4 +18,48 @@
 
 .like:hover{
   text-decoration: none;
+  
+.fa {
+  color: #8bc2ef;
+  margin-right: 4px;
+}
+
+.all-tasks-table{
+  margin-left: 10px;
+}
+
+.all-tasks-view-back-button {
+  margin-left: 10px;
+}
+
+/*div.scroll {
+  width: 100px;
+  height: 10px;
+  overflow: scroll;
+}*/
+
+.table-scroll {
+  height:300px;
+  overflow:auto;
+  margin-top:10px;
+  width: 600px;
+  /*position: absolute;*/
+}
+
+.open-tasks-table {
+  /*margin-left: 580px;
+  margin-top: -450px;*/
+  /*margin-top: 0px;*/
+  /*position: absolute;*/
+  margin-left: 70px;
+}
+
+.in-progress-tasks-table {
+  /*margin-left: 580px;*/
+  margin-left: 70px;
+}
+
+.completed-tasks-table {
+  /*margin-left: 580px;*/
+  margin-left: 70px;
 }

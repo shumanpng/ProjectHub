@@ -18,6 +18,7 @@ class UserLoginsController < ApplicationController
 
   # GET /user_logins/new
   def new
+    session[:current_user_token] = ""
     @user_login = UserLogin.new
   end
 
@@ -30,7 +31,7 @@ class UserLoginsController < ApplicationController
   def create
     @user_login = UserLogin.new(user_login_params)
     @user_login.token = SecureRandom.uuid
-    
+
     respond_to do |format|
       if @user_login.save
         @user_login.password = ''

@@ -1,0 +1,56 @@
+
+<p class="font-weight-bold">In Progress Tasks</p>
+  <table class="table table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <!-- <th style="width:200px">Description</th> -->
+        <th>Created by</th>
+        <th>Deadline</th>
+        <th>Points</th>
+        <!-- <th style="wdith:180px">Group</th> -->
+        <th>State</th>
+        <th>Assignee</th>
+        <th colspan="1"></th>
+
+
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @inprogresstasks.each do |task| %>
+        <% user = User.where(:id => task.assigned_to).take %>
+
+        <tr>
+          <td><%= link_to(task.title, task_path(task)) %></td>
+          <!-- <td><%#= task.description %></td> -->
+          <td><%= task.created_by %></td>
+          <td><%= task.deadline %></td>
+          <td><%= task.points %></td>
+          <!-- <td><%#= task.group %></td> -->
+          <td><%= task.state %></td>
+
+          <td>
+            <% if user == nil %>
+              <%= %>
+            <% else %>
+              <%= user.name %>
+            <% end %>
+          </td>
+          <!-- <td><%#= link_to 'Show', task %></td> -->
+          <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+          <td>
+            <i class="fa fa-trash-o "></i>
+            <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+

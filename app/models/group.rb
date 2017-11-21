@@ -7,24 +7,23 @@ class Group < ActiveRecord::Base
   has_many :users, :through => :group_memberships
   has_many :group_requests, :dependent => :destroy
 
+  validates :name, :presence => true, :uniqueness => true
+
+
   # Decides the type of access a user has to a group (based on account type and
   # on the status of their group request).
-  def typeOfAccess(group, token)
-    # use the user login instance and match emails to find current user
-    @user_login = UserLogin.where(:token => token).take
-    @curr_user = User.where(:email => @user_login.email).take
-
-    if User.where(:id => @curr_user.id, :is_admin => true).exists?
+  def typeOfAccess(group, curr_user)
+    if User.where(:id => curr_user.id, :is_admin => true).exists?
       # user is an admin; they have access to all groups
       'view'
     else
-      if GroupMembership.where(:user_id => @curr_user.id, :group_id => group.id).exists?
+      if GroupMembership.where(:user_id => curr_user.id, :group_id => group.id).exists?
         # user is already a member of group
         'view'
-      elsif GroupRequest.where(:user_id => @curr_user.id, :group_id => group.id, :status => 'denied').exists?
+      elsif GroupRequest.where(:user_id => curr_user.id, :group_id => group.id, :status => 'denied').exists?
         # user's request was denied
         'denied'
-      elsif GroupRequest.where(:user_id => @curr_user.id, :group_id => group.id, :status => 'pending').exists?
+      elsif GroupRequest.where(:user_id => curr_user.id, :group_id => group.id, :status => 'pending').exists?
         # user has sent a request
         'pending'
       else
@@ -65,5 +64,11 @@ class Group < ActiveRecord::Base
       end
     end
     return @non_admins
+  end
+
+  # takes a group as input and returns the id of its admin
+  def get_admin(group)
+    @admin_membership = GroupMembership.where(:group_id => group.id, :is_admin => true).take
+    return @admin_membership.user_id
   end
 end

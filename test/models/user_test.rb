@@ -28,7 +28,7 @@ class UserTest < ActiveSupport::TestCase
   test 'no duplicate emails' do
     u = User.new
     u.email = 'hello@hotmail.com'
-    # puts users(:one).email
-    assert u.invalid?
+    puts users(:one).email
+    assert(u.invalid?, 'a user with this email already exists')
   end
 end

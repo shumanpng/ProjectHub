@@ -10,12 +10,15 @@ class TasksController < ApplicationController
     groupname = params[:groupname]
     @group = Group.where(name: groupname).take
     @tasks = Task.where(group: groupname)
+    @users = User.all
     # @tasks = Task.all
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @comments = TaskComment.where(task_id: params[:id]).order(:id)
+    #@isadmin = GroupMembership.where(group_id: params[:groupid], is_admin: true)
     # groupid = params[:groupid]
     #
     # # @task = Task.select("title, description, created_by, due_date, points, group,
@@ -27,13 +30,17 @@ class TasksController < ApplicationController
   def new
     groupname = params[:groupname]
     groupid = params[:groupid]
+    # @groupmemberships = GroupMembership.where(:group_id => groupid)
 
     # @group = Group.where(name: groupname).take
     # @group = Group.find params[:groupname]
     # @task = Task.new({:group_id => '1', :group => 'CMPT276'})
-    @group = Group.where(id: groupid).take
+    @group = Group.where(name: groupname).take
+    @groupmemberships = @group.group_memberships
+    @users = User.all
 
-    @task = Task.new({:group => groupname, :created_by => @current_user.name})
+
+    @task = Task.new({:group_id => @group.id, :group => groupname, :created_by => @current_user.name})
     # @task = Task.new({:created_by => @user_name[:params]})
 
 
@@ -41,6 +48,9 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    groupname = params[:groupname]
+    @group = Group.where(:name => groupname).take
+    @groupmemberships = @group.group_memberships
   end
 
   # POST /tasks
@@ -101,9 +111,10 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
+    groupname = @task.group
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to tasks_path(:groupname => groupname), notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -134,6 +145,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id)
+      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id, :assigned_to)
     end
 end
