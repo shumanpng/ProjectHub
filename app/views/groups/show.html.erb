@@ -14,8 +14,8 @@
     <p class="header pending-requests">PENDING REQUESTS:</p>
 
     <% if @pending_requests.exists? %>
-      <table>
-        <thead>
+      <table class="table table-sm">
+        <thead class="thead-dark">
           <tr>
             <th>Name</th>
             <th>Email</th>
@@ -56,25 +56,21 @@
   <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-success btn-sm'%>
   <br></br>
   <%= link_to 'Back', groups_path %>
-</div>
 
-<div>
-
-  <%= render(
-    partial: 'tasks/list_open_tasks_in_group',
-    locals: { tasks: @opentasks }
-  ) %>
+    <%= render(
+      partial: 'tasks/list_open_tasks_in_group',
+      locals: { tasks: @opentasks }
+    ) %>
 
 
-  <%= render(
-    partial: 'tasks/list_in_progress_tasks_in_group',
-    locals: { tasks: @inprogresstasks }
-  ) %>
+    <%= render(
+      partial: 'tasks/list_in_progress_tasks_in_group',
+      locals: { tasks: @inprogresstasks }
+    ) %>
 
 
-  <%= render(
-    partial: 'tasks/list_completed_tasks_in_group',
-    locals: { tasks: @completedtasks }
-  ) %>
-
+    <%= render(
+      partial: 'tasks/list_completed_tasks_in_group',
+      locals: { tasks: @completedtasks }
+    ) %>
 </div>
