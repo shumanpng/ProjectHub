@@ -26,11 +26,14 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    require 'digest'
-    md5 = Digest::MD5.new
-    @user.password = md5.hexdigest @user.password
     respond_to do |format|
+      @user.check_password = true
       if @user.save
+        require 'digest'
+        md5 = Digest::MD5.new
+        @user.check_password = false
+        @user.password = md5.hexdigest @user.password
+        @user.save
         format.html { redirect_to new_user_login_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else

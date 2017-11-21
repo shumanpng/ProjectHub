@@ -1,4 +1,29 @@
+class UserValidation < ActiveModel::Validator
+    def validate(record)
+        if record.check_password
+            if record.password =~ /\d/         # Calling String's =~ method.
+                # valid contains number
+            else
+                record.errors[:base] << "Your password must contain at least 1 number."
+            end
+
+            if record.password =~ /[A-Z]/
+                # valid contains upper case
+            else
+                record.errors[:base] << "Your password must contain at least 1 capital."
+            end
+
+            if record.password.length <= 5
+                record.errors[:base] << "Your password is not long enough."
+            end
+        end
+    end
+end
+
 class User < ActiveRecord::Base
+    validates_with UserValidation
+    attr_accessor :check_password
+
     has_many :ActiveUsers
     has_many :tasks
     has_many :group_memberships
