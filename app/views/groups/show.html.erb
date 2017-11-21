@@ -13,12 +13,12 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-4 text-right">
+      <div class="text-right">
         <% if @is_grp_admin %>
           <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
+        <% end %>
           <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
           <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-primary btn-sm'%>
-        <% end %>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
 </div>
 <div class="container">
   <p id="notice"><%= notice %></p>
-  
+
 
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
