@@ -10,8 +10,11 @@
       <th>Group</th>
       <th>State</th>
       <th>Assignee</th>
-      <th colspan="3"></th>
-
+      <% if !@current_user.is_admin %>
+        <th colspan="2"></th>
+      <% else %>
+        <th colspan="1"></th>
+      <% end %>
 
 
     </tr>
@@ -44,11 +47,12 @@
           <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
 
-
-        <td>
-          <i class="fa fa-check" ></i>
-          <%= link_to 'Vote for Points!', points_path(:group_id => @group.id,:task_id => task, :groupname => @group.name)%>
-        </td>
+        <% if !@current_user.is_admin %>
+          <td>
+            <i class="fa fa-check" ></i>
+            <%= link_to 'Vote for Points!', points_path(:group_id => @group.id,:task_id => task, :groupname => @group.name)%>
+          </td>
+        <% end %>
 
       </tr>
     <% end %>
