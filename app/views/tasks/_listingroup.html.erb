@@ -44,6 +44,7 @@
           <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
 
+
         <td>
           <i class="fa fa-check" ></i>
           <%= link_to 'Vote for Points!', points_path(:group_id => @group.id,:task_id => task, :groupname => @group.name)%>
