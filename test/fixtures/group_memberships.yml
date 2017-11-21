@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user_id: 1
-  group_id: 1
-  is_admin: false
+# Note: these are commented out because they conflict with tests in group_test.rb !!
 
-two:
-  user_id: 1
-  group_id: 1
-  is_admin: false
+# one:
+#   user_id: 1
+#   group_id: 1
+#   is_admin: false
+#
+# two:
+#   user_id: 1
+#   group_id: 1
+#   is_admin: false

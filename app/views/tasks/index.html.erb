@@ -1,41 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Tasks</h1>
+<h3><%= @group.name %> Tasks</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Created by</th>
-      <th>Due date</th>
-      <th>Points</th>
-      <th>Group</th>
-      <th>State</th>
-      <th>Task Type</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= link_to 'Back to Group Page', group_path(@group.id), :class => 'btn btn-warning btn-sm all-tasks-view-back-button'%>
 
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.created_by %></td>
-        <td><%= task.due_date %></td>
-        <td><%= task.points %></td>
-        <td><%= task.group %></td>
-        <td><%= task.state %></td>
-        <td><%= task.task_type %></td>
-        <td><%= link_to 'Show', task_path(task, :group_id => params[:groupid]) %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'Back to Group Page', group_path(params[:groupid]) %>
+<div class="all-tasks-table">
+  <% @grouptasks = @tasks %>
+  <%= render(
+    partial: 'tasks/listingroup',
+    locals: { tasks: @grouptasks }
+  ) %>
+</div>

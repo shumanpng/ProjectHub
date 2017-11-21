@@ -14,3 +14,85 @@
  *= require_self
  *= require font-awesome
  */
+
+ body {
+   font-family: 'Roboto', sans-serif;
+   font-size: 16px;
+ }
+
+table, th, td {
+  border: 3px solid white;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 7px 12px;
+}
+
+th {
+  background-color: #e2eef1;
+  color: #7fb8c6;
+  text-align: center;
+}
+
+td {
+  background-color: #ededed;
+}
+
+.table-link {
+  color: black;
+  text-decoration: underline;
+  -webkit-transition: 0.25s; /* Safari */
+  transition: 0.25s;
+}
+
+.table-link:hover {
+  color: #7da4f2;
+  text-decoration: underline;
+}
+
+.fa {
+  color: #8bc2ef;
+  margin-right: 4px;
+}
+
+.all-tasks-table{
+  margin-left: 10px;
+}
+
+.all-tasks-view-back-button {
+  margin-left: 10px;
+}
+
+/*div.scroll {
+  width: 100px;
+  height: 10px;
+  overflow: scroll;
+}*/
+
+.table-scroll {
+  height:300px;
+  overflow:auto;
+  margin-top:20px;
+  width: 600px;
+  /*position: absolute;*/
+}
+
+.table-size {
+  width: 100%;
+}
+
+.open-tasks-table {
+  margin-left: 580px;
+  margin-top: -450px;
+  /*margin-top: 0px;*/
+  /*position: absolute;*/
+}
+
+.in-progress-tasks-table {
+  margin-left: 580px;
+}
+
+.completed-tasks-table {
+  margin-left: 580px;
+}

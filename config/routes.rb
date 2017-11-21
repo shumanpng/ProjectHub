@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :task_comments
+  resources :change_passwords
   resources :group_requests
   resources :group_memberships
   resources :groups
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   resources :widgets
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
+  post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
 
 
   # The priority is based upon order of creation: first created -> highest priority.

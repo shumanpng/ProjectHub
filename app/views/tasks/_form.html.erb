@@ -17,7 +17,7 @@
   <div class = "bgcolor">
     <div class="field">
       <%= f.label :title %><br>
-      <%= f.text_field :title %>
+      <%= f.text_field :title, required: true %>
     </div>
     <div class="field">
       <%= f.label :description %><br>
@@ -25,11 +25,11 @@
     </div>
     <div class="field">
       <%= f.label :created_by %><br>
-      <%= f.text_field :created_by %>
+      <%= f.text_field :created_by, :readonly => true %>
     </div>
     <div class="field">
-      <%= f.label :due_date %><br>
-      <%= f.datetime_select :due_date %>
+      <%= f.label :deadline %><br>
+      <%= f.datetime_select :deadline %>
     </div>
     <div class="field">
       <%= f.label :points %><br>
@@ -37,22 +37,33 @@
     </div>
     <div class="field">
       <%= f.label :group %><br>
-      <%= f.text_field :group %>
+      <%= f.text_field :group, :readonly => true %>
     </div>
     <div class="field">
       <%= f.label :state %><br>
       <!-- <%= f.text_field :state %> -->
       <%= f.radio_button(:state, "Open") %>
       <%= label_tag(:state, "Open") %>
-      <%= f.radio_button(:state, "In Progress") %>
+      <%= f.radio_button(:state, "In Progress", :required => true) %>
       <%= label_tag(:state, "In Progress") %>
       <%= f.radio_button(:state, "Completed") %>
       <%= label_tag(:state, "Completed") %>
     </div>
+
     <div class="field">
-      <%= f.label :task_type %><br>
-      <%= f.text_field :task_type %>
+      <% if @groupmemberships != nil %>
+        <%= f.label :Assignee %><br>
+        <% @groupmemberships.each do |g| %>
+          <% user = User.where(:id => g.user_id).take %>
+          <%= f.radio_button(:assigned_to, user.id) %>
+          <%= label_tag(:assigned_to, user.name) %>
+        <% end %>
+      <% else %>
+        <% tasks_path %>
+      <% end %>
+
     </div>
+
     <div class="actions">
       <%= f.submit %>
     </div>

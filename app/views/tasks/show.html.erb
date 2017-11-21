@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong>Due date:</strong>
-  <%= @task.due_date %>
+  <strong>Deadline:</strong>
+  <%= @task.deadline %>
 </p>
 
 <p>
@@ -36,12 +36,17 @@
 </p>
 
 <p>
-  <strong>Task type:</strong>
-  <%= @task.task_type %>
+  <strong>Assignee:</strong>
+  <% user = User.where(:id => @task.assigned_to).take %>
+  <% if user == nil %>
+    <%= %>
+  <% else %>
+    <%= user.name %>
+  <% end %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path(:groupname => @task.group, :groupid => params[:group_id]) %>
+<%= link_to 'Edit', edit_task_path(@task, :groupname => @task.group) %> |
+<%= link_to 'Back', tasks_path(:groupname => @task.group) %>
 
 
 <br><br><strong>Comments</strong><br>

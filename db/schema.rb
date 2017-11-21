@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20171120030211) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +22,14 @@ ActiveRecord::Schema.define(version: 20171120030211) do
     t.string   "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "change_passwords", force: :cascade do |t|
+    t.string   "current_password"
+    t.string   "new_password"
+    t.string   "confirm_password"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "companies", force: :cascade do |t|
@@ -68,7 +77,7 @@ ActiveRecord::Schema.define(version: 20171120030211) do
     t.string   "title"
     t.text     "description"
     t.string   "created_by"
-    t.datetime "due_date"
+    t.datetime "deadline"
     t.integer  "points"
     t.string   "group"
     t.string   "state"
@@ -76,6 +85,7 @@ ActiveRecord::Schema.define(version: 20171120030211) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "group_id"
+    t.integer  "assigned_to"
   end
 
   create_table "user_logins", force: :cascade do |t|
