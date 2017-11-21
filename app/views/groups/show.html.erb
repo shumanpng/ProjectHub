@@ -1,13 +1,25 @@
+<div class="bg-dark">
+  <br>
+  <div class="container bg-dark" style="color:white">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="bd-pageheader">
+          <h1><%= @group.name %></h1>
+          <h2 class="lead">Group</h2>
+          <% if @group.description != '' && @group.description != nil %>
+            <p class="lead">
+              <small><%= @group.description %></small>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
 <div class="container">
   <p id="notice"><%= notice %></p>
-
-  <h3><%= @group.name %></h3>
-  <% if @group.description != '' && @group.description != nil %>
-    <p>
-      <span class="header">ABOUT:</span>&nbsp;
-      <%= @group.description %>
-    </p>
-  <% end %>
+  
 
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
