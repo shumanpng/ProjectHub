@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @point.level %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @point.user_id %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @point.task_id %>
+</p>
+
+<%= link_to 'Edit', edit_point_path(@point) %> |
+<%= link_to 'Back', points_path %>

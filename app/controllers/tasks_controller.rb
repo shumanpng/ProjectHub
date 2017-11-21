@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :vote_for_points]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :vote_for_points]
+
 
   # GET /tasks
   # GET /tasks.json
@@ -117,6 +118,12 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def vote_for_points
+    @curr_task = Task.find(params[:id])
+
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

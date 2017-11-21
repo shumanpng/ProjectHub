@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  has_one :point
+  # acts_as_votable
   # belongs_to :group
   belongs_to :user
   has_many :task_comments

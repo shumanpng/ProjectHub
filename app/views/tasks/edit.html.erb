@@ -1,7 +1,66 @@
 <div class="container">
     <h1>Editing Task</h1>
 
-    <%= render 'form' %>
+
+<%= stylesheet_link_tag "tasks.scss" %>
+
+<%= form_for(@task) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class = "bgcolor">
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </div>
+    <div class="field">
+      <%= f.label :created_by %><br>
+      <%= f.text_field :created_by, :readonly => true %>
+    </div>
+    <div class="field">
+      <%= f.label :deadline %><br>
+      <%= f.datetime_select :deadline %>
+    </div>
+    <div class="field">
+      <%= f.label :points %><br>
+      <%= f.number_field :points %>
+
+      <!-- <%= link_to 'Vote for Points!', points_path(@task.id)%> -->
+
+
+    </div>
+    <div class="field">
+      <%= f.label :group %><br>
+      <%= f.text_field :group, :readonly => true %>
+    </div>
+    <div class="field">
+      <%= f.label :state %><br>
+      <%= f.radio_button(:state, "Open") %>
+      <%= label_tag(:state, "Open") %>
+      <%= f.radio_button(:state, "In Progress") %>
+      <%= label_tag(:state, "In Progress") %>
+      <%= f.radio_button(:state, "Completed") %>
+      <%= label_tag(:state, "Completed") %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>
+
 
     <%= link_to 'Show', @task %> |
     <%= link_to 'Back', tasks_path(:groupname => @task.group) %>

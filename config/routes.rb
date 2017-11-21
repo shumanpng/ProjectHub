@@ -1,25 +1,30 @@
 Rails.application.routes.draw do
-  resources :task_comments
   resources :change_passwords
   resources :group_requests
   resources :group_memberships
   resources :groups
+  resources :widgets
   resources :user_logins
   resources :active_users
   resources :companies
   resources :users
-  resources :widgets
+  resources :task_comments
   resources :tasks
-  resources :groups
-  resources :user_logins
-  resources :active_users
-  resources :companies
-  resources :users
-  resources :widgets
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
 
+  get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
+
+  resources :points do
+    member do
+      put "positive" => "points#upvote"
+      put "negative" => "points#downvote"
+
+      get "positive" => "points#upvote"
+      get "negative" => "points#downvote"
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

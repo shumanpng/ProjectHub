@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120030211) do
+
+ActiveRecord::Schema.define(version: 20171120071104) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +39,22 @@ ActiveRecord::Schema.define(version: 20171120030211) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.integer  "course_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "enrolls", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.decimal  "percentage"
+    t.string   "lettergrade"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
@@ -59,6 +77,28 @@ ActiveRecord::Schema.define(version: 20171120030211) do
     t.datetime "updated_at",  null: false
     t.string   "description"
   end
+
+
+  create_table "points", force: :cascade do |t|
+    t.integer  "level"
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "polls", force: :cascade do |t|
+    t.integer  "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.integer  "student_id"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
 
   create_table "task_comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -104,6 +144,21 @@ ActiveRecord::Schema.define(version: 20171120030211) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   create_table "widgets", force: :cascade do |t|
     t.string   "name"

@@ -16,6 +16,9 @@
  */
 
 
+.like:hover{
+  text-decoration: none;
+  
 .fa {
   color: #8bc2ef;
   margin-right: 4px;
