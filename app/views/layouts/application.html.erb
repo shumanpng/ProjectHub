@@ -24,26 +24,28 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <% @current_url = request.fullpath %>
                     <% if @current_url.exclude? "user_logins" %>
-                        <div class="navbar-nav">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <%= link_to 'Dashboard', groups_path, :class => 'nav-link' %>
+                        <% if @current_url.exclude? "users/new" %>
+                            <div class="navbar-nav">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item">
+                                        <%= link_to 'Dashboard', groups_path, :class => 'nav-link' %>
+                                    </li>
+                                </ul>
+                            </div>
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <%= link_to '<i class="fa fa-gear fa-fw"></i>Settings'.html_safe, user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
+
+                                    <%= link_to '<i class="fa fa-sign-out fa-fw"></i>Logout'.html_safe, new_user_login_path, :class=>"dropdown-item" %>
+                                    </div>
                                 </li>
                             </ul>
-                        </div>
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Profile
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                <%= link_to '<i class="fa fa-gear fa-fw"></i>Settings'.html_safe, user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
-
-                                <%= link_to '<i class="fa fa-sign-out fa-fw"></i>Logout'.html_safe, new_user_login_path, :class=>"dropdown-item" %>
-                                </div>
-                            </li>
-                        </ul>
+                        <% end %>
                     <% end %>
                 </div>
             </div>
