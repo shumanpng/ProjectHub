@@ -16,6 +16,8 @@
       <div class="col-md-4 text-right">
         <% if @is_grp_admin %>
           <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
+          <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
+          <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-success btn-sm'%>
         <% end %>
       </div>
     </div>
@@ -70,8 +72,6 @@
       partial: 'tasks/list_open_tasks_in_group',
       locals: { tasks: @opentasks }
     ) %>
-    <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
-        <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-success btn-sm'%>
 
 
     <%= render(
