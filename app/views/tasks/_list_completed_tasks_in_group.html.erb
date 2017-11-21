@@ -1,5 +1,5 @@
 
-<p class="font-weight-bold">Completed Tasks</p>
+<p class="font-weight-bold">Completed</p>
 
   <table class="table table-sm">
     <thead class="thead-dark">
@@ -10,9 +10,8 @@
         <th>Deadline</th>
         <th>Points</th>
         <!-- <th style="wdith:180px">Group</th> -->
-        <th>State</th>
         <th>Assignee</th>
-        <th colspan="1"></th>
+        <th></th>
 
 
 
@@ -30,7 +29,6 @@
           <td><%= task.deadline %></td>
           <td><%= task.points %></td>
           <!-- <td><%#= task.group %></td> -->
-          <td><%= task.state %></td>
 
           <td>
             <% if user == nil %>
