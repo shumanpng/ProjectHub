@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20171120030211) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,9 +55,9 @@ ActiveRecord::Schema.define(version: 20171120030211) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
+    t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "description"
   end
 
   create_table "task_comments", force: :cascade do |t|
