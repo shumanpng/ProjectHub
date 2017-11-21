@@ -15,41 +15,6 @@
  *= require font-awesome
  */
 
- body {
-   font-family: 'Roboto', sans-serif;
-   font-size: 16px;
- }
-
-table, th, td {
-  border: 3px solid white;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 7px 12px;
-}
-
-th {
-  background-color: #e2eef1;
-  color: #7fb8c6;
-  text-align: center;
-}
-
-td {
-  background-color: #ededed;
-}
-
-.table-link {
-  color: black;
-  text-decoration: underline;
-  -webkit-transition: 0.25s; /* Safari */
-  transition: 0.25s;
-}
-
-.table-link:hover {
-  color: #7da4f2;
-  text-decoration: underline;
-}
 
 .fa {
   color: #8bc2ef;
@@ -76,10 +41,6 @@ td {
   margin-top:10px;
   width: 600px;
   /*position: absolute;*/
-}
-
-.table-size {
-  width: 100%;
 }
 
 .open-tasks-table {
