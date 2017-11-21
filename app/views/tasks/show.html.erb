@@ -48,8 +48,8 @@
 <%= link_to 'Edit', edit_task_path(@task, :groupname => @task.group) %> |
 <%= link_to 'Back', tasks_path(:groupname => @task.group) %>
 
-
-<br><br><strong>Comments</strong><br>
+<br><br><h4><strong>Comments</strong></h4><br>
+<div>
 <%if !@comments.any? %>
   <i>No Comments</i><br>
 <% else %>
@@ -70,7 +70,7 @@
         <%= comment.user_name %>
         <% if comment.user_id == @current_user.id %></i>
         <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id],:group_id => params[:group_id]) %> |
-        <%= link_to 'Destroy', task_comment_path(comment, :task_id => params[:id], :group_id=> params[:group_id]), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Delete', task_comment_path(comment, :task_id => params[:id], :group_id=> params[:group_id]), method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
       </tr><br><br>
     <% end %>
@@ -78,3 +78,4 @@
 </table>
 <% end %>
 <%= link_to 'New Comment', new_task_comment_path(:task_id => params[:id], :group_id => params[:group_id]) %>
+</div>
