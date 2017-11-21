@@ -26,7 +26,7 @@
           <td><%= link_to(task.title, task_path(task)) %></td>
           <!-- <td><%#= task.description %></td> -->
           <td><%= task.created_by %></td>
-          <td><%= task.deadline %></td>
+          <td><%= task.deadline.to_date %></td>
           <td><%= task.points %></td>
           <!-- <td><%#= task.group %></td> -->
 
