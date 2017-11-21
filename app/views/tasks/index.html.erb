@@ -1,14 +1,30 @@
+<div class="bg-dark">
+  <br>
+  <div class="container bg-dark" style="color:white">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="bd-pageheader">
+          <h1><%= @group.name %></h1>
+          <h2 class="lead">Tasks.</h2>
+        </div>
+      </div>
+      <div class="col-md-4 text-right">
+        <%= link_to 'Back to Group Page', group_path(@group.id), :class => 'btn btn-primary btn-sm all-tasks-view-back-button'%>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+<div class="container">
 <p id="notice"><%= notice %></p>
 
-<h3><%= @group.name %> Tasks</h3>
-
-<%= link_to 'Back to Group Page', group_path(@group.id), :class => 'btn btn-warning btn-sm all-tasks-view-back-button'%>
 
 
-<div class="all-tasks-table">
+
   <% @grouptasks = @tasks %>
   <%= render(
     partial: 'tasks/listingroup',
     locals: { tasks: @grouptasks }
   ) %>
+
 </div>
