@@ -18,6 +18,7 @@ class UserLoginsController < ApplicationController
 
   # GET /user_logins/new
   def new
+    session[:current_user_token] = ""
     @user_login = UserLogin.new
   end
 

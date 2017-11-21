@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @user.password = md5.hexdigest @user.password
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to new_user_login_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
