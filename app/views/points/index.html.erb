@@ -18,12 +18,12 @@
       <!-- Upvote -->
       <button type="button" class="btn btn-danger" aria-label="Left Align">
         <div><h2><%= point.level %><h2></div>
-      <%= link_to positive_point_path(point), class:"btn btn-primary btn-lg", method: :put do %>
+      <%= link_to positive_point_path(point), class: "like", class:"btn btn-primary btn-lg", method: :put do %>
           <span class="glyphicon glyphicon-thumbs-up glyphicon-align-centre" aria-hidden="true"></span>
           <span class="badge"><%= point.get_upvotes.size %></span>
       <% end %>
     </br>
-    </button></br></br>
+    </button>
 
     <%if @current_user.voted_as_when_voted_for point%>
     <%=point.vote_registered?%>
@@ -43,5 +43,5 @@
 <% end %>
 
 
-</br>
+</br></br></br>
 <%= link_to 'Back to Task Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-primary"%>
