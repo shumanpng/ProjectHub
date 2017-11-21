@@ -73,7 +73,7 @@ td {
 .table-scroll {
   height:300px;
   overflow:auto;
-  margin-top:20px;
+  margin-top:10px;
   width: 600px;
   /*position: absolute;*/
 }
@@ -83,16 +83,19 @@ td {
 }
 
 .open-tasks-table {
-  margin-left: 580px;
-  margin-top: -450px;
+  /*margin-left: 580px;
+  margin-top: -450px;*/
   /*margin-top: 0px;*/
   /*position: absolute;*/
+  margin-left: 70px;
 }
 
 .in-progress-tasks-table {
-  margin-left: 580px;
+  /*margin-left: 580px;*/
+  margin-left: 70px;
 }
 
 .completed-tasks-table {
-  margin-left: 580px;
+  /*margin-left: 580px;*/
+  margin-left: 70px;
 }
