@@ -45,6 +45,36 @@
   <% end %>
 </p>
 
-
 <%= link_to 'Edit', edit_task_path(@task, :groupname => @task.group) %> |
 <%= link_to 'Back', tasks_path(:groupname => @task.group) %>
+
+
+<br><br><strong>Comments</strong><br>
+<%if !@comments.any? %>
+  <i>No Comments</i><br>
+<% else %>
+<table>
+  <thead>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <%= comment.task_comment %>
+      </tr><br>
+      <tr>
+        <i>Written by
+          <% if comment.isadmin %>
+          ADMIN
+          <% end %>
+        <%= comment.user_name %>
+        <% if comment.user_id == @current_user.id %></i>
+        <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id],:group_id => params[:group_id]) %> |
+        <%= link_to 'Destroy', task_comment_path(comment, :task_id => params[:id], :group_id=> params[:group_id]), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </tr><br><br>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<%= link_to 'New Comment', new_task_comment_path(:task_id => params[:id], :group_id => params[:group_id]) %>

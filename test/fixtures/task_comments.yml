@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  group_id: 1
+  task_id: 1
+  grp_admin: false
+  task_comment: MyText
+
+two:
+  user_id: 1
+  group_id: 1
+  task_id: 1
+  grp_admin: false
+  task_comment: MyText
