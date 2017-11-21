@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User Name:</strong>
-  <%= @task_comment.user_name %>
-</p>
+  <p>
+    <strong>User Name:</strong>
+    <%= @task_comment.user_name %>
+  </p>
 
-<p>
-  <strong>Task:</strong>
-  <%= @task_comment.task_id %>
-</p>
+  <p>
+    <strong>Task:</strong>
+    <%= @task_comment.task_id %>
+  </p>
 
-<p>
-  <strong>Task comment:</strong>
-  <%= @task_comment.task_comment %>
-</p>
+  <p>
+    <strong>Task comment:</strong>
+    <%= @task_comment.task_comment %>
+  </p>
 
-<%= link_to 'Edit', edit_task_comment_path(@task_comment) %> |
-<%= link_to 'Back', task_path %>
+  <%= link_to 'Edit', edit_task_comment_path(@task_comment) %> |
+  <%= link_to 'Back', task_path %>
+</div>
