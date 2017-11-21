@@ -2,9 +2,6 @@
 <head>
   <title>Voting Poll</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"%>
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"%>
-  <%= javascript_include_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"%>
   <%= csrf_meta_tags %>
 </head>
 <h3> How many points do you think should be assigned to this task?</h3>
@@ -19,7 +16,7 @@
       <button type="button" class="btn btn-danger" aria-label="Left Align">
         <div><h2><%= point.level %><h2></div>
       <%= link_to positive_point_path(point), class: "like", class:"btn btn-primary btn-lg", method: :put do %>
-          <span class="glyphicon glyphicon-thumbs-up glyphicon-align-centre" aria-hidden="true"></span>
+          <span class="fa fa-thumbs-up fa-fw" aria-hidden="true"></span>
           <span class="badge"><%= point.get_upvotes.size %></span>
       <% end %>
     </br>
