@@ -39,3 +39,6 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 gem 'font-awesome-rails'
+
+# acts_as_votable (Gem for keeping track of points)
+gem 'acts_as_votable', '~> 0.11.1'

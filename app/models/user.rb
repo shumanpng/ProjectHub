@@ -21,17 +21,19 @@ class UserValidation < ActiveModel::Validator
 end
 
 class User < ActiveRecord::Base
-    validates_with UserValidation
-    attr_accessor :check_password
+  acts_as_voter
+  
+  validates_with UserValidation
+  attr_accessor :check_password
+   
+  has_many :ActiveUsers
+  has_many :tasks
+  has_many :group_memberships
+  has_many :groups, :through => :group_memberships
+  has_many :group_requests
+  has_many :task_comments
 
-    has_many :ActiveUsers
-    has_many :tasks
-    has_many :group_memberships
-    has_many :groups, :through => :group_memberships
-    has_many :group_requests
-    has_many :task_comments
-
-    EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
-    validates :name, :presence => true, :length => { :maximum => 50 }
-    validates :email, :presence => true, :format => { :with => EMAIL_REGEX }, :uniqueness => true
+  EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
+  validates :name, :presence => true, :length => { :maximum => 50 }
+  validates :email, :presence => true, :format => { :with => EMAIL_REGEX }, :uniqueness => true
 end
