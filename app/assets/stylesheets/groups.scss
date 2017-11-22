@@ -20,7 +20,7 @@
 /* display members */
 
 .display-members {
-  margin-bottom: 175px;
+  margin-bottom: 150px;
 }
 
 .member-container {
@@ -38,11 +38,12 @@
   font-size: 40px;
   color: white;
   text-align: center;
-  line-height: 65px;
+  border: 1px solid #d2a2f2;
 }
 
 .member-container > .admin-color {
   background-color: #c2e1f0;
+  border: 1px solid #91c7e2;
 }
 
 .member-container > p:nth-of-type(1) {
@@ -50,7 +51,7 @@
 }
 
 .member-container > p {
-  line-height: 20%;
+  line-height: 25%;
   font-size: 14px;
 }
 
@@ -61,4 +62,8 @@
 
 [data-toggle="popover"]:focus {
   outline: none;
+}
+
+.popover-body > span {
+  color: #7fbcd8;
 }
