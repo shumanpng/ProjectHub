@@ -22,10 +22,10 @@ end
 
 class User < ActiveRecord::Base
   acts_as_voter
-  
+
   validates_with UserValidation
   attr_accessor :check_password
-   
+
   has_many :ActiveUsers
   has_many :tasks
   has_many :group_memberships
@@ -36,4 +36,22 @@ class User < ActiveRecord::Base
   EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
   validates :name, :presence => true, :length => { :maximum => 50 }
   validates :email, :presence => true, :format => { :with => EMAIL_REGEX }, :uniqueness => true
+
+
+  # takes a user object as input and returns user's network (all the users with whom
+  # they share a common group, as an array of user objects)
+  def get_network(curr_user)
+    @network = []
+    curr_user.groups.each do |group|
+      group.users.each do |user|
+        if user.id != curr_user.id
+          unless @network.include?(user)
+            @network << user
+          end
+        end
+      end
+    end
+    return @network
+  end
+
 end

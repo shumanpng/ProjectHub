@@ -1,8 +1,7 @@
 class Group < ActiveRecord::Base
-  has_many :tasks
-
   # note: ':dependent => :destroy' deletes all of a group's child objects
-  # (here, group memberships and group requests) when the group is destroyed
+  # (here, group memberships, group requests and tasks) when the group is destroyed
+  has_many :tasks, :dependent => :destroy
   has_many :group_memberships, :dependent => :destroy
   has_many :users, :through => :group_memberships
   has_many :group_requests, :dependent => :destroy
