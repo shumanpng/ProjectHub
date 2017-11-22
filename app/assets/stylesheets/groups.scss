@@ -35,9 +35,8 @@
   border-radius: 50%;
   width: 65px;
   height: 65px;
-  font-size: 35px;
+  font-size: 40px;
   color: white;
-  font-weight: bold;
   text-align: center;
   line-height: 65px;
 }
@@ -53,4 +52,13 @@
 .member-container > p {
   line-height: 20%;
   font-size: 14px;
+}
+
+[data-toggle="popover"] {
+  border: none;
+  cursor: pointer;
+}
+
+[data-toggle="popover"]:focus {
+  outline: none;
 }

@@ -6,5 +6,7 @@ document.addEventListener("turbolinks:load", function() {
     $('.submit-btn').prop('disabled', false);
     $('.submit-btn').removeClass('cursor-not-allowed');
   });
+
+  $('[data-toggle="popover"]').popover({ trigger: 'hover' });
 })
 // });

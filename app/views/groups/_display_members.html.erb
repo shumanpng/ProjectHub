@@ -5,13 +5,13 @@
       <!-- displays a circle with the first letter of the user's name. the group admin's
       circle is a different color. -->
       <% if user.id == group.get_admin(group) %>
-        <div class="letter-container admin-color">
+        <button type="button" class="letter-container admin-color" data-toggle="popover" data-placement="top" data-html="true" data-content="<%= user.id %>">
           <p><%= user.name[0] %></p>
-        </div>
+        </button>
       <% else %>
-        <div class="letter-container">
+        <button type="button" class="letter-container" data-toggle="popover" data-placement="top" data-html="true" data-content="<%= user.id %>">
           <p><%= user.name[0] %></p>
-        </div>
+        </button>
       <% end %>
       <!-- the split method splits a string by whitespaces into an array -->
       <% user.name.split.each do |name| %>
