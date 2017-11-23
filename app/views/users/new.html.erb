@@ -35,9 +35,10 @@
             </div>
             <!-- comment in and out this code to create admin accounts -->
             <!-- <div class="field"> -->
-              <%#= f.label :is_admin %><br>
+              <!-- <%#= f.label :is_admin %><br> -->
               <%#= f.check_box :is_admin %>
             <!-- </div> -->
+            <%= f.hidden_field :is_admin, :value => false %>
             <br/>
             <div class="actions">
               <%= f.submit('Signup', :class=>"btn btn-sm btn-success", :style=>"cursor:pointer")%>
