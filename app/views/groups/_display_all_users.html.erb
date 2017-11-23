@@ -1,19 +1,19 @@
 <div class="display-members">
   <% users.each do |user| %>
     <!-- get date user joined ProjectHub, in Jan 1, '17 format -->
-    <% date_joined_grp = user.created_at.strftime("%b %d, '%y") %>
+    <% date_joined = user.created_at.strftime("%b %d, '%y") %>
 
     <div class="member-container">
       <!-- displays a circle with the first letter of the user's name. the group admin's
       circle is a different color. -->
       <% if user.is_admin == true %>
         <button type="button" class="letter-container admin-color" data-toggle="popover" data-placement="top" data-html="true"
-        data-content="<span><b>Admin</b></span><br><b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined_grp %>">
+        data-content="<span><b>Admin</b></span><br><b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>">
           <p><%= user.name[0] %></p>
         </button>
       <% else %>
         <button type="button" class="letter-container" data-toggle="popover" data-placement="top" data-html="true"
-        data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined_grp %>">
+        data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>">
           <p><%= user.name[0] %></p>
         </button>
       <% end %>
