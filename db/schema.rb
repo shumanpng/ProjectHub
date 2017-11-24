@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(version: 20171122034622) do
     t.datetime "date_created"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.string   "avatar"
   end
 
   create_table "votes", force: :cascade do |t|
