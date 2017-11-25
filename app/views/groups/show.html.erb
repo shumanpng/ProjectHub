@@ -74,12 +74,10 @@
       locals: { tasks: @opentasks }
     ) %>
 
-
     <%= render(
       partial: 'tasks/list_in_progress_tasks_in_group',
       locals: { tasks: @inprogresstasks }
     ) %>
-
 
     <%= render(
       partial: 'tasks/list_completed_tasks_in_group',

@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   def index
     groupname = params[:groupname]
     @groups = Group.all
+    @users = User.all
   end
 
   # GET /groups/1

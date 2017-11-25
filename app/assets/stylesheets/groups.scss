@@ -20,13 +20,14 @@
 /* display members */
 
 .display-members {
-  margin-bottom: 175px;
+  margin-bottom: 140px;
 }
 
 .member-container {
   float: left;
   text-align: center;
   margin-right: 30px;
+  margin-bottom: 10px;
 }
 
 .member-container > .letter-container {
@@ -35,15 +36,15 @@
   border-radius: 50%;
   width: 65px;
   height: 65px;
-  font-size: 35px;
+  font-size: 40px;
   color: white;
-  font-weight: bold;
   text-align: center;
-  line-height: 65px;
+  border: 1px solid #d2a2f2;
 }
 
 .member-container > .admin-color {
   background-color: #c2e1f0;
+  border: 1px solid #91c7e2;
 }
 
 .member-container > p:nth-of-type(1) {
@@ -51,6 +52,19 @@
 }
 
 .member-container > p {
-  line-height: 20%;
+  line-height: 25%;
   font-size: 14px;
+}
+
+[data-toggle="popover"] {
+  border: none;
+  cursor: pointer;
+}
+
+[data-toggle="popover"]:focus {
+  outline: none;
+}
+
+.popover-body > span {
+  color: #7fbcd8;
 }
