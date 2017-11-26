@@ -7,6 +7,7 @@ one:
   location_name: MyString
   location_address: MyString
   location_city: MyString
+  location_province: MyString
   location_country: MyString
   location_postal_code: MyString
 
@@ -17,5 +18,6 @@ two:
   location_name: MyString
   location_address: MyString
   location_city: MyString
+  location_province: MyString
   location_country: MyString
   location_postal_code: MyString
