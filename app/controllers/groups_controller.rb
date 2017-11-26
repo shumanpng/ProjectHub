@@ -31,6 +31,23 @@ class GroupsController < ApplicationController
     else
       @is_grp_admin = false
     end
+
+    # variables for display of the project deadline progress bar
+    if @group.deadline != nil
+      project_length = (@group.deadline - @group.created_at.localtime.to_date).to_i
+      @days_left = (@group.deadline - Date.today).to_i
+      days_passed = (Date.today - @group.created_at.localtime.to_date).to_i
+
+      if project_length == 0
+        # eg. start and end on same day, calc would result in infinity
+        @percent_completed = 100
+      else
+        @percent_completed = ((days_passed.to_f / project_length.to_f) * 100).round
+        if @percent_completed < 1
+          @percent_completed = 1  # so that progress bar is never totally empty
+        end
+      end
+    end
   end
 
   # GET /groups/new
@@ -176,6 +193,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name,:description,:deadlin)
+      params.require(:group).permit(:name,:description,:deadline)
     end
 end

@@ -68,3 +68,27 @@
 .popover-body > span {
   color: #7fbcd8;
 }
+
+
+/* progress bar */
+
+.progress {
+  margin-top: 30px;
+  height: 22px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.progress-label {
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.progress-label.start {
+  float: left;
+}
+
+.progress-label.end {
+  float: right;
+  text-align: right;
+}

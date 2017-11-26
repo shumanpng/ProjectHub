@@ -27,6 +27,20 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
+  <!-- Bootstrap progress bar to represent time left to complete the project (based on group deadline) -->
+  <% if @group.deadline != nil %>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
+        aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
+        <% if @percent_completed >= 10 %>  <!-- (if percentage is too small, writing will get cut off) -->
+          <%= @days_left %> days left!
+        <% end %>
+      </div>
+    </div>
+    <p class="progress-label start">Project started: <%= @group.created_at.localtime.to_date.strftime("%b. %e") %></p>
+    <p class="progress-label end">Project due: <%= @group.deadline.strftime("%b. %e") %></p>
+    <br></br>
+  <% end %>
 
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
