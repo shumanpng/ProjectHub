@@ -19,6 +19,10 @@
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
+  <div class="field">
+    <%= f.label :deadline, 'Project Deadline' %><br>
+    <%= f.date_field :deadline, min: Date.today %>
+  </div>
   <%= f.hidden_field :token, value: @user_login.token %>
   <%= f.hidden_field :id, value: @group.id %>
   <%= hidden_field_tag 'token', @user_login.token %>
