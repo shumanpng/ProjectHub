@@ -1,3 +1,15 @@
+<script>
+  $(function() {
+    var test = <%= @event.to_json.html_safe %>;
+    console.log(test);
+    var googleUrl = "https://www.google.com/maps/embed/v1/place?&q=";
+    googleUrl += test.location_address + "," + test.location_city + "," + test.location_province;
+    googleUrl += "&key=AIzaSyDS06Rjt-jlkZAihJl63Zh_r25-gnBYPB8";
+    var iframe = document.getElementById('location_map');
+    console.log(iframe);
+    iframe.src = googleUrl;
+  });
+</script>
 <div class="container">
   <p id="notice"><%= notice %></p>
 
@@ -45,6 +57,9 @@
     <strong>Location postal code:</strong>
     <%= @event.location_postal_code %>
   </p>
+
+  <iframe id="location_map" width="100%" height="150">
+  </iframe>
 
   <%= link_to 'Edit', edit_event_path(@event), :class=>"btn btn-sm btn-warning" %>
 </div>
