@@ -2,7 +2,7 @@
   <p class="header">GROUP MEMBERS:</p>
   <% group.users.each do |user| %>
     <!-- get date user joined the group, in Jan 1, '17 format -->
-    <% date_joined_grp = group.group_memberships.where(:user_id => user.id).take.created_at.localtime.strftime("%b. %d, '%y") %>
+    <% date_joined_grp = group.group_memberships.where(:user_id => user.id).take.created_at.localtime.strftime("%b. %-d, '%y") %>
 
     <div class="member-container">
       <!-- displays a circle with the first letter of the user's name. the group admin's

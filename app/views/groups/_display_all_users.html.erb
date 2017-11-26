@@ -1,7 +1,7 @@
 <div class="display-members">
   <% users.each do |user| %>
     <!-- get date user joined ProjectHub, in Jan 1, '17 format -->
-    <% date_joined = user.created_at.localtime.strftime("%b. %d, '%y") %>
+    <% date_joined = user.created_at.localtime.strftime("%b. %-d, '%y") %>
 
     <div class="member-container">
       <!-- displays a circle with the first letter of the user's name. the group admin's

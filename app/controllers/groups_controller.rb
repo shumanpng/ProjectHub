@@ -47,6 +47,26 @@ class GroupsController < ApplicationController
           @percent_completed = 1  # so that progress bar is never totally empty
         end
       end
+
+      # warning message inside popover (triggered by hovering over alert icon) if the project is overdue
+      if @days_left <= 0
+        @overdue = true
+
+        if @days_left == 0
+          @warning = 'The deadline to complete this project is today!'
+        else
+          @warning = 'The deadline for this project has passed!'
+        end
+
+        if @is_grp_admin
+          @warning_addition = "If necessary, you may extend the deadline under 'Group Settings'."
+        else
+          @warning_addition = 'If necessary, please get your group admin to extend the deadline.'
+        end
+
+      else
+        @overdue = false
+      end
     end
   end
 

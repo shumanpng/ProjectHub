@@ -29,16 +29,34 @@
 
   <!-- Bootstrap progress bar to represent time left to complete the project (based on group deadline) -->
   <% if @group.deadline != nil %>
-    <div class="progress">
+    <div class="progress <%= 'progress-shift-left' if @overdue %>">
       <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
         aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
+
         <% if @percent_completed >= 10 %>  <!-- (if percentage is too small, writing will get cut off) -->
-          <%= @days_left %> days left!
+          <% if @days_left >= 0 %>
+            <%= @days_left %> days left!
+          <% else %>
+            0 days left!  <!-- to avoid showing a negative number of days left -->
+          <% end %>
         <% end %>
+
       </div>
+      <% if @percent_completed < 10 %>
+        <p><%= @days_left %> days left!</p>
+      <% end %>
     </div>
-    <p class="progress-label start">Project started: <%= @group.created_at.localtime.to_date.strftime("%b. %e") %></p>
-    <p class="progress-label end">Project due: <%= @group.deadline.strftime("%b. %e") %></p>
+
+    <% if @overdue %>
+      <button type="button" data-toggle="popover" data-placement="top" data-html="true"
+      data-content="<%= @warning %> <%= @warning_addition %>" id="progress-warning">
+        <i class="fa fa-warning fa-fw"></i>
+      </button>
+    <% end %>
+
+    <p class="progress-label start">Project started: <%= @group.created_at.localtime.to_date.strftime("%b. %-d, '%y") %></p>
+    <p class="progress-label end <%= 'progress-shift-left' if @overdue %>">Project due: <%= @group.deadline.strftime("%b. %-d, '%y") %></p>
+
     <br></br>
   <% end %>
 
