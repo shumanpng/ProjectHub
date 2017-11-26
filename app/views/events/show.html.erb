@@ -17,7 +17,7 @@
           <h1>
             <%= @event.name %>
           </h1>
-          <h2 class="lead">Group.</h2>
+          <h2 class="lead">Event.</h2>
             <p class="lead">
               <small class="text-muted">
                 <%= @event.date %> | <%= @event.description %>
@@ -27,6 +27,7 @@
       </div>
       <div class="col-md-4 text-right">
         <%= link_to 'Edit', edit_event_path(@event), :class=>"btn btn-sm btn-warning" %>
+        <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-sm btn-danger" %>
       </div>
     </div>
   </div>
