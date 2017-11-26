@@ -8,56 +8,40 @@
     iframe.src = googleUrl;
   });
 </script>
+<div class="bg-dark">
+  <br>
+  <div class="container bg-dark" style="color:white">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="bd-pageheader">
+          <h1>
+            <%= @event.name %>
+          </h1>
+          <h2 class="lead">Group.</h2>
+            <p class="lead">
+              <small class="text-muted">
+                <%= @event.date %> | <%= @event.description %>
+              </small>
+            </p>
+        </div>
+      </div>
+      <div class="col-md-4 text-right">
+        <%= link_to 'Edit', edit_event_path(@event), :class=>"btn btn-sm btn-warning" %>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
 <div class="container">
   <p id="notice"><%= notice %></p>
-
   <p>
-    <strong>Name:</strong>
-    <%= @event.name %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= @event.description %>
-  </p>
-
-  <p>
-    <strong>Date:</strong>
-    <%= @event.date %>
-  </p>
-
-  <p>
-    <strong>Location name:</strong>
-    <%= @event.location_name %>
-  </p>
-
-  <p>
-    <strong>Location address:</strong>
+    <strong><%= @event.location_name %></strong><br>
     <%= @event.location_address %>
-  </p>
-
-  <p>
-    <strong>Location city:</strong>
     <%= @event.location_city %>
-  </p>
-
-  <p>
-    <strong>Location province:</strong>
     <%= @event.location_province %>
-  </p>
-
-  <p>
-    <strong>Location country:</strong>
     <%= @event.location_country %>
-  </p>
-
-  <p>
-    <strong>Location postal code:</strong>
     <%= @event.location_postal_code %>
-  </p>
 
   <iframe id="location_map" width="100%" height="150">
   </iframe>
-
-  <%= link_to 'Edit', edit_event_path(@event), :class=>"btn btn-sm btn-warning" %>
 </div>
