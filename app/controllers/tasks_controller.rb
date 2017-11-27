@@ -138,9 +138,12 @@ class TasksController < ApplicationController
     @voted = Point.where('task_id = (?) AND user_email = (?)',@task.id , @user_login.email).first
 
     if @voted
+      # let the users update their vote after their first voting but only count
+      # their vote as only one entry in the points table
       @voted.update_attribute(:voted_points, @params['newpoints'].first)
 
     else
+      # if not voted yet create a new instance in points table
       @point = Point.new
       @point.update_attribute(:user_email, @user_login.email)
       @point.update_attribute(:task_id, @task.id)
@@ -158,16 +161,22 @@ class TasksController < ApplicationController
 
     @user_login = UserLogin.where('token = (?)', session[:current_user_token]).take
 
+
+
+    # @voted = Point.where('task_id = (?) AND user_email = (?)',@task.id , @user_login.email).first
+
+    # get the current value of points in tasks table
     @average = @task.points
 
-    if @average == nil
+    if @average == 0
       @point = Point.new
       @point.update_attribute(:user_email, @user_login.email)
       @point.update_attribute(:task_id, @task.id)
       @point.update_attribute(:voted_points, 0 )
+
     end
 
-    # calculate the average of pointsnbased on users that has voted for the task
+    # calculate the average of points based on users that has voted for the task
     @average = Point.where('task_id = (?)', @task.id).average(:voted_points).round
 
 

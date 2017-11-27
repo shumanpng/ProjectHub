@@ -1,6 +1,6 @@
   <head>
     <title>Voting Poll</title>
-    <link rel="stylesheet" href="/css/normalize.min.css">
+    <!-- <link rel="stylesheet" href="/css/normalize.min.css"> -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/examples.css">
 
@@ -8,10 +8,7 @@
 
     <!-- Theme -->
     <%= stylesheet_link_tag "/dist/themes/bars-square.css" %>
-    <!-- <link rel="stylesheet" href="/dist/themes/bars-square.css"> -->
-    <!-- Fonts -->
-    <!-- <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css"> -->
+
     <script>
         // change the status for readonly so the voters cant vote again
           // $("#example-square").barrating('readonly', true);
@@ -30,8 +27,6 @@
           });
         });
   </script>
-
-
 
   </head>
   <body>
@@ -64,8 +59,12 @@
         <!-- <% end %> -->
 
 
-
+    <!-- points average => shows the average of all the votes for each task by adding
+    all the votes to each other and dividing them by the number of votes
+    (The first vote would be the user that creates a task and assigns a point to
+    that task) -->
     <p>Points Average = <%= @average %> </p>
+
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

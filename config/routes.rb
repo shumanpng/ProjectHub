@@ -14,9 +14,6 @@ Rails.application.routes.draw do
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
 
-  # get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
-  # get '/:id/update_vote/', to: 'tasks#update_vote', as: :update_vote, render :nothing => true
-
   resources :tasks do
     member do
       get "update_vote" => 'tasks#update_vote'
