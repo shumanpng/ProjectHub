@@ -6,7 +6,9 @@
       <th>Description</th>
       <th>Created by</th>
       <th>Deadline</th>
-      <th>Points</th>
+      <!-- This is the average points based on the users that have voted for each task
+      (The intial average points would be the points that the first user assigns to the task)  -->
+      <th>Average Points</th>
       <th>Group</th>
       <th>State</th>
       <th>Assignee</th>
@@ -48,10 +50,11 @@
         </td>
 
         <% if !@current_user.is_admin %>
-          <td>
-            <i class="fa fa-check" ></i>
-            <%= link_to 'Vote for Points!', points_path(:group_id => @group.id,:task_id => task, :groupname => @group.name)%>
-          </td>
+              <td>
+                <i class="fa fa-check" ></i>
+                <%= link_to 'Vote for Points!', vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
+              </td>
+
         <% end %>
 
       </tr>

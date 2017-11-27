@@ -1,74 +1,81 @@
-<%= form_tag vote_for_points_path do %>
+  <head>
+    <title>Voting Poll</title>
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/examples.css">
 
-  <h3> How many points do you think should be assigned to this task?</h3>
+    <%= csrf_meta_tags %>
 
-  <p>
-    <strong>Points:</strong>
-    <%= @task.points %>
-  </p>
+    <!-- Theme -->
+    <%= stylesheet_link_tag "/dist/themes/bars-square.css" %>
+    <!-- <link rel="stylesheet" href="/dist/themes/bars-square.css"> -->
+    <!-- Fonts -->
+    <!-- <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css"> -->
+    <script>
+        // change the status for readonly so the voters cant vote again
+          // $("#example-square").barrating('readonly', true);
+        $(document).ready(function(){
+          // check if user has already voted
+          // alert("<%= @voted %>")
 
-  <%= stylesheet_link_tag "tasks.scss" %>
-
-
-  <!-- <%= form_for(@task) do |f| %> -->
-    <!-- <div class = "bgcolor">
-      <div class="field">
-        <%= f.radio_button :points, '1 (Easy)' %>
-        <%= label_tag("1 (Easy)") %><br>
-        <%= f.radio_button(:points, "2 (Medium)") %>
-        <%= label_tag("2 (Medium)") %><br>
-        <%= f.radio_button(:points, "3 (Hard)") %>
-        <%= label_tag("3 (Hard)") %><br>
-      </div>
-      <div class="actions">
-        <%= f.submit 'Vote'%> -->
-      <!-- </div>
-    </div> -->
-  <!-- <% end %> -->
-
-<% options = [1,2,3]%>
-<% options.each do |points| %>
-  <%= link_to positive_task_path(points), method: :put do%>
-    <button type="button" class="btn btn-success" aria-label="Left Align">
-      <%= link_to positive_task_path(@task), method: :put do %>
-        Upvote
-        <%= @task.get_upvotes.size %>
-      <% end %>
-
-      <%= link_to negative_task_path(@task), method: :put do %>
-      Downvote
-      <%= @task.get_downvotes.size %>
-      <% end %>
-
-    <p><%=points%></p>
-    </button>
-
-<!-- if the person has alreadt voted, we should break out of loop -->
-    <%if @task.votes_for.up.by_type(@user).size == 1%>
-    <% break %>
-
-    <% end %>
+          $("#example-square").change(function(){
+            $.ajax({
+              url: "/tasks/<%= @task.id %>/update_vote?newpoints=" + $("#example-square").val(),
+              context: ""
+            }).done(function() {
+              window.location.reload();
+              // $("#message").html($("#voted_message").html())
+            });
+          });
+        });
+  </script>
 
 
-  <% end %>
-<%end%>
 
-<!-- <%= link_to positive_task_path(@task), method: :put do %>
-Upvote
-<%= @task.get_upvotes.size %>
-<% end %>
+  </head>
+  <body>
 
-<%= link_to negative_task_path(@task), method: :put do %>
-Downvote
-<%= @task.get_downvotes.size %>
-<% end %> -->
+    <div style="margin: 40px 0 0 40px">
+      <!-- <% if @voted %>
+          <p id="voted_message">You have already voted! Thank you!</p>
+        <% else %> -->
+        <div id="message">
+            <h4> How many points do you think should be assigned to this task?</h4><br>
 
-</br>
-<%= @task.votes_for.up.by_type(User).voters%></br>
-<%= @task.votes_for.up.by_type(User).size%></br>
+          <div class="col">
+            <div class="box box-blue box-example-square">
+              <!-- <div class="box-header">Square Rating</div> -->
+              <!-- <div class="box-body"> -->
+                <select id="example-square" name="rating" autocomplete="off">
+                  <% for i in 1..5 do%>
+                    <option value="<%= i %>"
+                      <% if i == @task.points %>
+                        selected
+                      <% end %>
+                      > <%= i %></option>
+                  <% end %>
+                </select>
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
 
-  <%= link_to 'Show', task_path %> |
-  <%= link_to 'Back', edit_task_path %>
+        <!-- <% end %> -->
 
 
-<%end%>
+
+    <p>Points Average = <%= @average %> </p>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
+
+    <script src="/js/jquery.barrating.js"></script>
+    <script src="/js/examples.js"></script>
+    <!-- <%javascript_include_tag "/js/jquery.barrating.js"%>
+    <%javascript_include_tag "/js/examples.js"%> -->
+
+
+    </br></br></br>
+    <%= link_to 'Back to Tasks Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-warning"%>
+    </div>
+  </body>
