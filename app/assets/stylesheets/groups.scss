@@ -30,7 +30,7 @@
   margin-bottom: 10px;
 }
 
-.member-container > .letter-container {
+.letter-container {
   text-transform: capitalize;
   background-color: #e5c7f9;
   border-radius: 50%;
@@ -69,6 +69,20 @@
   color: #7fbcd8;
 }
 
+/* user profile avatar */
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  font-size: 83px;
+}
+
+img.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
 
 /* progress bar */
 
@@ -80,7 +94,7 @@
 }
 
 .progress > p {
-  margin-left: 10px; 
+  margin-left: 10px;
 }
 
 .progress-label {

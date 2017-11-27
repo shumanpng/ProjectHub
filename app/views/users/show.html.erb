@@ -1,5 +1,16 @@
-<div class="container">
+<div class="container mt-5">
   <p id="notice"><%= notice %></p>
+
+  <% if @user.avatar.blank? %>
+    <!-- user has no avatar; display default (first letter of name)-->
+    <div class="letter-container avatar ml-2">
+      <p><%= @user.name[0] %></p>
+    </div>
+  <% else %>
+    <img class="avatar ml-2" src="<%= @user.avatar %>">
+    <br>
+  <% end %>
+  <br>
 
   <p>
     <strong>Name:</strong>
