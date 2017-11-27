@@ -10,24 +10,42 @@
     <h4> How many points do you think should be assigned to this task?</h4><br>
 
     <% @points.each_with_index do |point, index| %>
-          <!-- Upvote -->
-          <%= link_to positive_point_path(point), class: "like", class:"btn btn-primary btn-md", method: :put do %>
-              <span style="margin-right: 6px"><%= point.level %></span>
-              <span class="fa fa-thumbs-up fa-fw" aria-hidden="true"></span>
-              <span class="badge"><%= point.get_upvotes.size %></span>
-          <% end %>
+      <!-- <%if !@current_user.voted_for? point%> -->
+        <!-- <%=point.unliked_by @current_user%> -->
+      <!-- <% end %> -->
 
-        <%if @current_user.voted_as_when_voted_for point%>
+      <!-- Upvote -->
+      <%= link_to positive_point_path(point), class: "like", class:"btn btn-primary btn-md", method: :put do %>
+          <span style="margin-right: 6px"><%= point.level %></span>
+          <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+          <!-- <span class="badge"><%= point.get_upvotes.size %></span> -->
+          <span class="badge"><%= point.votes_for.up.size%></span>
+      <% end %>
+
+      <%if @current_user.voted_as_when_voted_for point%>
+
+      <!-- if the user voted '1' -->
+        <%if index != point.votes_for.down.size %>
         <%=point.vote_registered?%>
-        <!-- if the user voted '1' -->
-          <%if index != @points.size %>
-            <%point.unliked_by @current_user%>
-          <% end %>
-          <!-- if the user voted '2' -->
-          <%if index != @points.size %>
-            <%point.unliked_by @current_user%>
-          <% end %>
+          <%=point.unliked_by @current_user%>
+
         <% end %>
+        <!-- if the user voted '2' -->
+        <%if index != point.votes_for.down.size %>
+        <%=point.vote_registered?%>
+          <%=point.unliked_by @current_user%>
+        <% end %>
+      <% end %>
+
+
+      <!-- <%= link_to negative_point_path(point), class: "like", class:"btn btn-primary btn-md", method: :put do %>
+          <span style="margin-right: 6px"><%= point.level %></span>
+          <span class="fa fa-thumbs-down fa-fw" aria-hidden="true"></span> -->
+          <!-- <span class="badge"><%= point.get_upvotes.size %></span> -->
+          <!-- <span class="badge"><%= point.votes_for.down.size%></span>
+      <% end %> -->
+
+
 
         <!-- <%if point.vote_registered?%> -->
         <!-- <%end%> -->
