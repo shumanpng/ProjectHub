@@ -13,7 +13,7 @@
         </button>
       <% else %>
         <input type="image" class="letter-container sm-avatar" data-toggle="popover" data-placement="top" data-html="true"
-        data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>" src="<%= user.avatar %>">
+        data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>" src="<%= user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found-small.png'">
         </input>
       <% end %>
       <!-- the split method splits a string by whitespaces into an array -->

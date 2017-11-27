@@ -15,19 +15,7 @@
     <div class="container mt-5">
       <div class="col-md-6">
         <h2>User Settings</h2>
-
-        <!-- display avatar -->
-        <div class="mt-4 mb-4">
-          <% if @user.avatar.blank? %>
-            <!-- user has no avatar; display default (first letter of name)-->
-            <div class="letter-container avatar ml-2">
-              <p><%= @user.name[0] %></p>
-            </div>
-          <% else %>
-            <img class="avatar ml-2" src="<%= @user.avatar %>">
-          <% end %>
-        </div>
-
+        
         <div class="field form-group">
           <%= f.label :name %><br>
           <%= f.text_field :name, class: 'form-control' %>

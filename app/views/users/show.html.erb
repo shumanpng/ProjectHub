@@ -7,7 +7,7 @@
       <p><%= @user.name[0] %></p>
     </div>
   <% else %>
-    <img class="avatar ml-2" src="<%= @user.avatar %>">
+    <img class="avatar ml-2" src="<%= @user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found.png'">
     <br>
   <% end %>
   <br>
