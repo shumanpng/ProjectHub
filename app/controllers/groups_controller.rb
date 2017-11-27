@@ -61,7 +61,7 @@ class GroupsController < ApplicationController
         if @is_grp_admin
           @warning_addition = "If necessary, you may extend the deadline under 'Group Settings'."
         else
-          @warning_addition = 'If necessary, please get your group admin to extend the deadline.'
+          @warning_addition = 'If necessary, please get the group admin to extend the deadline.'
         end
 
       else

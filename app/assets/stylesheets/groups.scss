@@ -65,6 +65,11 @@
   outline: none;
 }
 
+[data-toggle="popover"].sm-avatar {
+  object-fit: cover;
+  margin-bottom: -6px;
+}
+
 .popover-body > span {
   color: #7fbcd8;
 }
