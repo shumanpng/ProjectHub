@@ -40,11 +40,14 @@
   color: white;
   text-align: center;
   border: 1px solid #d2a2f2;
+  display: block;
+  box-shadow:inset 0px 0px 0px 1px #d2a2f2;
 }
 
 .member-container > .admin-color {
   background-color: #c2e1f0;
   border: 1px solid #91c7e2;
+  box-shadow:inset 0px 0px 0px 1px #91c7e2;
 }
 
 .member-container > p:nth-of-type(1) {
@@ -67,7 +70,7 @@
 
 [data-toggle="popover"].sm-avatar {
   object-fit: cover;
-  margin-bottom: -6px;
+  // margin-bottom: -6px;
 }
 
 .popover-body > span {
@@ -118,10 +121,6 @@ img.avatar {
 
 .progress-shift-left {
   margin-right: 35px;
-}
-
-.fa-warning {
-  color: red !important;
 }
 
 [data-toggle="popover"]#progress-warning {

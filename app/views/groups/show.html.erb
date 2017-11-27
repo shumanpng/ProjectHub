@@ -35,7 +35,7 @@
 
         <% if @percent_completed >= 10 %>  <!-- (if percentage is too small, writing will get cut off) -->
           <% if @days_left >= 0 %>
-            <%= @days_left %> days left!
+            <%= @days_left %> day<%= 's' if @days_left != 1 %> left!
           <% else %>
             0 days left!  <!-- to avoid showing a negative number of days left -->
           <% end %>
@@ -43,14 +43,14 @@
 
       </div>
       <% if @percent_completed < 10 %>
-        <p><%= @days_left %> days left!</p>
+        <p><%= @days_left %> day<%= 's' if @days_left != 1 %> left!</p>
       <% end %>
     </div>
 
     <% if @overdue %>
       <button type="button" data-toggle="popover" data-placement="top" data-html="true"
       data-content="<%= @warning %> <%= @warning_addition %>" id="progress-warning">
-        <i class="fa fa-warning fa-fw"></i>
+        <i class="fa fa-calendar fa-fw"></i>
       </button>
     <% end %>
 
