@@ -15,6 +15,19 @@
     <div class="container mt-5">
       <div class="col-md-6">
         <h2>User Settings</h2>
+
+        <!-- display avatar -->
+        <div class="mt-4 mb-4">
+          <% if @user.avatar.blank? %>
+            <!-- user has no avatar; display default (first letter of name)-->
+            <div class="letter-container avatar ml-2">
+              <p><%= @user.name[0] %></p>
+            </div>
+          <% else %>
+            <img class="avatar ml-2" src="<%= @user.avatar %>">
+          <% end %>
+        </div>
+
         <div class="field form-group">
           <%= f.label :name %><br>
           <%= f.text_field :name, class: 'form-control' %>
@@ -23,6 +36,9 @@
           <%= f.label :email %><br>
           <%= f.text_field :email, class: 'form-control' %>
         </div>
+        <div class="field form-group">
+          <%= f.label :avatar, 'Profile Picture URL' %>
+          <%= f.url_field :avatar, class: 'form-control', placeholder: 'https://' %>
         <br>
         <div class="actions">
           <%= f.submit("Save Changes", :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer") %>
