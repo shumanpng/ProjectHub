@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     groupid = params[:groupid]
     groupname = params[:groupname]
     @group = Group.where(name: groupname).take
-    @tasks = Task.where(group: groupname)
+    @grouptasks = Task.where(group: groupname)
     @users = User.all
     # @tasks = Task.all
   end
@@ -72,6 +72,12 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
 
+        @point = Point.new
+        @user_login = UserLogin.where('token = (?)', session[:current_user_token]).take
+        @point.update_attribute(:user_email, @user_login.email)
+        @point.update_attribute(:task_id, @task.id)
+        @point.update_attribute(:voted_points, @task.points)
+
 
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
@@ -119,13 +125,61 @@ class TasksController < ApplicationController
     end
   end
 
+  def update_vote
+    @task = Task.find(params[:id])
+
+    url = request.fullpath
+    uri    = URI.parse(url)
+    @params = CGI.parse(uri.query)
+
+    @user_login = UserLogin.where('token = (?)', session[:current_user_token]).take
+
+    # Check if user has voted
+    @voted = Point.where('task_id = (?) AND user_email = (?)',@task.id , @user_login.email).first
+
+    if @voted
+      @voted.update_attribute(:voted_points, @params['newpoints'].first)
+
+    else
+      @point = Point.new
+      @point.update_attribute(:user_email, @user_login.email)
+      @point.update_attribute(:task_id, @task.id)
+      @point.update_attribute(:voted_points, @params['newpoints'].first)
+    end
+
+    redirect_to :back
+  end
+
   def vote_for_points
-    @curr_task = Task.find(params[:id])
+    @task = Task.find(params[:id])
+
+    groupname = params[:groupname]
+    @group = Group.where(:name => groupname).take
+
+    @user_login = UserLogin.where('token = (?)', session[:current_user_token]).take
+
+    @average = @task.points
+
+    if @average == nil
+      @point = Point.new
+      @point.update_attribute(:user_email, @user_login.email)
+      @point.update_attribute(:task_id, @task.id)
+      @point.update_attribute(:voted_points, 0 )
+    end
+
+    # calculate the average of pointsnbased on users that has voted for the task
+    @average = Point.where('task_id = (?)', @task.id).average(:voted_points).round
+
+
+
+    @task.update_attribute(:points,@average)
+
 
   end
 
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
@@ -145,6 +199,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id, :assigned_to)
+      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id, :assigned_to, :total_points, :voters_count)
     end
 end
