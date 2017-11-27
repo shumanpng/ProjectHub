@@ -27,13 +27,13 @@
         </div>
         <div class="field form-group">
           <%= f.label :deadline, 'Project Deadline' %><br>
-          <%= f.date_field :deadline, min: Date.today, class: 'form-control' %>
+          <%= f.date_field :deadline, min: Date.today, class: 'form-control', required: true %>
         </div>
         <%= f.hidden_field :token, value: @user_login.token %>
         <%= f.hidden_field :id, value: @group.id %>
         <%= hidden_field_tag 'token', @user_login.token %>
         <div class="actions">
-          <%= f.submit(class: 'btn btn-sm btn-primary cursor-pointer') %>
+          <%= f.submit(class: 'btn btn-sm btn-success cursor-pointer') %>
           <%= link_to 'Back', groups_path, class: 'btn btn-sm btn-warning' %>
         </div>
       </div>
