@@ -62,10 +62,31 @@
   	      <% end %>
   	  	</tbody>
   	  </table>
+      <br>
 
-      <% if @members.exists? %>
-        <br>
+      <p class="lead">Non-Members</p>
+      <% if @non_members.any? %>
+        <table>
+    	    <thead>
+    	      <tr>
+    	        <th>Name</th>
+    	      </tr>
+    	    </thead>
+
+    	    <tbody>
+    	      <% @non_members.each do |user| %>
+    	       	<tr>
+                <td><%= user.name %></td>
+                <td><%= link_to 'Add', add_member_path(:id => @group.id, :user_id => user.id), class: 'ml-3' %>
+    	      	</tr>
+    	      <% end %>
+    	  	</tbody>
+    	  </table>
+      <% else %>
+        All users are already members of this group!<br>
       <% end %>
+      <br>
+
       <%= link_to 'Back', group_path, class: 'btn btn-sm btn-warning' %>
     </div>
   </div>

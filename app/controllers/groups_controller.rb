@@ -83,6 +83,13 @@ class GroupsController < ApplicationController
     #@members = GroupMembership.eager_load(:users)
     #@members = User.joins(:group_memberships).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, users.name")
     @members = GroupMembership.joins(:user).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, group_memberships.user_id, users.name")
+
+    @non_members = []
+    User.where(:is_admin => false).each do |u|
+      if @group.users.exclude?(u)
+        @non_members << u
+      end
+    end
   end
 
   # POST /groups
@@ -191,6 +198,20 @@ class GroupsController < ApplicationController
 
     # re-load groups#index
     redirect_to :action => :index
+  end
+
+  def add_member
+    # get new member and current group
+    current_group = Group.find(params[:id])
+    new_member = User.find(params[:user_id])
+
+    # create new membership and associate it with the group and the user
+    new_membership = GroupMembership.create(:user_id => new_member.id, :group_id => current_group.id, :is_admin => false)
+    current_group.group_memberships << new_membership
+    new_member.group_memberships << new_membership
+
+    # re-load group settings
+    redirect_to edit_group_path(params[:id])
   end
 
   private
