@@ -177,7 +177,7 @@ class TasksController < ApplicationController
     end
 
     # calculate the average of points based on users that has voted for the task
-    @average = Point.where('task_id = (?)', @task.id).average(:voted_points)
+    @average = Point.where('task_id = (?)', @task.id).average(:voted_points).round
 
 
 
