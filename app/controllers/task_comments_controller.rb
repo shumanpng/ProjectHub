@@ -28,6 +28,7 @@ class TaskCommentsController < ApplicationController
   # POST /task_comments.json
   def create
     @task_comment = TaskComment.new(task_comment_params)
+
     respond_to do |format|
       if @task_comment.save
         format.html { redirect_to task_path(:id => task_comment_params[:task_id]), notice: 'Task comment was successfully created.' }

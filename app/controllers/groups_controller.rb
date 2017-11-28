@@ -109,6 +109,9 @@ class GroupsController < ApplicationController
     # get status of user relative to group by calling method in group model
     @user_status = @current_group.get_user_status(@current_group, @current_user)
 
+    # create notification for user leaving group
+    message = "#{@current_user.name} has left the group #{@current_group.name}"
+
     if @user_status == 'not admin'
       # case a.: user is not the group admin, so can leave with no side-effects
 
