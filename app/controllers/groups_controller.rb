@@ -140,6 +140,9 @@ class GroupsController < ApplicationController
       @new_admin_membership = GroupMembership.where(:user_id => params[:new_admin_id], :group_id => @current_group.id).take
       @new_admin_membership.update_attribute(:is_admin, true)
 
+      new_admin = User.where(:user_id => params[:new_admin_id])
+      message = "#{new_admin.name} has became admin of #{@current_group.name}"
+
       # destroy current user's group membership
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
       @membership.destroy
