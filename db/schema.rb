@@ -37,22 +37,6 @@ ActiveRecord::Schema.define(version: 20171126105350) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "courses", force: :cascade do |t|
-    t.integer  "course_id"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "enrolls", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "course_id"
-    t.decimal  "percentage"
-    t.string   "lettergrade"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
@@ -82,20 +66,6 @@ ActiveRecord::Schema.define(version: 20171126105350) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "user_email"
-  end
-
-  create_table "polls", force: :cascade do |t|
-    t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "students", force: :cascade do |t|
-    t.integer  "student_id"
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "task_comments", force: :cascade do |t|

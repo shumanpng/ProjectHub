@@ -21,7 +21,7 @@ class UserValidation < ActiveModel::Validator
 end
 
 class User < ActiveRecord::Base
-  acts_as_voter
+  #acts_as_voter
 
   validates_with UserValidation
   attr_accessor :check_password
