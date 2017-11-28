@@ -78,7 +78,9 @@ class TasksController < ApplicationController
         @point.update_attribute(:task_id, @task.id)
         @point.update_attribute(:voted_points, @task.points)
 
-
+        @assigned_user = User.where(:id => @task.assigned_to).take
+        message = "#{@task.title} has been assigned to #{@assigned_user.name}"
+        Notification.create(message: message,  status: false)
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
         # # @group = Group.find(:id => groupID)
