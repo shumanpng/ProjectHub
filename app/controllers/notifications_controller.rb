@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :process_leave_grp]
 
   def index
-    @all_notifications = Notification.all
+    @all_notifications = @current_user.notifications.reverse
   end
 
   def authenticate

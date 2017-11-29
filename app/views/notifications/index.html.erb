@@ -1,2 +1,10 @@
-<h1>Notifications#index</h1>
-<p>Find me in app/views/notifications/index.html.erb</p>
+<div>
+  <h1>All Notifications</h1>
+  <br>
+  <% @all_notifications.each do |notification| %>
+    <%= notification.message %> <br>
+    <%= notification.created_at %>
+    <hr>
+
+  <% end %>
+</div>
