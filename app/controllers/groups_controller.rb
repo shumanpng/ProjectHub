@@ -122,7 +122,6 @@ class GroupsController < ApplicationController
       Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
     end
 
-    Notification.create(message: message, group_id: @current_group.id, status: false)
     GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
     if @user_status == 'not admin'
@@ -142,7 +141,12 @@ class GroupsController < ApplicationController
 
       @new_admin = User.where(:id => @new_admin_membership.user_id).take
       message = "#{@new_admin.name} has became admin of #{@current_group.name}"
-      Notification.create(message: message, group_id: @current_group.id, status: false)
+      
+      @notification_targets = Group.find(@task.group_id).group_memberships
+      @notification_targets.each do |notify|
+        Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+      end
+
       GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
       # destroy current user's group membership
