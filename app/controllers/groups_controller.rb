@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
     #get group Notifications
     @group_notifications = Group.find(params[:id]).group_notifications
 
-    
+
   end
 
   # GET /groups/new
@@ -116,6 +116,12 @@ class GroupsController < ApplicationController
 
     # create notification for user leaving group
     message = "#{@current_user.name} has left the group #{@current_group.name}"
+
+    @notification_targets = Group.find(@task.group_id).group_memberships
+    @notification_targets.each do |notify|
+      Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+    end
+
     Notification.create(message: message, group_id: @current_group.id, status: false)
     GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
