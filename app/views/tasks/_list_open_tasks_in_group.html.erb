@@ -1,7 +1,7 @@
 
 
-<p class="text-info">(OPEN)</p>
-<table class="table table-sm table-striped">
+<b>(OPEN)</b>
+<table class="table table-sm">
   <thead class="thead-dark">
     <tr>
       <th style="font-weight:normal;width:300px">Title</th>
@@ -11,6 +11,7 @@
       <th style="font-weight:normal;width:125px">Points</th>
       <!-- <th style="wdith:180px">Group</th> -->
       <th style="font-weight:normal;width:200px">Assignee</th>
+      <th></th>
       <th></th>
       <th></th>
 
@@ -42,6 +43,10 @@
         </td>
         <!-- <td><%#= link_to 'Show', task %></td> -->
         <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+        <td>
+          <% @comment_count = task.comment_count(task) %>
+          <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#ddf1ff'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
+        </td>
         <td>
           <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id) %>
         </td>
