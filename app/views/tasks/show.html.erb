@@ -117,6 +117,8 @@
     <% end %>
     <%#= link_to 'New Comment', new_task_comment_path(:task_id => params[:id], :group_id => params[:group_id]) %>
     </div>
+    <br></br>
+    <%= link_to 'Back to Group Page', group_path(@group.id), class: 'btn btn-sm btn-primary' %>
   </div>
   <br>
 </div>
