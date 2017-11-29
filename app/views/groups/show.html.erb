@@ -5,7 +5,7 @@
       <div class="col-md-8">
         <div class="bd-pageheader">
           <h1><%= @group.name %></h1>
-          <h2 class="lead">Group.</h2>
+          <p><span class="lead">Group.</span> &nbsp;(Admin: <%= @admin_name %>)</p>
           <% if @group.description != '' && @group.description != nil %>
             <p class="lead">
               <small class="text-muted"><%= @group.description %></small>
