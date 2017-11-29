@@ -26,9 +26,9 @@
           Group Notifications
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <% @group_notifications.each do |notification| %>
+          <% @group_notifications.reverse.each do |notification| %>
             <p class="dropdown-item" ><%= notification.message %><br><i><%= notification.created_at %></i></p>
-            <% if notification != @group_notifications.last %>
+            <% if notification != @group_notifications.first %>
               <hr>
             <% end %>
           <% end %>

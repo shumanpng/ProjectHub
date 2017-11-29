@@ -38,7 +38,12 @@
                                         Notifications
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <%= @notifications %>
+                                      <% @user_notifications.reverse.each do |notification| %>
+                                        <p class="dropdown-item" ><%= notification.message %><br><i><%= notification.created_at %></i></p>
+                                        <% if notification != @user_notifications.first %>
+                                          <hr>
+                                        <% end %>
+                                      <% end %>
                                     </div>
                                 </li>
                             </ul>
