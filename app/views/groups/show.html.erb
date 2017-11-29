@@ -113,16 +113,16 @@
   <p class="lead">Tasks:</p>
     <%= render(
       partial: 'tasks/list_open_tasks_in_group',
-      locals: { tasks: @opentasks }
+      locals: { tasks: @opentasks, :groupname => @group.name }
     ) %>
 
     <%= render(
       partial: 'tasks/list_in_progress_tasks_in_group',
-      locals: { tasks: @inprogresstasks }
+      locals: { tasks: @inprogresstasks, :groupname => @group.name }
     ) %>
 
     <%= render(
       partial: 'tasks/list_completed_tasks_in_group',
-      locals: { tasks: @completedtasks }
+      locals: { tasks: @completedtasks, :groupname => @group.name }
     ) %>
 </div>

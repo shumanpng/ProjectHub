@@ -47,13 +47,13 @@
             <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#b4dbf7'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
           </td>
           <td>
-            <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id) %>
+            <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id, :groupname => groupname) %>
           </td>
           <td>
             <%= link_to '<i class="fa fa-trash-o fa-fw"></i>'.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
 
-<!-- 
+<!--
           <td>
             <i class="fa fa-check" ></i>
             <%= link_to 'vote_for_points_path', vote_for_points_task_path(:id => task.id)%>

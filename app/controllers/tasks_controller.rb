@@ -56,7 +56,7 @@ class TasksController < ApplicationController
   def edit
     groupname = params[:groupname]
     @group = Group.where(:name => groupname).take
-    # @groupmemberships = @group.group_memberships
+    @groupmemberships = @group.group_memberships
   end
 
   # POST /tasks
