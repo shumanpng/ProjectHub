@@ -78,7 +78,11 @@ class TasksController < ApplicationController
         @point.update_attribute(:voted_points, @task.points)
 
         @assigned_user = User.where(:id => @task.assigned_to).take
-        message = "#{@task.title} has been assigned to #{@assigned_user.name}"
+        message = "#{@task.title} has been assigned to #{@assigned_user.name} by #{@current_user.name}"
+        #@notification_targets = Group.where(:id => @task.group_id).group_memberships
+        # @notification_targets.each do |notify|
+        #   Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
+        # end
         Notification.create(message: message, group_id: @task.group_id,  status: false)
         GroupNotification.create(message: message, group_id: @task.group_id, status: false)
         # @group = Group.find(:id => groupID)

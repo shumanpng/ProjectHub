@@ -55,6 +55,19 @@
       <%= f.radio_button(:state, "Completed") %>
       <%= label_tag(:state, "Completed") %>
     </div>
+    <div class="field">
+      <% if @groupmemberships != nil %>
+        <%= f.label :Assignee %><br>
+        <% @groupmemberships.each do |g| %>
+          <% user = User.where(:id => g.user_id).take %>
+          <%= f.radio_button(:assigned_to, user.id, :required => true) %>
+          <%= label_tag(:assigned_to, user.name) %>
+        <% end %>
+      <% else %>
+        <% tasks_path %>
+      <% end %>
+
+    </div>
     <div class="actions">
       <%= f.submit %>
     </div>
