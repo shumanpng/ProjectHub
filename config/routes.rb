@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users
   resources :task_comments
 
+  get "/notifications", to: "notifications#index"
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
