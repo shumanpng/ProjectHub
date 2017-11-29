@@ -1,8 +1,8 @@
 class GroupNotificationsController < ApplicationController
   before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :process_leave_grp]
 
-
   def index
+    @all_group_notifications = Group.find(params[:group_id]).group_notifications
   end
 
   def authenticate
