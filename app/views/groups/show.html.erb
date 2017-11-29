@@ -19,6 +19,19 @@
         <% end %>
           <%= link_to 'Create New Task', new_task_path( :groupname => @group.name, :group_id => @group.id), :class=>"btn btn-primary btn-sm"%>
           <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-primary btn-sm'%>
+
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Group Notifications
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <% @group_notifications.each do |notification| %>
+            <p class="dropdown-item" ><%= notification.message %><br><i><%= notification.created_at %></i></p>
+          <% end %>
+
+
+        </div>
       </div>
     </div>
   </div>

@@ -31,6 +31,9 @@ class GroupsController < ApplicationController
     else
       @is_grp_admin = false
     end
+
+    #get group Notifications
+    @group_notifications = Group.find(params[:id]).notifications
   end
 
   # GET /groups/new
