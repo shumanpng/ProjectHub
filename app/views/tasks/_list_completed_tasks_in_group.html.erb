@@ -53,6 +53,13 @@
             <%= link_to '<i class="fa fa-trash-o fa-fw"></i>'.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
 
+<!-- 
+          <td>
+            <i class="fa fa-check" ></i>
+            <%= link_to 'vote_for_points_path', vote_for_points_task_path(:id => task.id)%>
+          </td> -->
+
+
         </tr>
       <% end %>
     </tbody>
