@@ -58,7 +58,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     groupname = params[:groupname]
-
     # @current_user.tasks << @task
 
 
