@@ -93,6 +93,10 @@ class GroupRequestsController < ApplicationController
       # associate new membership with the group and the user who submitted the request
       @curr_group.group_memberships << @new_membership
       @requester.group_memberships << @new_membership
+
+
+      message = "#{@requester.name} joined the group #{@curr_group.name}"
+      Notification.create(message: message, group_id: params[:group_id], status: false)
     else
       # change status of request
       @curr_request.update_attribute(:status, 'denied')

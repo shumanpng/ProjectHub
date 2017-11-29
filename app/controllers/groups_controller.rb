@@ -128,7 +128,7 @@ class GroupsController < ApplicationController
       @new_admin_membership = @current_group.group_memberships.where(:is_admin => false).first
       @new_admin_membership.update_attribute(:is_admin, true)
 
-      @new_admin = User.where(:user_id => @new_admin_membership.user_id)
+      @new_admin = User.where(:id => @new_admin_membership.user_id).take
       message = "#{@new_admin.name} has became admin of #{@current_group.name}"
       Notification.create(message: message, group_id: @current_group.id, status: false)
 
@@ -144,7 +144,7 @@ class GroupsController < ApplicationController
       @new_admin_membership = GroupMembership.where(:user_id => params[:new_admin_id], :group_id => @current_group.id).take
       @new_admin_membership.update_attribute(:is_admin, true)
 
-      @new_admin = User.where(:user_id => params[:new_admin_id])
+      @new_admin = User.where(:id => params[:new_admin_id]).take
       message = "#{@new_admin.name} has became admin of #{@current_group.name}"
       Notification.create(message: message, group_id: @current_group.id, status: false)
 
