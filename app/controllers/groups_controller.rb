@@ -32,6 +32,9 @@ class GroupsController < ApplicationController
       @is_grp_admin = false
     end
 
+    # get name of group admin
+    @admin_name = User.find(@group.get_admin(@group)).name
+
     # variables for display of the project deadline progress bar
     if @group.deadline != nil
       project_length = (@group.deadline - @group.created_at.localtime.to_date).to_i

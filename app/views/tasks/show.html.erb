@@ -3,10 +3,10 @@
   <p id="notice"><%= notice %></p>
 
   <div class="center" style="text-align:center">
-    <h2 style="text-align:center">Task.</h2>
-    <p class="lead">
+    <h2>
       <%= @task.title %>
-    </p>
+    </h2>
+    <p class="lead">Task.</p>
 
     <% if !@task.description.blank? %>
       <p><%= @task.description %></p>
@@ -50,12 +50,12 @@
     </p>
 
     <%= link_to 'Edit Task', edit_task_path(@task, :groupname => @task.group), class: 'btn btn-sm btn-warning' %>
-    <%= link_to 'Back to Group Page', group_path(@group.id), class: 'btn btn-sm btn-primary' %>
     <%= link_to 'View All Tasks', tasks_path(:groupname => @task.group), class: 'btn btn-sm btn-primary' %>
+    <%= link_to 'Back to Group Page', group_path(@group.id), class: 'btn btn-sm btn-primary' %>
   </div>
 
   <br><br></br>
-  <h4 id="comment_title">Comments</h4><br>
+  <h4 id="comment_title" style="text-align:center">Comments</h4><br>
 
   <%= form_for(@task_comment) do |f| %>
     <% if @task_comment.errors.any? %>
@@ -117,7 +117,7 @@
     <% end %>
     <%#= link_to 'New Comment', new_task_comment_path(:task_id => params[:id], :group_id => params[:group_id]) %>
     </div>
-    <br></br>
+    <br>
     <%= link_to 'Back to Group Page', group_path(@group.id), class: 'btn btn-sm btn-primary' %>
   </div>
   <br>

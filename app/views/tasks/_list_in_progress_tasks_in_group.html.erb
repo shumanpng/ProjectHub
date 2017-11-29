@@ -7,9 +7,9 @@
         <!-- <th style="width:200px">Description</th> -->
         <th style="font-weight:normal;width:200px">Created by</th>
         <th style="font-weight:normal;width:175px">Deadline</th>
-        <th style="font-weight:normal;width:125px">Points</th>
         <!-- <th style="wdith:180px">Group</th> -->
         <th style="font-weight:normal;width:200px">Assignee</th>
+        <th style="font-weight:normal;width:125px">Avg. Points</th>
         <th></th>
         <th></th>
         <th></th>
@@ -25,11 +25,6 @@
           <!-- <td><%#= task.description %></td> -->
           <td><%= task.created_by %></td>
           <td><%= task.deadline.to_date %></td>
-          <td>
-            <% if task.points.blank? %>n/a
-            <% else %><%= task.points %>
-            <% end %>
-          </td>
           <!-- <td><%#= task.group %></td> -->
 
           <td>
@@ -39,6 +34,11 @@
               <%= user.name %>
             <% end %>
           </td>
+          <td>
+            <% if task.points.blank? %>n/a
+            <% else %><%= task.points %>
+            <% end %>
+          </td>
           <!-- <td><%#= link_to 'Show', task %></td> -->
           <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
           <td>
@@ -46,7 +46,7 @@
             <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#b4dbf7'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
           </td>
           <td>
-            <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id) %>
+            <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id, :groupname => groupname) %>
           </td>
           <td>
             <%= link_to '<i class="fa fa-trash-o fa-fw"></i>'.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %>

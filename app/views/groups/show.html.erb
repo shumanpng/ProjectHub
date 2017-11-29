@@ -5,7 +5,7 @@
       <div class="col-md-8">
         <div class="bd-pageheader">
           <h1><%= @group.name %></h1>
-          <h2 class="lead">Group.</h2>
+          <p><span class="lead">Group.</span> &nbsp;(Admin: <%= @admin_name %>)</p>
           <% if @group.description != '' && @group.description != nil %>
             <p class="lead">
               <small class="text-muted"><%= @group.description %></small>
@@ -36,7 +36,7 @@
         <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
         aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
       <% elsif @percent_completed < 66 %>
-        <div class="progress-bar progress-bar-warning bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
+        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: <%= @percent_completed %>%"
         aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
       <% else %>
         <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @percent_completed %>%"
@@ -113,16 +113,16 @@
   <p class="lead">Tasks:</p>
     <%= render(
       partial: 'tasks/list_open_tasks_in_group',
-      locals: { tasks: @opentasks }
+      locals: { tasks: @opentasks, :groupname => @group.name }
     ) %>
 
     <%= render(
       partial: 'tasks/list_in_progress_tasks_in_group',
-      locals: { tasks: @inprogresstasks }
+      locals: { tasks: @inprogresstasks, :groupname => @group.name }
     ) %>
 
     <%= render(
       partial: 'tasks/list_completed_tasks_in_group',
-      locals: { tasks: @completedtasks }
+      locals: { tasks: @completedtasks, :groupname => @group.name }
     ) %>
 </div>

@@ -33,7 +33,7 @@
         <%= f.hidden_field :id, value: @group.id %>
         <%= hidden_field_tag 'token', @user_login.token %>
         <div class="actions">
-          <%= f.submit('Save Changes', class: 'btn btn-primary btn-sm cursor-pointer form-control') %>
+          <%= f.submit('Save Changes', class: 'btn btn-warning btn-sm cursor-pointer form-control') %>
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@
       <% end %>
       <br>
 
-      <%= link_to 'Back', group_path, class: 'btn btn-sm btn-warning' %>
+      <%= link_to 'Back', group_path, class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
   <br>
