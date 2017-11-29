@@ -107,6 +107,10 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        if @task.state == "Completed"
+          message = "#{@task.title} has been completed"
+          Notification.create(message: message, status: false)
+        end
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
