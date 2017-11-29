@@ -44,7 +44,7 @@
           <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
           <td>
             <% @comment_count = task.comment_count(task) %>
-            <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#ddf1ff'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
+            <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#b4dbf7'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
           </td>
           <td>
             <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id) %>

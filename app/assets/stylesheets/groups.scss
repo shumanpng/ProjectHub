@@ -126,3 +126,10 @@ img.avatar {
   margin-top: -24px;
   padding: 0;
 }
+
+
+@media screen and (min-width:992px) {
+  .non-admin-extra-margin {
+    margin-left: 74px;
+  }
+}
