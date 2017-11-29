@@ -16,6 +16,10 @@ Rails.application.routes.draw do
 
   get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
 
+  get '/redirect', to: 'users#redirect', as: 'redirect'
+  get '/callback', to: 'users#callback', as: 'callback'
+  get '/calendars', to: 'users#calendars', as: 'calendars'
+
   resources :points do
     member do
       put "positive" => "points#upvote"
