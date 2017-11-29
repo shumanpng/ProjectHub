@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     member do
       get "update_vote" => 'tasks#update_vote'
       get "vote_for_points" => 'tasks#vote_for_points'
+      get "user_graphs" => 'tasks#user_graphs'
     end
   end
 
