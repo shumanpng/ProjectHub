@@ -152,6 +152,7 @@ class GroupsController < ApplicationController
       @new_admin = User.where(:id => params[:new_admin_id]).take
       message = "#{@new_admin.name} has became admin of #{@current_group.name}"
       Notification.create(message: message, group_id: @current_group.id, status: false)
+      GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
       # destroy current user's group membership
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
