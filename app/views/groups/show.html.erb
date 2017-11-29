@@ -28,6 +28,9 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <% @group_notifications.each do |notification| %>
             <p class="dropdown-item" ><%= notification.message %><br><i><%= notification.created_at %></i></p>
+            <% if notification != @group_notifications.last %>
+              <hr>
+            <% end %>
           <% end %>
 
 
