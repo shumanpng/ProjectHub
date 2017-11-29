@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'notifications/index'
+
   resources :change_passwords
   resources :group_requests
   resources :group_memberships
