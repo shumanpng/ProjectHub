@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :vote_for_points, :user_graphs]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :vote_for_points, :user_graphs]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :vote_for_points]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :vote_for_points]
 
 
   # GET /tasks
@@ -179,11 +179,6 @@ class TasksController < ApplicationController
     @average = Point.where('task_id = (?)', @task.id).average(:voted_points).round
 
     @task.update_attribute(:points,@average)
-  end
-
-  def user_graphs
-    @task = Task.find(params[:id])
-
   end
 
 

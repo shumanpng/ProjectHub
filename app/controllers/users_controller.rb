@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy,:user_graphs]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :user_graphs]
   # GET /users
   # GET /users.json
   def index
@@ -67,6 +67,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_graphs
+
+    @completedtasks = Task.where(:assigned_to => @user.id , :state => "Completed")
+
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

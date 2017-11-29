@@ -1,0 +1,27 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+
+
+<body>
+  <div id="container" style="height: 400px">
+
+    <!-- <%= line_chart Task.group(:points).count %> -->
+
+
+    <!-- like this one -->
+    <%= column_chart @completedtasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, stacked:true %>
+
+    <!-- <%= line_chart  Task.group(:points).count, library: {backgroundColor: "#0d233a"}%> -->
+
+    <!-- <%= scatter_chart Task.pluck(:updated_at, :points), xtitle: "Time", ytitle: "Points received" %> -->
+
+  </div>
+
+
+  <% @completedtasks.each do |task| %>
+    <p><%=  task.updated_at %> ==> <%=  task.points %></p>
+
+  </br>
+  <% end %>
+
+
+</body>

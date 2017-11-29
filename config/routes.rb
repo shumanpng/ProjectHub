@@ -7,18 +7,22 @@ Rails.application.routes.draw do
   resources :user_logins
   resources :active_users
   resources :companies
-  resources :users
   resources :task_comments
 
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
 
+  resources :users do
+    member do
+      get "user_graphs" => 'users#user_graphs', as: :graphs
+    end
+  end
   resources :tasks do
     member do
       get "update_vote" => 'tasks#update_vote'
       get "vote_for_points" => 'tasks#vote_for_points'
-      get "user_graphs" => 'tasks#user_graphs'
+      # get "user_graphs" => 'user_logins#user_graphs'
     end
   end
 
