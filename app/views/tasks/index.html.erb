@@ -17,9 +17,6 @@
 </div>
 <div class="container">
 <p id="notice"><%= notice %></p>
-
-
-  <% @grouptasks = @tasks %>
   <%= render(
     partial: 'tasks/listingroup',
     locals: { tasks: @grouptasks }

@@ -5,7 +5,7 @@
       <div class="col-md-8">
         <div class="bd-pageheader">
           <h1><%= @group.name %></h1>
-          <h2 class="lead">Group.</h2>
+          <p><span class="lead">Group.</span> &nbsp;(Admin: <%= @admin_name %>)</p>
           <% if @group.description != '' && @group.description != nil %>
             <p class="lead">
               <small class="text-muted"><%= @group.description %></small>
@@ -13,11 +13,11 @@
           <% end %>
         </div>
       </div>
-      <div class="text-right">
+      <div class="text-right <%= 'non-admin-extra-margin text-left' if !@is_grp_admin %>">
         <% if @is_grp_admin %>
           <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
         <% end %>
-          <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-primary btn-sm"%>
+          <%= link_to 'Create New Task', new_task_path( :groupname => @group.name), :class=>"btn btn-success btn-sm"%>
           <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-primary btn-sm'%>
       </div>
     </div>
@@ -27,18 +27,60 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
+  <!-- Bootstrap progress bar to represent time left to complete the project (based on group deadline) -->
+  <% if @group.deadline != nil %>
+    <div class="progress <%= 'progress-shift-left' if @overdue %>">
+
+      <!-- conditional progress bar colors -->
+      <% if @percent_completed < 33 %>
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
+        aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
+      <% elsif @percent_completed < 66 %>
+        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: <%= @percent_completed %>%"
+        aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
+      <% else %>
+        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @percent_completed %>%"
+        aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
+      <% end %>
+
+        <% if @percent_completed >= 10 %>  <!-- (if percentage is too small, writing will get cut off) -->
+          <% if @days_left >= 0 %>
+            <%= @days_left %> day<%= 's' if @days_left != 1 %> left!
+          <% else %>
+            0 days left!  <!-- to avoid showing a negative number of days left -->
+          <% end %>
+        <% end %>
+
+      </div>
+      <% if @percent_completed < 10 %>
+        <p><%= @days_left %> day<%= 's' if @days_left != 1 %> left!</p>
+      <% end %>
+    </div>
+
+    <% if @overdue %>
+      <button type="button" data-toggle="popover" data-placement="top" data-html="true"
+      data-content="<%= @warning %> <%= @warning_addition %>" id="progress-warning">
+        <i class="fa fa-calendar fa-fw"></i>
+      </button>
+    <% end %>
+
+    <p class="progress-label start">Project started: <%= @group.created_at.localtime.to_date.strftime("%b. %-d, '%y") %></p>
+    <p class="progress-label end <%= 'progress-shift-left' if @overdue %>">Project due: <%= @group.deadline.strftime("%b. %-d, '%y") %></p>
+
+    <br></br>
+  <% end %>
 
   <!-- if user is a group admin, display table of pending requests -->
   <% if @is_grp_admin %>
-    <p class="header pending-requests">PENDING REQUESTS:</p>
+    <p class="lead">Pending Requests:</p>
 
     <% if @pending_requests.exists? %>
       <table class="table table-sm">
         <thead class="thead-dark">
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th colspan="2">Actions</th>
+            <th style="font-weight:normal">Name</th>
+            <th style="font-weight:normal">Email</th>
+            <th colspan="2" style="font-weight:normal">Actions</th>
           </th>
         </thead>
 
@@ -68,19 +110,19 @@
   <!-- display group members, stored in views/groups/_display_members.html.erb (a partial view) -->
   <%= render 'groups/display_members', :group => @group, :curr_user => @current_user %>
 
-  <p>TASKS:</p>
+  <p class="lead">Tasks:</p>
     <%= render(
       partial: 'tasks/list_open_tasks_in_group',
-      locals: { tasks: @opentasks }
+      locals: { tasks: @opentasks, :groupname => @group.name }
     ) %>
 
     <%= render(
       partial: 'tasks/list_in_progress_tasks_in_group',
-      locals: { tasks: @inprogresstasks }
+      locals: { tasks: @inprogresstasks, :groupname => @group.name }
     ) %>
 
     <%= render(
       partial: 'tasks/list_completed_tasks_in_group',
-      locals: { tasks: @completedtasks }
+      locals: { tasks: @completedtasks, :groupname => @group.name }
     ) %>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126193348) do
+ActiveRecord::Schema.define(version: 20171127051138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,12 +72,27 @@ ActiveRecord::Schema.define(version: 20171126193348) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "description"
+    t.date     "deadline"
   end
 
   create_table "points", force: :cascade do |t|
-    t.integer  "level"
-    t.integer  "user_id"
+    t.integer  "voted_points"
     t.integer  "task_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "user_email"
+  end
+
+  create_table "polls", force: :cascade do |t|
+    t.integer  "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.integer  "student_id"
+    t.string   "name"
+    t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -125,6 +140,7 @@ ActiveRecord::Schema.define(version: 20171126193348) do
     t.datetime "date_created"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "avatar"
   end
 
   create_table "votes", force: :cascade do |t|

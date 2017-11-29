@@ -9,4 +9,8 @@ class Task < ActiveRecord::Base
   validates :created_by, :presence => true
   validates :state, :presence => true
 
+  # takes a task object as input and returns number of comments it has
+  def comment_count(task)
+    return TaskComment.where(:task_id => task.id).count
+  end
 end

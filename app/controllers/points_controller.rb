@@ -69,13 +69,13 @@ class PointsController < ApplicationController
 
   # upvote_from user
     def upvote
-      # @curr_point = Point.find(params[:id])
+      @point = Point.find(params[:id])
       @point.upvote_from @current_user
       redirect_to :back
     end
     # downvote_from user
     def downvote
-      # @curr_point = Point.find(params[:id])
+      @point = Point.find(params[:id])
       @point.downvote_from @current_user
       redirect_to :back
     end

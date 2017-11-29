@@ -1,30 +1,42 @@
-<div class="container">
+ <div class="container mt-5">
+  <div class="col-md-3 center" style="text-align:center">
   <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>Name:</strong>
+  <% if @user.avatar.blank? %>
+    <!-- user has no avatar; display default (first letter of name)-->
+    <div class="letter-container avatar <%= 'admin-color' if @user.is_admin %>" style="margin-left:57px">
+      <p><%= @user.name[0] %></p>
+    </div>
+  <% else %>
+    <img class="avatar" src="<%= @user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found.png'">
+    <br>
+  <% end %>
+  <br>
+  <h3>
     <%= @user.name %>
-  </p>
+  </h3>
 
-  <p>
-    <strong>Is admin:</strong>
-    <%= @user.is_admin %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
+  <p class="lead">
     <%= @user.email %>
   </p>
 
   <p>
-    <strong>Date created:</strong>
-    <%= @user.date_created %>
+    <strong>Admin?</strong>
+    <% if @user.is_admin %><i class="fa fa-check fa-fw" style="color:#11b234;font-size:18px"></i>
+    <% else %><i class="fa fa-close fa-fw" style="color:#db1b11;font-size:18px"></i>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Joined on:</strong>
+    <%= @user.created_at.localtime.to_date %>
   </p>
 
   <p>
     <strong>Password:</strong>
     <%= link_to 'Change Password', new_change_password_path%>
   </p>
-  <%= link_to 'Edit', edit_user_path(@user), :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer" %>
+  <%= link_to 'Edit Profile', edit_user_path(@user), :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer" %>
   <%= link_to 'Back', groups_path, :class=>"btn btn-sm btn-primary", :style=>"cursor:pointer" %>
+</div>
 </div>
