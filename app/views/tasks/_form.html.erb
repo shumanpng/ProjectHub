@@ -56,7 +56,7 @@
         <%= f.label :Assignee %><br>
         <% @groupmemberships.each do |g| %>
           <% user = User.where(:id => g.user_id).take %>
-          <%= f.radio_button(:assigned_to, user.id) %>
+          <%= f.radio_button(:assigned_to, user.id, :required => true) %>
           <%= label_tag(:assigned_to, user.name) %>
         <% end %>
       <% else %>
