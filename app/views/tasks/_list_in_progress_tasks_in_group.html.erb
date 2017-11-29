@@ -1,19 +1,17 @@
 
-<p class="font-weight-bold">In Progress</p>
-  <table class="table table-sm">
+<p class="text-info">(IN PROGRESS)</p>
+  <table class="table table-sm table-striped">
     <thead class="thead-dark">
       <tr>
-        <th>Title</th>
+        <th style="font-weight:normal;width:300px">Title</th>
         <!-- <th style="width:200px">Description</th> -->
-        <th>Created by</th>
-        <th>Deadline</th>
-        <th>Points</th>
+        <th style="font-weight:normal;width:200px">Created by</th>
+        <th style="font-weight:normal;width:175px">Deadline</th>
+        <th style="font-weight:normal;width:125px">Points</th>
         <!-- <th style="wdith:180px">Group</th> -->
-        <th>Assignee</th>
+        <th style="font-weight:normal;width:200px">Assignee</th>
         <th></th>
-
-
-
+        <th></th>
       </tr>
     </thead>
 
@@ -26,12 +24,16 @@
           <!-- <td><%#= task.description %></td> -->
           <td><%= task.created_by %></td>
           <td><%= task.deadline.to_date %></td>
-          <td><%= task.points %></td>
+          <td>
+            <% if task.points.blank? %>n/a
+            <% else %><%= task.points %>
+            <% end %>
+          </td>
           <!-- <td><%#= task.group %></td> -->
 
           <td>
             <% if user == nil %>
-              <%= %>
+              n/a
             <% else %>
               <%= user.name %>
             <% end %>
@@ -39,9 +41,11 @@
           <!-- <td><%#= link_to 'Show', task %></td> -->
           <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
           <td>
-            <%= link_to '<i class="fa fa-trash-o "></i>'.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to '<i class="fa fa-pencil fa-fw></i>"'.html_safe, edit_task_path(task.id) %>
           </td>
-
+          <td>
+            <%= link_to '<i class="fa fa-trash-o fa-fw"></i>'.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
         </tr>
       <% end %>
     </tbody>

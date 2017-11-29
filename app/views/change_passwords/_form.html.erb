@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="continer mt-5">
-    <div class="col-md-6">
-      <h2>Change Password</h2>
+    <div class="col-md-6 center">
+      <h2 style="text-align:center">Change Your Password</h2>
       <div class="field form-group">
         <%= f.label :current_password %><br>
         <%= f.password_field :current_password, class: 'form-control' %>
@@ -28,8 +28,8 @@
       </div>
       <br>
       <div class="actions">
-          <%= f.submit("Save", :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer") %>
-          <%= link_to 'Back', user_path(@current_user), :class=>"btn btn-sm btn-primary"%>
+          <%= f.submit("Save Changes", :class=>"btn btn-sm btn-warning form-control", :style=>"cursor:pointer") %>
+          <br></br><%= link_to 'Back', user_path(@current_user), :class=>"btn btn-sm btn-primary"%>
       </div>
     </div>
   </div>

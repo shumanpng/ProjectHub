@@ -24,6 +24,9 @@ class TasksController < ApplicationController
     # # @task = Task.select("title, description, created_by, due_date, points, group,
     # #   state, task_type").where(:group_id => groupid)
     # @task = Task.where(group_id: groupid)
+
+    # find current group
+    @group = Group.where(:name => @task.group).take
   end
 
   # GET /tasks/new
@@ -50,7 +53,7 @@ class TasksController < ApplicationController
   def edit
     groupname = params[:groupname]
     @group = Group.where(:name => groupname).take
-    @groupmemberships = @group.group_memberships
+    # @groupmemberships = @group.group_memberships
   end
 
   # POST /tasks

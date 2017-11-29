@@ -1,83 +1,91 @@
-<div class="container">
-<p id="notice"><%= notice %></p>
+<div class="container mt-5">
+  <div class="col-md-6 center">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
+  <div class="center" style="text-align:center">
+    <h2 style="text-align:center">Task.</h2>
+    <p class="lead">
+      <%= @task.title %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
-
-<p>
-  <strong>Created by:</strong>
-  <%= @task.created_by %>
-</p>
-
-<p>
-  <strong>Deadline:</strong>
-  <%= @task.deadline %>
-</p>
-
-<p>
-  <strong>Points:</strong>
-  <%= @task.points %>
-</p>
-
-<p>
-  <strong>Group:</strong>
-  <%= @task.group %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @task.state %>
-</p>
-
-<p>
-  <strong>Assignee:</strong>
-  <% user = User.where(:id => @task.assigned_to).take %>
-  <% if user == nil %>
-    <%= %>
-  <% else %>
-    <%= user.name %>
-  <% end %>
-</p>
-
-<%= link_to 'Edit', edit_task_path(@task, :groupname => @task.group) %> |
-<%= link_to 'Back', tasks_path(:groupname => @task.group) %>
-
-<br><br><h4><strong>Comments</strong></h4><br>
-<div>
-<%if !@comments.any? %>
-  <i>No Comments</i><br>
-<% else %>
-<table>
-  <thead>
-  </thead>
-
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <%= comment.task_comment %>
-      </tr><br>
-      <tr>
-        <i>Written by
-          <% if comment.isadmin %>
-          ADMIN
-          <% end %>
-        <%= comment.user_name %>
-        <% if comment.user_id == @current_user.id %></i>
-        <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id],:group_id => params[:group_id]) %> |
-        <%= link_to 'Delete', task_comment_path(comment, :task_id => params[:id], :group_id=> params[:group_id]), method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      </tr><br><br>
+    <% if !@task.description.blank? %>
+      <p><%= @task.description %></p>
     <% end %>
-  </tbody>
-</table>
-<% end %>
-<%= link_to 'New Comment', new_task_comment_path(:task_id => params[:id], :group_id => params[:group_id]) %>
-</div>
+
+    <p>
+      <strong>Created by:</strong>
+      <%= @task.created_by %>
+    </p>
+
+    <p style="text-align:center">
+      <strong>Deadline:</strong>
+      <%= @task.deadline.to_formatted_s(:long)  %>
+    </p>
+
+    <p>
+      <strong>Points:</strong>
+      <% if @task.points.blank? %>n/a
+      <% else %><%= @task.points %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Group:</strong>
+      <%= @task.group %>
+    </p>
+
+    <p>
+      <strong>State:</strong>
+      <%= @task.state %>
+    </p>
+
+    <p>
+      <strong>Assignee:</strong>
+      <% user = User.where(:id => @task.assigned_to).take %>
+      <% if user == nil %>
+        n/a
+      <% else %>
+        <%= user.name %>
+      <% end %>
+    </p>
+
+    <%= link_to 'Edit', edit_task_path(@task, :groupname => @task.group), class: 'btn btn-sm btn-warning' %>
+    <%= link_to 'Back to Group Page', group_path(@group.id), class: 'btn btn-sm btn-primary' %>
+    <%= link_to 'View All Tasks', tasks_path(:groupname => @task.group), class: 'btn btn-sm btn-primary' %>
+  </div>
+
+  <br><br></br>
+  <h4>Comments</h4><br>
+  <div>
+    <%if !@comments.any? %>
+      <i>No Comments</i><br>
+    <% else %>
+    <table>
+      <thead>
+      </thead>
+
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <%= comment.task_comment %>
+          </tr><br>
+          <tr>
+            <i>Written by
+              <% if comment.isadmin %>
+              ADMIN
+              <% end %>
+            <%= comment.user_name %>
+            <% if comment.user_id == @current_user.id %></i>
+            <%= link_to 'Edit', edit_task_comment_path(comment,:task_id => params[:id],:group_id => params[:group_id]) %> |
+            <%= link_to 'Delete', task_comment_path(comment, :task_id => params[:id], :group_id=> params[:group_id]), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </tr><br><br>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+    <%= link_to 'New Comment', new_task_comment_path(:task_id => params[:id], :group_id => params[:group_id]) %>
+    </div>
+  </div>
+  <br>
 </div>

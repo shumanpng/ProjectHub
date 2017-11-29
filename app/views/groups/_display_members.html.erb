@@ -1,5 +1,5 @@
 <div class="display-members">
-  <p class="header">GROUP MEMBERS:</p>
+  <p class="header lead">Group Members:</p>
   <% group.users.each do |user| %>
     <!-- get date user joined the group, in Jan 1, '17 format -->
     <% date_joined_grp = group.group_memberships.where(:user_id => user.id).take.created_at.localtime.strftime("%b. %-d, '%y") %>
