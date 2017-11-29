@@ -109,6 +109,7 @@ class TasksController < ApplicationController
         if @task.state == "Completed"
           message = "#{@task.title} has been completed"
           Notification.create(message: message, group_id: @task.group_id, status: false)
+          GroupNotification.create(message: message, group_id: @current_group.id, status: false)
         end
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
