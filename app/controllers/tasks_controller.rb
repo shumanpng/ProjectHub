@@ -129,7 +129,7 @@ class TasksController < ApplicationController
           @notification_targets.each do |notify|
             Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
           end
-          
+
           GroupNotification.create(message: message, group_id: @task.group_id, status: false)
         end
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
@@ -230,6 +230,7 @@ class TasksController < ApplicationController
         end
       else
         @current_user = User.where(:email => @user_login.email).take
+        @user_notifications = @current_user.notifications
       end
     end
 
