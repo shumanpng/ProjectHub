@@ -3,6 +3,7 @@ class GroupNotificationsController < ApplicationController
 
   def index
     @all_group_notifications = Group.find(params[:group_id]).group_notifications
+    @group = Group.find(params[:group_id])
   end
 
   def authenticate

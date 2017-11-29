@@ -1,7 +1,7 @@
 <div>
-  <h1>All Group Notifications</h1>
+  <h1><%= "All Group Notifications for #{@group.name}" %></h1>
   <br>
-  <% @all_group_notifications.each do |notification| %>
+  <% @all_group_notifications.reverse.each do |notification| %>
     <%= notification.message %> <br>
     <%= notification.created_at %>
     <hr>
