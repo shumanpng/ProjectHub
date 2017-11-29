@@ -115,6 +115,7 @@ class GroupsController < ApplicationController
     # create notification for user leaving group
     message = "#{@current_user.name} has left the group #{@current_group.name}"
     Notification.create(message: message, group_id: @current_group.id, status: false)
+    GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
     if @user_status == 'not admin'
       # case a.: user is not the group admin, so can leave with no side-effects
