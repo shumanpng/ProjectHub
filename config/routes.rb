@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'group_notifications/index'
+
   get 'notifications/index'
 
   resources :change_passwords
