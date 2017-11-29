@@ -97,6 +97,7 @@ class GroupRequestsController < ApplicationController
 
       message = "#{@requester.name} joined the group #{@curr_group.name}"
       Notification.create(message: message, group_id: params[:group_id], status: false)
+      GroupNotification.create(message: message, group_id: params[:group_id], status: false)
     else
       # change status of request
       @curr_request.update_attribute(:status, 'denied')
