@@ -54,7 +54,7 @@ class GroupMembershipsController < ApplicationController
 
   # DELETE /group_memberships/1
   # DELETE /group_memberships/1.json
-  def destroy 
+  def destroy
     @group_membership = GroupMembership.find(params[:id])
     @group_membership.destroy
     respond_to do |format|
