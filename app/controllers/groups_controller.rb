@@ -34,6 +34,8 @@ class GroupsController < ApplicationController
 
     #get group Notifications
     @group_notifications = Group.find(params[:id]).group_notifications
+
+    
   end
 
   # GET /groups/new
