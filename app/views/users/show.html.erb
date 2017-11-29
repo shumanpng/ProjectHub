@@ -1,31 +1,30 @@
-<div class="container mt-5">
+ <div class="container mt-5">
+  <div class="col-md-3 center" style="text-align:center">
   <p id="notice"><%= notice %></p>
 
   <% if @user.avatar.blank? %>
     <!-- user has no avatar; display default (first letter of name)-->
-    <div class="letter-container avatar ml-2">
+    <div class="letter-container avatar <%= 'admin-color' if @user.is_admin %>" style="margin-left:57px">
       <p><%= @user.name[0] %></p>
     </div>
   <% else %>
-    <img class="avatar ml-2" src="<%= @user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found.png'">
+    <img class="avatar" src="<%= @user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found.png'">
     <br>
   <% end %>
   <br>
-  <p>
-    <strong>Name:</strong>
+  <h3>
     <%= @user.name %>
+  </h3>
+
+  <p class="lead">
+    <%= @user.email %>
   </p>
 
   <p>
     <strong>Admin?</strong>
-    <% if @user.is_admin %> Yes
-    <% else %> No
+    <% if @user.is_admin %><i class="fa fa-check fa-fw" style="color:#11b234;font-size:18px"></i>
+    <% else %><i class="fa fa-close fa-fw" style="color:#db1b11;font-size:18px"></i>
     <% end %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
   </p>
 
   <p>
@@ -39,4 +38,5 @@
   </p>
   <%= link_to 'Edit', edit_user_path(@user), :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer" %>
   <%= link_to 'Back', groups_path, :class=>"btn btn-sm btn-primary", :style=>"cursor:pointer" %>
+</div>
 </div>

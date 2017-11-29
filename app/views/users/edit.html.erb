@@ -13,9 +13,9 @@
     <% end %>
 
     <div class="container mt-5">
-      <div class="col-md-6">
-        <h2>User Settings</h2>
-        
+      <div class="col-md-6 center">
+        <h2 style="text-align:center">Update Your Profile</h2>
+
         <div class="field form-group">
           <%= f.label :name %><br>
           <%= f.text_field :name, class: 'form-control' %>
@@ -29,8 +29,8 @@
           <%= f.url_field :avatar, class: 'form-control', placeholder: 'https://' %>
         <br>
         <div class="actions">
-          <%= f.submit("Save Changes", :class=>"btn btn-sm btn-warning", :style=>"cursor:pointer") %>
-          <%= link_to 'Back', user_path(@user), :class=>"btn btn-sm btn-primary"%>
+          <%= f.submit("Save Changes", :class=>"btn btn-sm btn-warning form-control", :style=>"cursor:pointer") %>
+          <br></br><%= link_to 'Back', user_path(@user), :class=>"btn btn-sm btn-primary"%>
         </div>
       </div>
     </div>
