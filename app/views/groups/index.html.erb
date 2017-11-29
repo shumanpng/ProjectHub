@@ -18,9 +18,9 @@
   <table class="table table-sm">
     <thead class="thead-dark">
       <tr>
-        <th>Name</th>
-        <th>Access</th>
-        <% if !@current_user.is_admin %><th>Leave</th><% end %>
+        <th style="font-weight:normal">Name</th>
+        <th style="font-weight:normal">Access</th>
+        <% if !@current_user.is_admin %><th style="font-weight:normal">Leave</th><% end %>
       </tr>
     </thead>
 
@@ -54,7 +54,7 @@
                 <!-- add link to toggle the modal. Since the modal displays info specific to each group, the
                 modal has to have unique id's depending on which group is calling it -->
                 <%= link_to groups_path, data: { toggle: "modal", target: "#modal#{group.id}" }, :class => 'table-link' do %>
-                  <i class="fa fa-close"></i>Leave Group
+                  <i class="fa fa-close fa-fw"></i>Leave Group
                 <% end %>
 
                 <!-- render modal stored in views/groups/_leave_grp_modal.html.erb (a partial view) -->

@@ -1,7 +1,43 @@
 <div class="container">
-    <h1>New Group</h1>
+  <%#= render 'form' %>
 
-    <%= render 'form' %>
+  <%= form_for(@group) do |f| %>
+    <% if @group.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-    <%= link_to 'Back', groups_path %>
+        <ul>
+        <% @group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="container mt-5">
+      <div class="col-md-6 center">
+        <h2 style="text-align:center">Group.</h2>
+        <div class="field form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :description %><br>
+          <%= f.text_field :description, class: 'form-control', placeholder: 'Description' %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :deadline, 'Project Deadline' %><br>
+          <%= f.date_field :deadline, min: Date.today, class: 'form-control', required: true %>
+        </div>
+        <%= f.hidden_field :token, value: @user_login.token %>
+        <%= f.hidden_field :id, value: @group.id %>
+        <%= hidden_field_tag 'token', @user_login.token %>
+        <div class="actions">
+          <%= f.submit(class: 'btn btn-sm btn-success cursor-pointer form-control') %>
+          <br></br><%= link_to 'Back', groups_path, class: 'btn btn-sm btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
 </div>

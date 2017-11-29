@@ -64,3 +64,20 @@
   /*margin-left: 580px;*/
   margin-left: 70px;
 }
+
+
+.center {
+  margin: auto;
+}
+
+
+/* task comments */
+.written-by {
+  color: #a3a3a3;
+  font-size: 14px;
+  margin-bottom: -20px;
+}
+
+.edit-comment-trigger:focus {
+  outline: none;
+}

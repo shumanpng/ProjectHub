@@ -64,6 +64,17 @@ class TaskCommentsController < ApplicationController
     end
   end
 
+  def update_comment
+    # find comment
+    comment = TaskComment.find(params[:id])
+
+    # update the comment
+    comment.update_attribute(:task_comment, params[:task_comment])
+
+    # re-load task#show
+    redirect_to task_path(params[:taskid], anchor: 'comment_title')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task_comment
