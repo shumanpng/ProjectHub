@@ -115,6 +115,11 @@ class TasksController < ApplicationController
           message = "#{@task.title} has been completed"
           Notification.create(message: message, group_id: @task.group_id, status: false)
           GroupNotification.create(message: message, group_id: @task.group_id, status: false)
+        else
+          @assigned_user = User.where(:id => @task.assigned_to).take
+          message = "#{@task.title} has been edited and assigned to #{@assigned_user.name} by #{@current_user.name}"
+          Notification.create(message: message, group_id: @task.group_id,  status: false)
+          GroupNotification.create(message: message, group_id: @task.group_id, status: false)
         end
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
