@@ -11,7 +11,7 @@
       <th>Points</th>
       <!-- <th style="wdith:180px">Group</th> -->
       <th>Assignee</th>
-      <th colspan="1"></th>
+      <th colspan="2"></th>
 
 
 
@@ -42,11 +42,16 @@
         <td>
           <i class="fa fa-trash-o "></i>
           <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
-
         </td>
 
+        <td>
+          <i class="fa fa-check" ></i>
+          <%= link_to 'Vote for Points!', vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
+        </td>
+
+        <% end %>
       </tr>
-    <% end %>
+
   </tbody>
 </table>
 
