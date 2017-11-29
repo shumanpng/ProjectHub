@@ -36,7 +36,7 @@
         <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
         aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
       <% elsif @percent_completed < 66 %>
-        <div class="progress-bar progress-bar-warning bg-success" role="progressbar" style="width: <%= @percent_completed %>%"
+        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: <%= @percent_completed %>%"
         aria-valuenow="<%= @percent_completed %>" aria-valuemin="0" aria-valuemax="100">
       <% else %>
         <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= @percent_completed %>%"
