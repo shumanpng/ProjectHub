@@ -97,11 +97,11 @@ class GroupRequestsController < ApplicationController
 
       message = "#{@requester.name} joined the group #{@curr_group.name}"
 
-      @notification_targets = Group.find(@task.group_id).group_memberships
+      @notification_targets = Group.find(params[:group_id]).group_memberships
       @notification_targets.each do |notify|
         Notification.create(message: message, group_id: params[:group_id], user_id: notify.user_id,  status: false)
       end
-      
+
       GroupNotification.create(message: message, group_id: params[:group_id], status: false)
     else
       # change status of request

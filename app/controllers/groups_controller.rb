@@ -117,7 +117,7 @@ class GroupsController < ApplicationController
     # create notification for user leaving group
     message = "#{@current_user.name} has left the group #{@current_group.name}"
 
-    @notification_targets = Group.find(@task.group_id).group_memberships
+    @notification_targets = Group.find(@current_group.id).group_memberships
     @notification_targets.each do |notify|
       Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
     end
@@ -142,7 +142,7 @@ class GroupsController < ApplicationController
       @new_admin = User.where(:id => @new_admin_membership.user_id).take
       message = "#{@new_admin.name} has became admin of #{@current_group.name}"
 
-      @notification_targets = Group.find(@task.group_id).group_memberships
+      @notification_targets = Group.find(@current_group.id).group_memberships
       @notification_targets.each do |notify|
         Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
       end
@@ -164,11 +164,11 @@ class GroupsController < ApplicationController
       @new_admin = User.where(:id => params[:new_admin_id]).take
       message = "#{@new_admin.name} has became admin of #{@current_group.name}"
 
-      @notification_targets = Group.find(@task.group_id).group_memberships
+      @notification_targets = Group.find(@current_group.id).group_memberships
       @notification_targets.each do |notify|
         Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
       end
-      
+
       GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
       # destroy current user's group membership
