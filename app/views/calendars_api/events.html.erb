@@ -3,10 +3,12 @@
     <h4> Events in Calendar </h4>
     <% @event_list.items.each do |event| %>
       <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
-      <li><%= event.summary %>  <%= event.description %> </li>
-
+      <li><%= event.summary %>  <%= event.id %> </li>
     <% end %>
   </table>
+
+  <%= link_to('Go to Google Calendar', 'https://calendar.google.com/calendar', class:
+  "btn btn-info") %>
 
   <!-- <%#= link_to 'Create new event', new_event_path %> -->
   <%#= form_tag new_event_url(:summary => "Hello") do %>
