@@ -17,7 +17,7 @@
 
   <div class="container mt-5">
     <div class="col-md-6 center">
-      <h2 style="text-align:center">Update Task</h2>
+      <h2 style="text-align:center">Edit Task</h2>
       <div class="field form-group">
         <%= f.label :title %><br>
         <%= f.text_field :title, class: 'form-control', required: true %>
@@ -68,9 +68,9 @@
           <% tasks_path %>
         <% end %>
       </div>
-      
+
       <div class="actions">
-        <%= f.submit(class: 'btn btn-sm btn-warning cursor-pointer form-control') %>
+        <%= f.submit('Save Changes', class: 'btn btn-sm btn-warning cursor-pointer form-control') %>
         <br></br><%= link_to 'Back', @task, class: 'btn btn-sm btn-primary' %>
         <%= link_to 'View All Tasks', tasks_path(:groupname => @task.group), class: 'btn btn-primary btn-sm' %>
       </div>
