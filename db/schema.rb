@@ -37,6 +37,22 @@ ActiveRecord::Schema.define(version: 20171127051138) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.integer  "course_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "enrolls", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.decimal  "percentage"
+    t.string   "lettergrade"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
