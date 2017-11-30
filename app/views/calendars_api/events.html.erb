@@ -1,28 +1,33 @@
-<ul>
-  <table>
+<div class="list-group">
     <h4> Events in Calendar </h4>
     <% @event_list.items.each do |event| %>
       <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
-      <li><%= event.summary %>  <%= event.id %> </li>
+      <li class="list-group-item justify-content-between">
+        <%= event.summary %>  <%#= event.id %>
+        <% eventtime = event.start.date_time.localtime %>
+        <% eventtimestring = eventtime.to_s(:db) %>
+        <% eventtimeparsed = DateTime.parse(eventtimestring) %>
+        <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
+        <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
+      </li>
     <% end %>
-  </table>
-
-  <%= link_to('Go to Google Calendar', 'https://calendar.google.com/calendar', class:
-  "btn btn-info") %>
 
   <!-- <%#= link_to 'Create new event', new_event_path %> -->
   <%#= form_tag new_event_url(:summary => "Hello") do %>
     <%#= submit_tag 'Add event' %>
   <%# end %>
+</div>
+<%= link_to('Go to Google Calendar', 'https://calendar.google.com/calendar', class:
+"btn btn-info") %>
 
-</ul>
-
+</br>
+</br>
 <div>
-  <h4> Add events to Calendar </h4>
+  <h4> Add Tasks to Calendar </h4>
   <table>
     <thead class="thead-dark">
       <tr>
-        <th>Title</th>
+        <th>Task</th>
         <th>Created by</th>
         <th>Deadline</th>
         <th>Group</th>
