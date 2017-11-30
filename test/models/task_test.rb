@@ -44,16 +44,16 @@ class TaskTest < ActiveSupport::TestCase
 
   test 'comment count returns the right number' do
     # create a new task
-    t = Task.new(title: 'cleaning', state: 'Open', created_by: 'Raiya')
+    t = Task.create(title: 'cleaning', state: 'Open', created_by: 'Raiya')
     assert(t.valid?, 'task is valid')
     assert_equal(0, t.comment_count(t), 't has no comments yet')
 
     # create new comments, and associate them with the task
-    tc1 = TaskComment.create(:task_comment => 'i hate cleaning', :task_id => t.id)
+    tc1 = TaskComment.create(:task_comment => 'i hate cleaning', :task_id => t.id, :user_id => 1)
     assert(tc1.valid?, 'comment is valid')
     assert_equal(1, t.comment_count(t), 'task has 1 comment')
 
-    tc2 = TaskComment.create(:task_comment => "i'll mop the floors", :task_id => t.id)
+    tc2 = TaskComment.create(:task_comment => "i'll mop the floors", :task_id => t.id, :user_id => 1)
     assert(tc2.valid?, 'comment is valid')
     assert_equal(2, t.comment_count(t), 'task has 2 comments')
   end
