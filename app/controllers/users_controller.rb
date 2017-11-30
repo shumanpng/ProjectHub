@@ -67,65 +67,10 @@ class UsersController < ApplicationController
     end
   end
 
-  # redirect the user to Google so they can sign in and consent
-  # to the access of Google Calendar
-  # https://readysteadycode.com/howto-integrate-google-calendar-with-rails
-  def redirect
-    client = Signet::OAuth2::Client.new(client_options)
 
-    redirect_to client.authorization_uri.to_s
-  end
-
-  # fetching an access token
-  # https://readysteadycode.com/howto-integrate-google-calendar-with-rails
-  def callback
-    client = Signet::OAuth2::Client.new(client_options)
-    client.code = params[:code]
-
-    response = client.fetch_access_token!
-
-    session[:authorization] = response
-
-    redirect_to calendars_url
-  end
-
-  # fetching a list of calendars
-  def calendars
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
-
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    @calendar_list = service.list_calendar_lists
-  end
-
-  # fetching calendar events
-  def events
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
-
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    @event_list = service.list_events(params[:calendar_id])
-  end
 
 
   private
-    # authorizing access to Google Calendar
-    # https://readysteadycode.com/howto-integrate-google-calendar-with-rails
-    def client_options
-      {
-        client_id: Rails.application.secrets.google_client_id,
-        client_secret: Rails.application.secrets.google_client_secret,
-        authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
-        token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-        scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
-        redirect_uri: callback_url
-      }
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])

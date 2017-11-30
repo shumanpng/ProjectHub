@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'calendars/redirect'
+
+  get 'calendars/callback'
+
+  get 'calendars/calendars'
+
+  get 'calendars/events'
+
+  get 'calendars/new_event'
+
   resources :change_passwords
   resources :group_requests
   resources :group_memberships
@@ -16,10 +26,12 @@ Rails.application.routes.draw do
 
   get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
 
-  get '/redirect', to: 'users#redirect', as: 'redirect'
-  get '/callback', to: 'users#callback', as: 'callback'
-  get '/calendars', to: 'users#calendars', as: 'calendars'
-  get '/events/:calendar_id', to: 'users#events', as: 'events', calendar_id: /[^\/]+/
+  get '/redirect', to: 'calendars_api#redirect', as: 'redirect'
+  get '/callback', to: 'calendars_api#callback', as: 'callback'
+  get '/calendars', to: 'calendars_api#calendars', as: 'calendars'
+  get '/events/:calendar_id', to: 'calendars_api#events', as: 'events', calendar_id: /[^\/]+/
+  # get '/events/:calendar_id', to: 'users#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  post '/events/:calendar_id', to: 'calendars_api#new_event', as: 'new_event', calendar_id: /[^\/]+/
 
   resources :points do
     member do

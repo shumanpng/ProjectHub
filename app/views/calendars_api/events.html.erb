@@ -2,4 +2,6 @@
   <% @event_list.items.each do |event| %>
     <li><%= event.summary %> (<%= event.id %>)</li>
   <% end %>
+
+  <%= link_to 'Create new event', new_event_path %>
 </ul>
