@@ -4,4 +4,7 @@
   <% end %>
 
   <%= link_to 'Create new event', new_event_path %>
+  <%= form_tag new_event_url do %>
+    <%= submit_tag 'Add event' %>
+  <% end %>
 </ul>
