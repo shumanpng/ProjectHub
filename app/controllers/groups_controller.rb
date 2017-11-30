@@ -119,7 +119,9 @@ class GroupsController < ApplicationController
 
     @notification_targets = Group.find(@current_group.id).group_memberships
     @notification_targets.each do |notify|
-      Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+      if @current_user.id != notify.user_id
+        Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+      end
     end
 
     GroupNotification.create(message: message, group_id: @current_group.id, status: false)
