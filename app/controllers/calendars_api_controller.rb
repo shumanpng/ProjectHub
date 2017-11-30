@@ -53,6 +53,8 @@ class CalendarsApiController < ApplicationController
 
   # adding an event from web app to Google Calendar through API
   def new_event
+     taskid = params[:taskid]
+     @task = Task.where(:id => taskid).take
      @tasks = Task.where(:group => "CMPT 300")
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
@@ -61,9 +63,9 @@ class CalendarsApiController < ApplicationController
      service.authorization = client
 
      today = Date.today
-     @tasks.each do |task|
+     # @tasks.each do |task|
        # datetime = DateTime.parse(task.deadline.localtime)
-       datetime = task.deadline
+       datetime = @task.deadline
        datetimestring = datetime.to_s(:db)
        datetimeparsed = DateTime.parse(datetimestring)
        formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
@@ -80,8 +82,8 @@ class CalendarsApiController < ApplicationController
        #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
        # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
          # summary: params[:summary],
-         summary: task.title,
-         description: task.description,
+         summary: @task.title,
+         description: @task.description,
          location: 'Burnaby'
          # reminders: {
          #   use_default: false,
@@ -92,7 +94,7 @@ class CalendarsApiController < ApplicationController
        })
 
       service.insert_event('primary', event)
-     end
+     # end
      # service.insert_event(params[:calendar_id], event)
 
 

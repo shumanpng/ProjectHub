@@ -12,52 +12,51 @@
     <%= submit_tag 'Add event' %>
   <% end %>
 
-  <% @tasks.each do |task| %>
-    <%= task.title %>
-    <%= task.description %>
-  <% end %>
-
-
 </ul>
 
-
-<table>
-  <thead class="thead-dark">
-    <tr>
-      <th>Title</th>
-      <th>Created by</th>
-      <th>Deadline</th>
-      <th>Group</th>
-      <th>Assignee</th>
-
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <% user = User.where(:id => task.assigned_to).take %>
-
+<div>
+  <table>
+    <thead class="thead-dark">
       <tr>
-        <td><%= link_to(task.title, task_path(task)) %></td>
-        <td><%= task.created_by %></td>
-        <td><%= task.deadline.to_date %></td>
-        <td><%= task.group %></td>
-
-        <td>
-          <% if user == nil %>
-            <%= %>
-          <% else %>
-            <%= user.name %>
-          <% end %>
-        </td>
-        <!-- <td><%#= link_to 'Show', task %></td> -->
-        <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
-        <td>
-          <i class="fa fa-trash-o "></i>
-          <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <th>Title</th>
+        <th>Created by</th>
+        <th>Deadline</th>
+        <th>Group</th>
+        <th>Assignee</th>
 
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody class="t-body">
+      <% @tasks.each do |task| %>
+        <% user = User.where(:id => task.assigned_to).take %>
+
+        <tr>
+          <td><%= link_to(task.title, task_path(task)) %></td>
+          <td><%= task.created_by %></td>
+          <td><%= task.deadline.to_date %></td>
+          <td><%= task.group %></td>
+
+          <td>
+            <% if user == nil %>
+              <%= %>
+            <% else %>
+              <%= user.name %>
+            <% end %>
+          </td>
+          <!-- <td><%#= link_to 'Show', task %></td> -->
+          <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+          <td>
+            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+            <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
+            <%#= submit_tag 'Add event' %>
+            <%= form_tag new_event_url(:taskid => task.id) do %>
+              <%= submit_tag 'Add to calendar' %>
+            <% end %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
