@@ -94,9 +94,11 @@ class GroupRequestsController < ApplicationController
       @curr_group.group_memberships << @new_membership
       @requester.group_memberships << @new_membership
 
-
-      message = "#{@requester.name} joined the group #{@curr_group.name}"
-
+      if @requester.name == @current_user.name
+        message = "You joined the group #{@curr_group.name}"
+      else
+        message = "#{@requester.name} joined the group #{@curr_group.name}"
+      end
       @notification_targets = Group.find(params[:group_id]).group_memberships
       @notification_targets.each do |notify|
         Notification.create(message: message, group_id: params[:group_id], user_id: notify.user_id,  status: false)
