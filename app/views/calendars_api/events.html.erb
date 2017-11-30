@@ -3,7 +3,7 @@
     <li><%= event.summary %> (<%= event.id %>)</li>
   <% end %>
 
-  <%= link_to 'Create new event', new_event_path %>
+  <!-- <%#= link_to 'Create new event', new_event_path %> -->
   <%= form_tag new_event_url do %>
     <%= submit_tag 'Add event' %>
   <% end %>

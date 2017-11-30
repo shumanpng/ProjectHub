@@ -18,7 +18,7 @@ class CalendarsApiController < ApplicationController
 
     session[:authorization] = response
 
-    redirect_to calendars_url
+    redirect_to events_url(:calendar_id => 'primary')
   end
 
   # fetching a list of calendars
@@ -41,6 +41,7 @@ class CalendarsApiController < ApplicationController
     service.authorization = client
 
     @event_list = service.list_events(params[:calendar_id])
+    # @event_list = service.list_events('primary')
   end
 
   # adding an event from web app to Google Calendar through API
@@ -56,10 +57,18 @@ class CalendarsApiController < ApplicationController
      event = Google::Apis::CalendarV3::Event.new({
        start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
        end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1),
-       summary: 'New event!'
+       summary: 'New event!',
+       location: 'Burnaby',
+       # reminders: {
+       #   use_default: false,
+       #   overrides: [
+       #     {method' => 'email', 'minutes: 24 * 60}
+       #   ],
+       # },
      })
 
-     service.insert_event(params[:calendar_id], event)
+     # service.insert_event(params[:calendar_id], event)
+     service.insert_event('primary', event)
 
      redirect_to events_url(calendar_id: params[:calendar_id])
    end
