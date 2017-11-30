@@ -39,8 +39,8 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                       <% @user_notifications.reverse[0..4].each do |user_notification| %>
-                                        <p class="dropdown-item" ><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
-                                        <% if user_notification != @user_notifications.first %>
+                                        <%= link_to group_path(user_notification.group_id) do %>
+                                          <p class="dropdown-item" ><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
                                           <hr>
                                         <% end %>
                                       <% end %>
