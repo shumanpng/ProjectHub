@@ -53,7 +53,7 @@ class CalendarsApiController < ApplicationController
 
   # adding an event from web app to Google Calendar through API
   def new_event
-     @tasks = Task.where(:group => "CMPT 276")
+     @tasks = Task.where(:group => "CMPT 300")
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
 
@@ -62,12 +62,27 @@ class CalendarsApiController < ApplicationController
 
      today = Date.today
      @tasks.each do |task|
+       # datetime = DateTime.parse(task.deadline.localtime)
+       datetime = task.deadline
+       datetimestring = datetime.to_s(:db)
+       datetimeparsed = DateTime.parse(datetimestring)
+       formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
        event = Google::Apis::CalendarV3::Event.new({
-         start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
-       end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1 ),
+
+         start: {
+            date_time: formatted_datetime
+            # time_zone: 'America/Los_Angeles',
+         },
+         end: {
+            date_time: formatted_datetime
+            # time_zone: 'America/Los_Angeles',
+         },
+       #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
+       # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
          # summary: params[:summary],
          summary: task.title,
-         location: 'Burnaby',
+         description: task.description,
+         location: 'Burnaby'
          # reminders: {
          #   use_default: false,
          #   overrides: [

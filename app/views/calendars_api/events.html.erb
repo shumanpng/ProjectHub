@@ -1,7 +1,11 @@
 <ul>
-  <% @event_list.items.each do |event| %>
-    <li><%= event.summary %> (<%= event.id %>)</li>
-  <% end %>
+  <table>
+    <% @event_list.items.each do |event| %>
+      <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
+      <li><%= event.summary %>  <%= event.description %> </li>
+
+    <% end %>
+  </table>
 
   <!-- <%#= link_to 'Create new event', new_event_path %> -->
   <%= form_tag new_event_url(:summary => "Hello") do %>
