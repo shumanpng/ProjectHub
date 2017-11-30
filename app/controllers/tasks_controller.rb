@@ -71,8 +71,6 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-
-
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
         # # @group = Group.find(:id => groupID)
@@ -84,6 +82,10 @@ class TasksController < ApplicationController
         # # associate new membership with the group and the user
         # @group.task << @new_task
         # @current_user.tasks << @task
+
+        # add task to calendar
+        new_event_url(:summary => @task.title, :calendar_id => 'primary')
+
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }

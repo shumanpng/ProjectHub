@@ -4,7 +4,56 @@
   <% end %>
 
   <!-- <%#= link_to 'Create new event', new_event_path %> -->
-  <%= form_tag new_event_url do %>
+  <%= form_tag new_event_url(:summary => "Hello") do %>
     <%= submit_tag 'Add event' %>
   <% end %>
+
+  <% @tasks.each do |task| %>
+    <%= task.title %>
+    <%= task.description %>
+  <% end %>
+
+
 </ul>
+
+
+<table>
+  <thead class="thead-dark">
+    <tr>
+      <th>Title</th>
+      <th>Created by</th>
+      <th>Deadline</th>
+      <th>Group</th>
+      <th>Assignee</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <% user = User.where(:id => task.assigned_to).take %>
+
+      <tr>
+        <td><%= link_to(task.title, task_path(task)) %></td>
+        <td><%= task.created_by %></td>
+        <td><%= task.deadline.to_date %></td>
+        <td><%= task.group %></td>
+
+        <td>
+          <% if user == nil %>
+            <%= %>
+          <% else %>
+            <%= user.name %>
+          <% end %>
+        </td>
+        <!-- <td><%#= link_to 'Show', task %></td> -->
+        <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+        <td>
+          <i class="fa fa-trash-o "></i>
+          <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

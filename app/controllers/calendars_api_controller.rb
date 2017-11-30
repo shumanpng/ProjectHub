@@ -30,10 +30,17 @@ class CalendarsApiController < ApplicationController
     service.authorization = client
 
     @calendar_list = service.list_calendar_lists
+  rescue Google::Apis::AuthorizationError
+    response = client.refresh!
+
+    session[:authorization] = session[:authorization].merge(response)
+
+    retry
   end
 
   # fetching calendar events
   def events
+    @tasks = Task.all
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
 
@@ -46,6 +53,7 @@ class CalendarsApiController < ApplicationController
 
   # adding an event from web app to Google Calendar through API
   def new_event
+     @tasks = Task.where(:group => "CMPT 276")
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
 
@@ -53,22 +61,25 @@ class CalendarsApiController < ApplicationController
      service.authorization = client
 
      today = Date.today
+     @tasks.each do |task|
+       event = Google::Apis::CalendarV3::Event.new({
+         start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
+       end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1 ),
+         # summary: params[:summary],
+         summary: task.title,
+         location: 'Burnaby',
+         # reminders: {
+         #   use_default: false,
+         #   overrides: [
+         #     {method' => 'email', 'minutes: 24 * 60}
+         #   ],
+         # },
+       })
 
-     event = Google::Apis::CalendarV3::Event.new({
-       start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
-       end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1),
-       summary: 'New event!',
-       location: 'Burnaby',
-       # reminders: {
-       #   use_default: false,
-       #   overrides: [
-       #     {method' => 'email', 'minutes: 24 * 60}
-       #   ],
-       # },
-     })
-
+      service.insert_event('primary', event)
+     end
      # service.insert_event(params[:calendar_id], event)
-     service.insert_event('primary', event)
+
 
      redirect_to events_url(calendar_id: params[:calendar_id])
    end
