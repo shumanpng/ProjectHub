@@ -1,4 +1,7 @@
 class CalendarsApiController < ApplicationController
+  before_action :authenticate, only: [:redirect, :callback, :calendars, :events, :new_event]
+
+
   # redirect the user to Google so they can sign in and consent
   # to the access of Google Calendar
   # https://readysteadycode.com/howto-integrate-google-calendar-with-rails
@@ -40,7 +43,16 @@ class CalendarsApiController < ApplicationController
 
   # fetching calendar events
   def events
-    @tasks = Task.all
+    groups = @current_user.groups
+    @alltasks = Task.where(:group => nil)
+    # @alltasks = Task.where(:created_by => @current_user.name)
+    groups.each do |group|
+      @tasks = Task.where(:group => group.name)
+      @alltasks.concat @tasks
+      # @alltasks << @tasks
+    end
+
+    # @tasks = Task.all
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
 
@@ -55,7 +67,7 @@ class CalendarsApiController < ApplicationController
   def new_event
      taskid = params[:taskid]
      @task = Task.where(:id => taskid).take
-     @tasks = Task.where(:group => "CMPT 300")
+     # @tasks = Task.where(:group => "CMPT 300")
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
 
@@ -65,33 +77,26 @@ class CalendarsApiController < ApplicationController
      today = Date.today
      # @tasks.each do |task|
        # datetime = DateTime.parse(task.deadline.localtime)
-       datetime = @task.deadline
-       datetimestring = datetime.to_s(:db)
-       datetimeparsed = DateTime.parse(datetimestring)
-       formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
-       event = Google::Apis::CalendarV3::Event.new({
+     datetime = @task.deadline
+     datetimestring = datetime.to_s(:db)
+     datetimeparsed = DateTime.parse(datetimestring)
+     formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
+     event = Google::Apis::CalendarV3::Event.new({
 
-         start: {
-            date_time: formatted_datetime
-            # time_zone: 'America/Los_Angeles',
-         },
-         end: {
-            date_time: formatted_datetime
-            # time_zone: 'America/Los_Angeles',
-         },
-       #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
-       # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
-         # summary: params[:summary],
-         summary: @task.title,
-         description: @task.description,
-         location: 'Burnaby'
-         # reminders: {
-         #   use_default: false,
-         #   overrides: [
-         #     {method' => 'email', 'minutes: 24 * 60}
-         #   ],
-         # },
-       })
+       start: {
+          date_time: formatted_datetime
+          # time_zone: 'America/Los_Angeles',
+       },
+       end: {
+          date_time: formatted_datetime
+          # time_zone: 'America/Los_Angeles',
+       },
+     #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
+     # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
+       # summary: params[:summary],
+       summary: @task.title,
+       description: @task.description
+     })
 
       service.insert_event('primary', event)
      # end
@@ -116,4 +121,17 @@ class CalendarsApiController < ApplicationController
         redirect_uri: callback_url
       }
     end
+
+    def authenticate
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
+      if @user_login == nil
+        respond_to do |format|
+          format.html { redirect_to new_user_login_path, notice: '' }
+        end
+      else
+        @current_user = User.where(:email => @user_login.email).take
+      end
+    end
+
 end

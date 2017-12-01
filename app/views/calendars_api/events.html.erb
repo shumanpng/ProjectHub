@@ -22,27 +22,29 @@
 
 </br>
 </br>
+</br>
+</br>
 <div>
   <h4> Add Tasks to Calendar </h4>
   <table>
     <thead class="thead-dark">
       <tr>
         <th>Task</th>
-        <th>Created by</th>
-        <th>Deadline</th>
+        <!-- <th>Created by</th> -->
+        <th>Deadline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
         <th>Group</th>
         <th>Assignee</th>
 
       </tr>
     </thead>
 
-    <tbody class="t-body">
-      <% @tasks.each do |task| %>
+    <tbody>
+      <% @alltasks.each do |task| %>
         <% user = User.where(:id => task.assigned_to).take %>
 
         <tr>
           <td><%= link_to(task.title, task_path(task)) %></td>
-          <td><%= task.created_by %></td>
+          <!-- <td><%#= task.created_by %></td> -->
           <td><%= task.deadline.to_date %></td>
           <td><%= task.group %></td>
 
