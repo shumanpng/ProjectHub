@@ -1,5 +1,5 @@
 <!-- views/calendars_api/show_event.html.erb -->
-<h4> Event Details </h4>
+<h4> Task Details </h4>
 <strong> Summary: </strong>
   <%= @show_event.summary %>
 
@@ -12,18 +12,10 @@
   <% end %>
 
 </br>
-<strong> Start: </strong>
+<strong> Deadline: </strong>
   <%= @formatted_datetime %>
 
 </br>
-<strong> Location: </strong>
-  <% if @show_event.location != nil %>
-    <%= @show_event.location %>
-  <% else %>
-      n/a
-  <% end %>
-</br>
-
 <%= link_to 'Back', events_path('primary'), class:
 "btn btn-info" %>
 
