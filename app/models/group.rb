@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   has_many :group_requests, :dependent => :destroy
 
   validates :name, :presence => true, :uniqueness => true
+  validates :deadline, :presence => true
 
 
   # Decides the type of access a user has to a group (based on account type and

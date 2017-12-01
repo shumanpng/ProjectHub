@@ -35,8 +35,8 @@
         <%= f.datetime_local_field :deadline, min: Date.today, class: 'form-control', required: true %>
       </div>
       <div class="field form-group">
-        <%= f.label :points %><br>
-        <%= f.number_field :points, class: 'form-control' %>
+        <%= f.label :points, 'How many points is this task worth? (1..5)' %><br>
+        <%= f.number_field :points, class: 'form-control', min: 1, max: 5 %>
       </div>
       <div class="field form-group">
         <%= f.label :group %><br>

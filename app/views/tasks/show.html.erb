@@ -99,7 +99,7 @@
             (Edited)
           <% end %>
 
-        <% @time = comment.created_at.localtime.strftime("%I:%M%p") %>
+        <% @time = comment.created_at.localtime %>
         <br><%= distance_of_time_in_words(Time.now, @time) %> ago
 
         </em></div>

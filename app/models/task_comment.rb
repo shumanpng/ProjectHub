@@ -5,4 +5,5 @@ class TaskComment < ActiveRecord::Base
 	validates :task_comment, :presence => true
 	validates :task_id, :presence => true
 	validates :user_id, :presence => true
+	validates :user_name, :presence => true
 end

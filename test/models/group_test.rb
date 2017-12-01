@@ -6,7 +6,7 @@ class GroupTest < ActiveSupport::TestCase
   # This test is needed because a lot of the implementation of Tasks relies on having
   # unique group names
   test 'no duplicate names' do
-    g = Group.new
+    g = Group.new(:deadline => Date.parse('2016-8-20'))
     assert(g.invalid?, 'name is nil')
 
     g.name = 'Gryffindor'
@@ -15,6 +15,14 @@ class GroupTest < ActiveSupport::TestCase
 
     g.name = 'Hufflepuff'
     assert(g.valid?, 'group has a unique name')
+  end
+
+  test 'has a deadline' do
+    g = Group.new(:name => 'Hogwarts')
+    assert(g.invalid?, 'deadline is nil')
+
+    g.deadline = Date.parse('2017-10-05')
+    assert(g.valid?, 'has a deadline')
   end
 
   test 'get_user_status returns correct case' do
@@ -72,7 +80,7 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal('denied', g.typeOfAccess(g, u2), "user's request was denied")
 
     gr.update_attribute('status', 'accepted')
-    gm = GroupMembership.create(:user_id => u2.id, :group_id => g.id)
+    gm = GroupMembership.create(:user_id => u2.id, :group_id => g.id, :is_admin => false)
     assert_equal('view', g.typeOfAccess(g, u2), 'user is already a member of group')
   end
 
