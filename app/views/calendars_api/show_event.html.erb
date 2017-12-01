@@ -8,7 +8,7 @@
   <% if @show_event.description != nil %>
     <%= @show_event.description %>
   <% else %>
-    <%= n/a %>
+     n/a
   <% end %>
 
 </br>
@@ -22,3 +22,11 @@
   <% else %>
       n/a
   <% end %>
+</br>
+
+<%= link_to 'Back', events_path('primary'), class:
+"btn btn-info" %>
+
+<% eventid = @show_event.id %>
+<%= link_to('View in Google Calendar', 'https://calendar.google.com/calendar/#{eventid}',
+  class: "btn btn-info") %>
