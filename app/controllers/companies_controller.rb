@@ -1,5 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new]
 
   # GET /companies
   # GET /companies.json
@@ -67,8 +68,20 @@ class CompaniesController < ApplicationController
       @company = Company.find(params[:id])
     end
 
+    def authenticate
+      token = session[:current_user_token]
+      @user_login = UserLogin.where('token = (?)', token).take
+      if @user_login == nil
+        respond_to do |format|
+          format.html { redirect_to new_user_login_path, notice: '' }
+        end
+      else
+        @current_user = User.where(:email => @user_login.email).take
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name)
+      params.require(:company).permit(:name, :description, :logo, :city)
     end
 end
