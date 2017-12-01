@@ -24,24 +24,6 @@ class CalendarsApiController < ApplicationController
     redirect_to calendar_events_url(:calendar_id => 'primary')
   end
 
-  # fetching a list of calendars
-  # def calendars
-  #   client = Signet::OAuth2::Client.new(client_options)
-  #   client.update!(session[:authorization])
-  #
-  #   service = Google::Apis::CalendarV3::CalendarService.new
-  #   service.authorization = client
-  #
-  #   @calendar_list = service.list_calendar_lists
-  # rescue Google::Apis::AuthorizationError
-  #
-  #
-  #   response = client.refresh!
-  #
-  #   session[:authorization] = session[:authorization].merge(response)
-  #
-  #   retry
-  # end
 
   # fetching calendar events
   def calendar_events
@@ -139,15 +121,15 @@ class CalendarsApiController < ApplicationController
      service = Google::Apis::CalendarV3::CalendarService.new
      service.authorization = client
 
-     @event_list = service.list_events('primary')
-     @event_list.items.each do |event|
+     @calendar_event_list = service.list_events('primary')
+     @calendar_event_list.items.each do |event|
        if event.id == event_id
-         @show_event = event
+         @show_calendar_event = event
          break
        end
      end
 
-     eventtime = @show_event.start.date_time.localtime
+     eventtime = @show_calendar_event.start.date_time.localtime
      eventtimestring = eventtime.to_s(:db)
      eventtimeparsed = DateTime.parse(eventtimestring)
      @formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y  %I:%M%P')

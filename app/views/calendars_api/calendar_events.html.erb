@@ -1,5 +1,5 @@
 <div class="container mt-5 ">
-  <div class="col-md-8 center">
+  <div class="col-md-9 center">
     <div class="list-group ">
         <h4> Upcoming Tasks/Events in Calendar </h4>
         <% @today = Date.today %>
@@ -49,7 +49,7 @@
   </br>
   </br>
 
-  <div>
+  <div class="col-md-9 center">
     <h4> Add Tasks to Calendar </h4>
     <table>
       <thead class="thead-dark">
@@ -87,7 +87,7 @@
               <%#= submit_tag 'Add event' %>
               <%= form_tag new_calendar_event_url(:taskid => task.id) do %>
                 <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                <%= submit_tag('Add to calendar', class: "btn btn-xs btn-info") %>
+                <%= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
               <% end %>
             </td>
 
