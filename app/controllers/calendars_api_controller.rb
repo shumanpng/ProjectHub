@@ -25,21 +25,23 @@ class CalendarsApiController < ApplicationController
   end
 
   # fetching a list of calendars
-  def calendars
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
-
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    @calendar_list = service.list_calendar_lists
-  rescue Google::Apis::AuthorizationError
-    response = client.refresh!
-
-    session[:authorization] = session[:authorization].merge(response)
-
-    retry
-  end
+  # def calendars
+  #   client = Signet::OAuth2::Client.new(client_options)
+  #   client.update!(session[:authorization])
+  #
+  #   service = Google::Apis::CalendarV3::CalendarService.new
+  #   service.authorization = client
+  #
+  #   @calendar_list = service.list_calendar_lists
+  # rescue Google::Apis::AuthorizationError
+  #
+  #
+  #   response = client.refresh!
+  #
+  #   session[:authorization] = session[:authorization].merge(response)
+  #
+  #   retry
+  # end
 
   # fetching calendar events
   def events
@@ -61,6 +63,27 @@ class CalendarsApiController < ApplicationController
 
     @event_list = service.list_events(params[:calendar_id])
     # @event_list = service.list_events('primary')
+
+    # refresh authorization
+    rescue Google::Apis::AuthorizationError
+      if client.expired?
+        # client.authorization_uri.fetch_access_token!
+        redirect_to redirect_path
+        # response = client.fetch_access_token!
+
+        # session[:authorization] = response
+      # end
+      # if client.invalid?
+      #   redirect_to redirect_uri
+      # elsif session[:authorization].invalid?
+      #   redirect_to redirect_url
+      else
+        response = client.refresh!
+        session[:authorization] = session[:authorization].merge(response)
+
+      end
+
+    retry
   end
 
   # adding an event from web app to Google Calendar through API
