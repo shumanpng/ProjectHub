@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20171127051138) do
     t.datetime "updated_at",  null: false
     t.string   "description"
     t.date     "deadline"
+
   end
 
   create_table "points", force: :cascade do |t|

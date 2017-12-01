@@ -78,12 +78,12 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
 
+
         @point = Point.new
         @user_login = UserLogin.where('token = (?)', session[:current_user_token]).take
         @point.update_attribute(:user_email, @user_login.email)
         @point.update_attribute(:task_id, @task.id)
         @point.update_attribute(:voted_points, @task.points)
-
 
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
@@ -96,6 +96,10 @@ class TasksController < ApplicationController
         # # associate new membership with the group and the user
         # @group.task << @new_task
         # @current_user.tasks << @task
+
+        # add task to calendar
+        new_event_url(:summary => @task.title, :calendar_id => 'primary')
+
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
