@@ -1,5 +1,5 @@
 <div class="list-group">
-    <h4> Tasks in Calendar </h4>
+    <h4> Upcoming Tasks/Events in Calendar </h4>
     <% @today = Date.today %>
     <% todaystring = @today.to_s(:db) %>
     <% todayparsed = DateTime.parse(todaystring) %>
@@ -8,17 +8,20 @@
     <!-- <%# @event_list.items.sort_by(&:start) %> -->
     <% @event_list.items.each do |event| %>
       <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
-      <li class="list-group-item justify-content-between">
-        <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
-        <% eventtime = event.start.date_time.localtime %>
-        <% eventtimestring = eventtime.to_s(:db) %>
-        <% eventtimeparsed = DateTime.parse(eventtimestring) %>
-        <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
-        <% days_till_event = (eventtime - Time.zone.now).to_i / 1.day %>
-        <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
-        <span class="badge badge-default badge-pill"><%= days_till_event %> days from today</span>
+      <% eventtime = event.start.date_time.localtime %>
+      <% eventtimestring = eventtime.to_s(:db) %>
+      <% eventtimeparsed = DateTime.parse(eventtimestring) %>
+      <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
+      <% days_till_event = (eventtime - Time.zone.now).to_i / 1.day %>
 
-      </li>
+      <!-- only show upcoming events (i.e. days_till_event >= 0) -->
+      <% if days_till_event >= 0 %>
+        <li class="list-group-item justify-content-between">
+          <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
+          <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
+          <span class="badge badge-default badge-pill"><%= days_till_event %> days from today</span>
+        </li>
+      <% end %>
     <% end %>
 
   <!-- <%#= link_to 'Create new event', new_event_path %> -->
