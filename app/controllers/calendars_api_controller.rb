@@ -62,7 +62,7 @@ class CalendarsApiController < ApplicationController
     service.authorization = client
 
     @event_list = service.list_events(params[:calendar_id])
-    
+
     # @event_list = service.list_events('primary')
 
     # refresh authorization
@@ -130,6 +130,17 @@ class CalendarsApiController < ApplicationController
      redirect_to events_url(calendar_id: params[:calendar_id])
    end
 
+   def show_event
+
+     client = Signet::OAuth2::Client.new(client_options)
+     client.update!(session[:authorization])
+
+     service = Google::Apis::CalendarV3::CalendarService.new
+     service.authorization = client
+
+     @event_list = service.list_events('primary')
+
+   end
 
 
   private

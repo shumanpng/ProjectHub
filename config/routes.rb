@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get '/calendars', to: 'calendars_api#calendars', as: 'calendars'
   get '/events/:calendar_id', to: 'calendars_api#events', as: 'events', calendar_id: /[^\/]+/
   # get '/events/:calendar_id', to: 'users#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  get '/event/:id', to: 'calendars_api#show_event', as:'show_event', id: /[^\/]+/
   post '/events/:calendar_id', to: 'calendars_api#new_event', as: 'new_event', calendar_id: /[^\/]+/
 
   resources :points do

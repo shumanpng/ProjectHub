@@ -9,7 +9,7 @@
     <% @event_list.items.each do |event| %>
       <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
       <li class="list-group-item justify-content-between">
-        <%= event.summary %>  <%#= event.id %>
+        <%= link_to(event.summary, show_event_path(event.id)) %>  <%#= event.id %>
         <% eventtime = event.start.date_time.localtime %>
         <% eventtimestring = eventtime.to_s(:db) %>
         <% eventtimeparsed = DateTime.parse(eventtimestring) %>
