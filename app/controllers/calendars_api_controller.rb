@@ -43,11 +43,11 @@ class CalendarsApiController < ApplicationController
 
   # fetching calendar events
   def events
-    groups = @current_user.groups
+    groups = @current_user.groups.order(:name)
     @alltasks = Task.where(:group => nil)
     # @alltasks = Task.where(:created_by => @current_user.name)
     groups.each do |group|
-      @tasks = Task.where(:group => group.name)
+      @tasks = Task.where(:group => group.name).order(:deadline)
       @alltasks.concat @tasks
       # @alltasks << @tasks
     end
