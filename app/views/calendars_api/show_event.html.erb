@@ -1,0 +1,24 @@
+<!-- views/calendars_api/show_event.html.erb -->
+<h4> Event Details </h4>
+<strong> Summary: </strong>
+  <%= @show_event.summary %>
+
+</br>
+<strong> Description: </strong>
+  <% if @show_event.description != nil %>
+    <%= @show_event.description %>
+  <% else %>
+    <%= n/a %>
+  <% end %>
+
+</br>
+<strong> Start: </strong>
+  <%= @formatted_datetime %>
+
+</br>
+<strong> Location: </strong>
+  <% if @show_event.location != nil %>
+    <%= @show_event.location %>
+  <% else %>
+      n/a
+  <% end %>

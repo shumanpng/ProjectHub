@@ -131,6 +131,7 @@ class CalendarsApiController < ApplicationController
    end
 
    def show_event
+     event_id = params[:id]
 
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
@@ -139,6 +140,18 @@ class CalendarsApiController < ApplicationController
      service.authorization = client
 
      @event_list = service.list_events('primary')
+     @event_list.items.each do |event|
+       if event.id == event_id
+         @show_event = event
+         break
+       end
+     end
+
+     eventtime = @show_event.start.date_time.localtime
+     eventtimestring = eventtime.to_s(:db)
+     eventtimeparsed = DateTime.parse(eventtimestring)
+     @formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y  %I:%M%P')
+     @days_till_event = (eventtime - Time.zone.now).to_i / 1.day
 
    end
 
