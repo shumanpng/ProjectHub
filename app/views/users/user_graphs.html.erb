@@ -4,24 +4,24 @@
 <body>
   <div id="container" style="height: 400px">
 
-    <!-- <%= line_chart Task.group(:points).count %> -->
-
-
+    <p><strong> Tasks Completed By <%= @user_name%>:</strong></p>
     <!-- like this one -->
-    <%= column_chart @completedtasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, stacked:true %>
-
+    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, stacked:true %>
+    </br>
     <!-- <%= line_chart  Task.group(:points).count, library: {backgroundColor: "#0d233a"}%> -->
-
+    <!-- <%= line_chart Task.group(:points).count %> -->
     <!-- <%= scatter_chart Task.pluck(:updated_at, :points), xtitle: "Time", ytitle: "Points received" %> -->
 
+    <p><strong> Tasks Still In Progress Assigned to <%= @user_name%>:</strong></p>
+
+    <%= line_chart @in_progress_tasks.group(:tasks).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, stacked:true %>
+    </br>
+
+    <% @completed_tasks.each do |task| %>
+      <p><%=  task.updated_at %> ==> <%=  task.points %></p>
+
+    </br>
+    <% end %>
+
   </div>
-
-
-  <% @completedtasks.each do |task| %>
-    <p><%=  task.updated_at %> ==> <%=  task.points %></p>
-
-  </br>
-  <% end %>
-
-
 </body>

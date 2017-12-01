@@ -18,11 +18,11 @@ Rails.application.routes.draw do
       get "user_graphs" => 'users#user_graphs', as: :graphs
     end
   end
+
   resources :tasks do
     member do
       get "update_vote" => 'tasks#update_vote'
       get "vote_for_points" => 'tasks#vote_for_points'
-      # get "user_graphs" => 'user_logins#user_graphs'
     end
   end
 

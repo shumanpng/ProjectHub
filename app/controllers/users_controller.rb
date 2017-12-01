@@ -69,7 +69,11 @@ class UsersController < ApplicationController
 
   def user_graphs
 
-    @completedtasks = Task.where(:assigned_to => @user.id , :state => "Completed")
+    @user_name = @user.name
+
+    @completed_tasks = Task.where(:assigned_to => @user.id , :state => "Completed")
+
+    @in_progress_tasks =  Task.where(:assigned_to => @user.id , :state => "In Progress")
 
   end
 
