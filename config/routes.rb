@@ -39,10 +39,10 @@ Rails.application.routes.draw do
   get '/redirect', to: 'calendars_api#redirect', as: 'redirect'
   get '/callback', to: 'calendars_api#callback', as: 'callback'
   get '/calendars', to: 'calendars_api#calendars', as: 'calendars'
-  get '/events/:calendar_id', to: 'calendars_api#events', as: 'events', calendar_id: /[^\/]+/
+  get '/calendar_events/:calendar_id', to: 'calendars_api#calendar_events', as: 'calendar_events', calendar_id: /[^\/]+/
   # get '/events/:calendar_id', to: 'users#new_event', as: 'new_event', calendar_id: /[^\/]+/
-  get '/event/:id', to: 'calendars_api#show_event', as:'show_event', id: /[^\/]+/
-  post '/events/:calendar_id', to: 'calendars_api#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  get '/calendar_event/:id', to: 'calendars_api#show_calendar_event', as:'show_calendar_event', id: /[^\/]+/
+  post '/calendar_events/:calendar_id', to: 'calendars_api#new_calendar_event', as: 'new_calendar_event', calendar_id: /[^\/]+/
 
   resources :points do
     member do

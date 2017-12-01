@@ -1,5 +1,5 @@
 class CalendarsApiController < ApplicationController
-  before_action :authenticate, only: [:redirect, :callback, :calendars, :events, :new_event]
+  before_action :authenticate, only: [:redirect, :callback, :calendars, :calendar_events, :new_calendar_event]
 
 
   # redirect the user to Google so they can sign in and consent
@@ -21,7 +21,7 @@ class CalendarsApiController < ApplicationController
 
     session[:authorization] = response
 
-    redirect_to events_url(:calendar_id => 'primary')
+    redirect_to calendar_events_url(:calendar_id => 'primary')
   end
 
   # fetching a list of calendars
@@ -44,7 +44,7 @@ class CalendarsApiController < ApplicationController
   # end
 
   # fetching calendar events
-  def events
+  def calendar_events
     groups = @current_user.groups.order(:name)
     @alltasks = Task.where(:group => nil)
     # @alltasks = Task.where(:created_by => @current_user.name)
@@ -88,7 +88,7 @@ class CalendarsApiController < ApplicationController
   end
 
   # adding an event from web app to Google Calendar through API
-  def new_event
+  def new_calendar_event
      taskid = params[:taskid]
      @task = Task.where(:id => taskid).take
      # @tasks = Task.where(:group => "CMPT 300")
@@ -127,10 +127,10 @@ class CalendarsApiController < ApplicationController
      # service.insert_event(params[:calendar_id], event)
 
 
-     redirect_to events_url(calendar_id: params[:calendar_id])
+     redirect_to calendar_events_url(calendar_id: params[:calendar_id])
    end
 
-   def show_event
+   def show_calendar_event
      event_id = params[:id]
 
      client = Signet::OAuth2::Client.new(client_options)

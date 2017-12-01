@@ -9,7 +9,7 @@
     <% @event_list.items.each do |event| %>
       <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
       <li class="list-group-item justify-content-between">
-        <%= link_to(event.summary, show_event_path(:id => event.id)) %>  <%#= event.id %>
+        <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
         <% eventtime = event.start.date_time.localtime %>
         <% eventtimestring = eventtime.to_s(:db) %>
         <% eventtimeparsed = DateTime.parse(eventtimestring) %>
@@ -69,7 +69,7 @@
           <td>
             <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
             <%#= submit_tag 'Add event' %>
-            <%= form_tag new_event_url(:taskid => task.id) do %>
+            <%= form_tag new_calendar_event_url(:taskid => task.id) do %>
               <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
               <%= submit_tag('Add to calendar', class: "btn btn-xs btn-info") %>
             <% end %>
