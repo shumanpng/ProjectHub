@@ -150,7 +150,9 @@ class GroupsController < ApplicationController
         else
           message = "#{@new_admin.name} became the admin of #{@current_group.name}"
         end
-        Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+        if notify.user_id != @current_user.id
+          Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+        end
       end
 
       message = "#{@new_admin.name} became the admin of #{@current_group.name}"
@@ -177,7 +179,9 @@ class GroupsController < ApplicationController
         else
           message = "#{@new_admin.name} has became admin of #{@current_group.name}"
         end
-        Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+        if notify.user_id != @current_user.id
+          Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+        end
       end
 
 
