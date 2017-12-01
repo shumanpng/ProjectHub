@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'calendars/redirect'
 
   get 'calendars/callback'
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'calendars/new_event'
 
+
+  resources :events
   resources :change_passwords
   resources :group_requests
   resources :group_memberships
@@ -19,12 +22,19 @@ Rails.application.routes.draw do
   resources :companies
   resources :users
   resources :task_comments
-  resources :tasks
+
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
+  get '/add_member', to: 'groups#add_member', as: :add_member
+  post '/update_comment', to: 'task_comments#update_comment', as: :update_comment
 
-  get '/:id/vote_for_points/', to: 'tasks#vote_for_points', as: :vote_for_points
+  resources :tasks do
+    member do
+      get "update_vote" => 'tasks#update_vote'
+      get "vote_for_points" => 'tasks#vote_for_points'
+    end
+  end
 
   get '/redirect', to: 'calendars_api#redirect', as: 'redirect'
   get '/callback', to: 'calendars_api#callback', as: 'callback'

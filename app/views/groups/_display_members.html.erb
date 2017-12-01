@@ -1,24 +1,40 @@
 <div class="display-members">
-  <p class="header">GROUP MEMBERS:</p>
+  <p class="header lead">Group Members:</p>
   <% group.users.each do |user| %>
+    <!-- get date user joined the group, in Jan 1, '17 format -->
+    <% date_joined_grp = group.group_memberships.where(:user_id => user.id).take.created_at.localtime.strftime("%b. %-d, '%y") %>
+
     <div class="member-container">
       <!-- displays a circle with the first letter of the user's name. the group admin's
       circle is a different color. -->
       <% if user.id == group.get_admin(group) %>
-        <div class="letter-container admin-color">
-          <p><%= user.name[0] %></p>
-        </div>
+        <% if user.avatar.blank? %>
+          <button type="button" class="letter-container admin-color" data-toggle="popover" data-placement="top" data-html="true"
+          data-content="<span><b>Group Admin</b></span><br><b><%= user.name %></b><br><%= user.email %><br><em>Joined group on: </em><%= date_joined_grp %>">
+            <p><%= user.name[0] %></p>
+          </button>
+        <% else %>
+          <input type="image" class="letter-container sm-avatar" data-toggle="popover" data-placement="top" data-html="true"
+          data-content="<span><b>Group Admin</b></span><br><b><%= user.name %></b><br><%= user.email %><br><em>Joined group on: </em><%= date_joined_grp %>" src="<%= user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found-small.png'">
+          </input>
+        <% end %>
       <% else %>
-        <div class="letter-container">
-          <p><%= user.name[0] %></p>
-        </div>
-      <% end %>
-      <!-- the split method splits a string by whitespaces into an array -->
-      <% user.name.split.each do |name| %>
-        <p><%= name %></p>
+        <% if user.avatar.blank? %>
+          <button type="button" class="letter-container" data-toggle="popover" data-placement="top" data-html="true"
+          data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined group on: </em><%= date_joined_grp %>">
+            <p><%= user.name[0] %></p>
+          </button>
+        <% else %>
+          <input type="image" class="letter-container sm-avatar" data-toggle="popover" data-placement="top" data-html="true"
+          data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined group on: </em><%= date_joined_grp %>" src="<%= user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found-small.png'">
+          </input>
+        <% end %>
       <% end %>
       <% if user.id == curr_user.id %>
         <p>(You)</p>
+      <% else %>
+        <!-- the split method splits a string by whitespaces into an array -->
+        <p><%= user.name.split[0] %></p>
       <% end %>
     </div>
   <% end %>

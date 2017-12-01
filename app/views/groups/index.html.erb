@@ -10,7 +10,7 @@
         <% else %>
           <h1>Dashboard</h1>
         <% end %>
-        <p class="lead">These are all of your groups</p>
+        <p class="lead">These are all of your groups.</p>
       </div>
     </div>
   </div>
@@ -18,9 +18,9 @@
   <table class="table table-sm">
     <thead class="thead-dark">
       <tr>
-        <th>Name</th>
-        <th>Access</th>
-        <% if !@current_user.is_admin %><th>Leave</th><% end %>
+        <th style="font-weight:normal">Name</th>
+        <th style="font-weight:normal">Access</th>
+        <% if !@current_user.is_admin %><th style="font-weight:normal">Leave</th><% end %>
       </tr>
     </thead>
 
@@ -28,7 +28,7 @@
       <% @groups.each do |group| %>
         <tr>
           <td><%= group.name %></td>
-          
+
           <td>
             <!-- call function in group model -->
             <% @access_type = group.typeOfAccess(group, @current_user) %>
@@ -54,7 +54,7 @@
                 <!-- add link to toggle the modal. Since the modal displays info specific to each group, the
                 modal has to have unique id's depending on which group is calling it -->
                 <%= link_to groups_path, data: { toggle: "modal", target: "#modal#{group.id}" }, :class => 'table-link' do %>
-                  <i class="fa fa-close"></i>Leave Group
+                  <i class="fa fa-close fa-fw"></i>Leave Group
                 <% end %>
 
                 <!-- render modal stored in views/groups/_leave_grp_modal.html.erb (a partial view) -->
@@ -72,6 +72,15 @@
 
   <!-- only give regular users (not admins) ability to create a new group -->
   <% if @current_user.is_admin == false %>
-    <%= link_to 'New Group', new_group_path, :class=>"btn btn-primary" %>
+    <%= link_to '<i class="fa fa-plus fa-fw" style="color:#b4dbf7"></i>New Group'.html_safe, new_group_path, :class=>"btn btn-primary btn-sm" %>
+  <% end %>
+
+  <% if @current_user.is_admin %>
+    <p class="lead" style="margin:5px 0 30px 0">These are all the members of your company.</p>
+    <%= render 'groups/display_all_users', :users => @users, :curr_user => @current_user %>
+  <% else %>
+    <br></br><p class="lead" style="margin-top:20px">This is your network.</p>
+    <p class="text-muted" style="margin:-20px 0 30px 0">(all the users with whom you share a common group.)</p>
+    <%= render 'groups/display_network', :curr_user => @current_user %>
   <% end %>
 </div>

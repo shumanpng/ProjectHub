@@ -6,7 +6,7 @@
         <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css' %>
 
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-        <%= javascript_include_tag '//code.jquery.com/jquery-3.2.1.slim.min.js' %>
+        <%= javascript_include_tag '//code.jquery.com/jquery-3.2.1.min.js' %>
         <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' %>
         <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' %>
         <%= csrf_meta_tags %>
@@ -29,6 +29,9 @@
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
                                         <%= link_to 'Dashboard', groups_path, :class => 'nav-link' %>
+                                    </li>
+                                    <li class="nav-item">
+                                        <%= link_to 'Events', events_path, :class => 'nav-link' %>
                                     </li>
                                     <li class="nav-item">
                                         <%= link_to 'Calendar', redirect_path, :class => 'nav-link' %>

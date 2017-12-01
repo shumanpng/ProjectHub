@@ -20,30 +20,32 @@
 /* display members */
 
 .display-members {
-  margin-bottom: 175px;
+  margin-bottom: 140px;
 }
 
 .member-container {
   float: left;
   text-align: center;
   margin-right: 30px;
+  margin-bottom: 10px;
 }
 
-.member-container > .letter-container {
+.letter-container {
   text-transform: capitalize;
   background-color: #e5c7f9;
   border-radius: 50%;
   width: 65px;
   height: 65px;
-  font-size: 35px;
+  font-size: 40px;
   color: white;
-  font-weight: bold;
   text-align: center;
-  line-height: 65px;
+  display: block;
+  box-shadow:inset 0px 0px 0px 1px #d2a2f2;
 }
 
-.member-container > .admin-color {
+.admin-color {
   background-color: #c2e1f0;
+  box-shadow:inset 0px 0px 0px 1px #91c7e2;
 }
 
 .member-container > p:nth-of-type(1) {
@@ -51,6 +53,83 @@
 }
 
 .member-container > p {
-  line-height: 20%;
+  line-height: 25%;
   font-size: 14px;
+}
+
+[data-toggle="popover"] {
+  border: none;
+  cursor: pointer;
+}
+
+[data-toggle="popover"]:focus {
+  outline: none;
+}
+
+[data-toggle="popover"].sm-avatar {
+  object-fit: cover;
+  // margin-bottom: -6px;
+}
+
+.popover-body > span {
+  color: #7fbcd8;
+}
+
+/* user profile avatar */
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  font-size: 83px;
+}
+
+img.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+/* progress bar */
+
+.progress {
+  margin-top: 30px;
+  height: 22px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.progress > p {
+  margin-left: 10px;
+}
+
+.progress-label {
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.progress-label.start {
+  float: left;
+}
+
+.progress-label.end {
+  float: right;
+  text-align: right;
+}
+
+.progress-shift-left {
+  margin-right: 35px;
+}
+
+[data-toggle="popover"]#progress-warning {
+  float: right;
+  margin-top: -24px;
+  padding: 0;
+}
+
+
+@media screen and (min-width:992px) {
+  .non-admin-extra-margin {
+    margin-left: 74px;
+  }
 }
