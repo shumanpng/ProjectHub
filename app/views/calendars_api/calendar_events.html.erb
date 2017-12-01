@@ -1,85 +1,99 @@
-<div class="list-group">
-    <h4> Upcoming Tasks/Events in Calendar </h4>
-    <% @today = Date.today %>
-    <% todaystring = @today.to_s(:db) %>
-    <% todayparsed = DateTime.parse(todaystring) %>
-    <% formatted_today = todayparsed.strftime('%a %b %d, %Y') %>
-    <h6 class="lead">Today is: <%= formatted_today %> </h6>
-    <!-- <%# @event_list.items.sort_by(&:start) %> -->
-    <% @event_list.items.each do |event| %>
-      <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
-      <% eventtime = event.start.date_time.localtime %>
-      <% eventtimestring = eventtime.to_s(:db) %>
-      <% eventtimeparsed = DateTime.parse(eventtimestring) %>
-      <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
-      <% days_till_event = (eventtime - Time.zone.now).to_i / 1.day %>
+<div class="container mt-5 ">
+  <div class="col-md-8 center">
+    <div class="list-group ">
+        <h4> Upcoming Tasks/Events in Calendar </h4>
+        <% @today = Date.today %>
+        <% todaystring = @today.to_s(:db) %>
+        <% todayparsed = DateTime.parse(todaystring) %>
+        <% formatted_today = todayparsed.strftime('%a %b %d, %Y') %>
+        <h6 class="lead">Today is: <%= formatted_today %> </h6>
+        <!-- <%# @event_list.items.sort_by(&:start) %> -->
+        <% @event_list.items.each do |event| %>
+          <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
+          <% eventtime = event.start.date_time.localtime %>
+          <% eventtimestring = eventtime.to_s(:db) %>
+          <% eventtimeparsed = DateTime.parse(eventtimestring) %>
+          <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
+          <% days_till_event = (eventtime - Time.zone.now).to_i / 1.day %>
 
-      <!-- only show upcoming events (i.e. days_till_event >= 0) -->
-      <% if days_till_event >= 0 %>
-        <li class="list-group-item justify-content-between">
-          <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
-          <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
-          <span class="badge badge-default badge-pill"><%= days_till_event %> days from today</span>
-        </li>
-      <% end %>
-    <% end %>
+          <!-- only show upcoming events (i.e. days_till_event >= 0) -->
+          <% if days_till_event >= 0 %>
+            <li class="list-group-item justify-content-between">
+              <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
+              <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
+              <span class="badge badge-default badge-pill"><%= days_till_event %> days from today</span>
+            </li>
+          <% end %>
+        <% end %>
 
-  <!-- <%#= link_to 'Create new event', new_event_path %> -->
-  <%#= form_tag new_event_url(:summary => "Hello") do %>
-    <%#= submit_tag 'Add event' %>
-  <%# end %>
-</div>
-<%= link_to('Go to Google Calendar', 'https://calendar.google.com/calendar', class:
-"btn btn-info") %>
+      </br>
+        <%= link_to('Go to Google Calendar', 'https://calendar.google.com/calendar', class:
+        "btn btn-info") %>
 
-</br>
-</br>
-</br>
-</br>
-<div>
-  <h4> Add Tasks to Calendar </h4>
-  <table>
-    <thead class="thead-dark">
-      <tr>
-        <th>Task</th>
-        <!-- <th>Created by</th> -->
-        <th>Deadline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Group</th>
-        <th>Assignee</th>
+      <!-- <%#= link_to 'Create new event', new_event_path %> -->
+      <%#= form_tag new_event_url(:summary => "Hello") do %>
+        <%#= submit_tag 'Add event' %>
+      <%# end %>
+    </div>
+  </div>
 
-      </tr>
-    </thead>
+  <script>
 
-    <tbody>
-      <% @alltasks.each do |task| %>
-        <% user = User.where(:id => task.assigned_to).take %>
+  </script>
 
+  <%# gmail_account = "projecth23423ubtest@gmail.com"%>
+  <!-- <iframe src="https://calendar.google.com/calendar/embed?src=<%#=gmail_account%>&ctz=America%2FVancouver" style="border: 0" width="600" height="400" frameborder="0" scrolling="no"></iframe> -->
+
+  </br>
+  </br>
+  </br>
+  </br>
+
+  <div>
+    <h4> Add Tasks to Calendar </h4>
+    <table>
+      <thead class="thead-dark">
         <tr>
-          <td><%= link_to(task.title, task_path(task)) %></td>
-          <!-- <td><%#= task.created_by %></td> -->
-          <td><%= task.deadline.to_date %></td>
-          <td><%= task.group %></td>
-
-          <td>
-            <% if user == nil %>
-              <%= %>
-            <% else %>
-              <%= user.name %>
-            <% end %>
-          </td>
-          <!-- <td><%#= link_to 'Show', task %></td> -->
-          <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
-          <td>
-            <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
-            <%#= submit_tag 'Add event' %>
-            <%= form_tag new_calendar_event_url(:taskid => task.id) do %>
-              <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-              <%= submit_tag('Add to calendar', class: "btn btn-xs btn-info") %>
-            <% end %>
-          </td>
+          <th>Task</th>
+          <!-- <th>Created by</th> -->
+          <th>Deadline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>Group</th>
+          <th>Assignee</th>
 
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @alltasks.each do |task| %>
+          <% user = User.where(:id => task.assigned_to).take %>
+
+          <tr>
+            <td><%= link_to(task.title, task_path(task)) %></td>
+            <!-- <td><%#= task.created_by %></td> -->
+            <td><%= task.deadline.to_date %></td>
+            <td><%= task.group %></td>
+
+            <td>
+              <% if user == nil %>
+                <%= %>
+              <% else %>
+                <%= user.name %>
+              <% end %>
+            </td>
+            <!-- <td><%#= link_to 'Show', task %></td> -->
+            <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+            <td>
+              <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
+              <%#= submit_tag 'Add event' %>
+              <%= form_tag new_calendar_event_url(:taskid => task.id) do %>
+                <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                <%= submit_tag('Add to calendar', class: "btn btn-xs btn-info") %>
+              <% end %>
+            </td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
