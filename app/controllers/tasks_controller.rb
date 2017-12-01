@@ -78,13 +78,22 @@ class TasksController < ApplicationController
         @point.update_attribute(:voted_points, @task.points)
 
         @assigned_user = User.where(:id => @task.assigned_to).take
-        message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by #{@task.created_by}"
 
         @notification_targets = Group.find(@task.group_id).group_memberships
         @notification_targets.each do |notify|
+          if @assigned_user.id == notify.user_id && @task.created_by != @assigned_user.name
+            message = "Task #{@task.title} has been assigned to you by #{@task.created_by}"
+          elsif @assigned_user.id == notify.user_id && @task.created_by == @assigned_user.name
+            message = "You assigned task #{@task.title} to yourself"
+          # elsif @assigned_user.id != notify.user_id && @current_user.id == notify.user_id
+          #   message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by you"
+          else
+            message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by #{@task.created_by}"
+          end
           Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
         end
 
+        message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by #{@task.created_by}"
         GroupNotification.create(message: message, group_id: @task.group_id, status: false)
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
@@ -123,13 +132,22 @@ class TasksController < ApplicationController
           GroupNotification.create(message: message, group_id: @task.group_id, status: false)
         else
           @assigned_user = User.where(:id => @task.assigned_to).take
-          message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by #{@current_user.name}"
 
           @notification_targets = Group.find(@task.group_id).group_memberships
           @notification_targets.each do |notify|
+            if @assigned_user.id == notify.user_id && @current_user.id != @assigned_user.id
+              message = "Task #{@task.title} has been edited and assigned to you by #{@current_user.name}"
+            elsif @assigned_user.id == notify.user_id && @current_user.id == @assigned_user.id
+              message = "Task #{@task.title} has been edited and assigned to you by yourself"
+            elsif @assigned_user.id != notify.user_id && @current_user.id == notify.user_id
+              message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by you"
+            else
+              message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by #{@current_user.name}"
+            end
             Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
           end
 
+          message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by #{@current_user.name}"
           GroupNotification.create(message: message, group_id: @task.group_id, status: false)
         end
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
