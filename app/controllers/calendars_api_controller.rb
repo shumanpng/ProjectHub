@@ -62,6 +62,7 @@ class CalendarsApiController < ApplicationController
     service.authorization = client
 
     @event_list = service.list_events(params[:calendar_id])
+    
     # @event_list = service.list_events('primary')
 
     # refresh authorization
