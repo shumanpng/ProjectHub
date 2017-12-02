@@ -1,24 +1,32 @@
 <!-- views/calendars_api/show_event.html.erb -->
-<h4 class="display-4"> Task/Event Details </h4>
-<strong> Summary: </strong>
-  <%= @show_calendar_event.summary %>
+<div class="container mt-5">
+  <div class="col-md-5 center">
+      <h4 class="display-4"> Task/Event Details </h4>
+  </div>
+  <div class="col-md-5 center">
 
-</br>
-<strong> Description: </strong>
-  <% if @show_calendar_event.description != nil %>
-    <%= @show_calendar_event.description %>
-  <% else %>
-     n/a
-  <% end %>
+    <strong> Summary: </strong>
+      <%= @show_calendar_event.summary %>
 
-</br>
-<strong> Date: </strong>
-  <%= @formatted_datetime %>
+    </br>
+    <strong> Description: </strong>
+      <% if @show_calendar_event.description != nil %>
+        <%= @show_calendar_event.description %>
+      <% else %>
+         n/a
+      <% end %>
 
-</br>
-<%= link_to 'Back', calendar_events_path('primary'), class:
-"btn btn-info" %>
+    </br>
+    <strong> Date: </strong>
+      <%= @formatted_datetime %>
 
-<% eventid = @show_calendar_event.id %>
-<%= link_to('View in Google Calendar', 'https://calendar.google.com/calendar/#{eventid}',
-  class: "btn btn-info") %>
+    </br>
+    </br>   
+    <%= link_to 'Back', calendar_events_path('primary'), class:
+    "btn btn-info" %>
+
+    <% eventid = @show_calendar_event.id %>
+    <%= link_to('View in Google Calendar', 'https://calendar.google.com/calendar/#{eventid}',
+      class: "btn btn-info") %>
+  </div>
+</div>

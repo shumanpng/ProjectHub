@@ -43,7 +43,7 @@ class CalendarsApiController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
-    @event_list = service.list_events(params[:calendar_id])
+    @calendar_event_list = service.list_events(params[:calendar_id])
 
     # @event_list = service.list_events('primary')
 
