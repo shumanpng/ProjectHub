@@ -38,7 +38,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <ul class="navbar-nav ml-auto">
+                            <ul class="navbar-nav ml-auto mr-5">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Profile
@@ -46,6 +46,8 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <%= link_to '<i class="fa fa-gear fa-fw"></i>Settings'.html_safe, user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
+
+                                    <%= link_to '<i class="fa fa-briefcase fa-fw"></i>Your Company'.html_safe, company_path(Company.where(:name => 'Simon Fraser University').take.id), class: 'dropdown-item' %>
 
                                     <%= link_to '<i class="fa fa-sign-out fa-fw"></i>Logout'.html_safe, new_user_login_path, :class=>"dropdown-item" %>
                                     </div>

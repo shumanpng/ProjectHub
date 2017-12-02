@@ -1,9 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="container mt-5">
+  <div class="col-md-6 center" style="text-align:center">
+    <% if flash[:notice] -%>
+      <div class = "alert alert-success" style="text-align:center"><%= flash[:notice] %></div><br>
+    <% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @company.name %>
-</p>
+    <img class="logo" src="<%= @company.logo %>" onerror="this.onerror=null;this.src='../assets/not-found.png';this.style.width='200px'">
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+    <br></br><h3><%= @company.name %></h3>
+    <p class="lead">Company.</p>
+
+    <p><%= @company.description %></p>
+
+    <p><strong>Company HQ:</strong>
+      <% if @company.city.blank? %>n/a
+      <% else %><%= @company.city %>
+      <% end %>
+    </p>
+
+    <p><strong>Stats:</strong>
+      <strong class="text-primary" style="font-size:19px"><%= @num_members %></strong> members,
+      <strong class="text-primary" style="font-size:19px"><%= @num_groups %></strong> total projects, and
+      <strong class="text-primary" style="font-size:19px"><%= @num_tasks_completed %></strong> completed task<%= 's' if @num_tasks_completed != 1 %>.
+    </p>
+
+    <br>
+    <!-- only admins can access Company Settings -->
+    <% if @current_user.is_admin %>
+      <%= link_to 'Edit Company Profile', edit_company_path(@company), class: 'btn btn-warning btn-sm' %>
+    <% else %>
+      <small class="text-muted">Note: Only admin users can make changes to your company's profile.</small><br></br>
+    <% end %>
+    <%= link_to 'Back', groups_path, class: 'btn btn-primary btn-sm' %>
+  </div>
+</div>

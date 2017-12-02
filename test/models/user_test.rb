@@ -4,7 +4,7 @@ class UserTest < ActiveSupport::TestCase
   fixtures :users	 # temporarily includes users in test/fixtures/users.yml for testing
 
   test 'names have realistic length' do
-    u = User.new('email' => 'banana@hotmail.com')
+    u = User.new('email' => 'banana@hotmail.com', :is_admin => false)
     assert(u.invalid?, 'name is nil')
 
     u.name = 'x' * 51
@@ -15,7 +15,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'emails have correct format' do
-    u = User.new('name' => 'Steve')
+    u = User.new('name' => 'Steve', :is_admin => false)
     assert(u.invalid?, 'email is nil')
 
     u.email = 'this_is@notright'
@@ -26,9 +26,20 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'no duplicate emails' do
-    u = User.new
+    u = User.new(:name => 'George', :is_admin => false)
     u.email = 'hello@hotmail.com'
     puts users(:one).email
     assert(u.invalid?, 'a user with this email already exists')
+
+    u.email = "byee@gmail.com"
+    assert(u.valid?, 'has a unique email')
+  end
+
+  test 'is_admin must not be empty' do
+    u = User.new(:name => 'Sam', :email => 'raiya@hi.com')
+    assert(u.invalid?, 'is_admin is nil')
+
+    u.is_admin = true
+    assert(u.valid?, 'is_admin is present')
   end
 end

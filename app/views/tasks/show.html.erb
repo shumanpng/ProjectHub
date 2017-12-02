@@ -1,6 +1,8 @@
 <div class="container mt-5">
   <div class="col-md-6 center">
-  <p id="notice"><%= notice %></p>
+    <% if flash[:notice] -%>
+      <div class = "alert alert-success" style="text-align:center"><%= flash[:notice] %></div><br>
+    <% end %>
 
   <div class="center" style="text-align:center">
     <h2>
@@ -99,7 +101,7 @@
             (Edited)
           <% end %>
 
-        <% @time = comment.created_at.localtime.strftime("%I:%M%p") %>
+        <% @time = comment.created_at.localtime %>
         <br><%= distance_of_time_in_words(Time.now, @time) %> ago
 
         </em></div>

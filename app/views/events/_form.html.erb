@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
+    <%= f.datetime_select :date, required: true %>
   </div>
   <div class="field">
     <%= f.label :location_name %><br>
@@ -29,11 +29,11 @@
   </div>
   <div class="field">
     <%= f.label :location_address %><br>
-    <%= f.text_field :location_address %>
+    <%= f.text_field :location_address, required: true %>
   </div>
   <div class="field">
     <%= f.label :location_city %><br>
-    <%= f.text_field :location_city %>
+    <%= f.text_field :location_city, required: true %>
   </div>
   <div class="field">
     <%= f.label :location_province %><br>
