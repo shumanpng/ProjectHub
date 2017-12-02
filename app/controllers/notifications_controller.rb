@@ -1,8 +1,12 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate, only: [:index, :show, :edit, :update, :destroy, :new, :process_leave_grp]
+  before_action :authenticate, only: [:index, :getNotifications, :show, :edit, :update, :destroy, :new, :process_leave_grp]
 
   def index
-    @all_notifications = @current_user.notifications.reverse
+    @all_notifications = @current_user.notifications
+  end
+
+  def getNotifications
+    @user_notifications = @current_user.notifications
   end
 
   def authenticate

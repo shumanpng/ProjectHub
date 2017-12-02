@@ -14,3 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+setInterval(()=>{
+  fetch("/getnotifications",{
+    credentials:"same-origin"
+  }).then((resp)=>{
+    return resp.text();
+  }).then((text)=>{
+    document.getElementById("notifications").innerHTML = text;
+  })
+  console.log("HelloTroll");
+}, 10000)

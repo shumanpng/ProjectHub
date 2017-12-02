@@ -1,11 +1,14 @@
 <div>
   <h1><%= "All Group Notifications for #{@group.name}" %></h1>
   <br>
-  <% @all_group_notifications.reverse.each do |notification| %>
-    <%= notification.message %> <br>
-    <%= notification.created_at %>
-    <hr>
-
-  <% end %>
+  <ul class="list-group">
+    <% @all_group_notifications.reverse.each do |notification|%>
+    <li class="list_group_item">
+      <%= notification.message %> <br>
+      <%= notification.created_at %>
+      <hr>
+    </li>
+    <% end %>
+  </ul>
   <%= link_to 'Back to Group', group_path(params[:group_id]) %>
 </div>
