@@ -71,16 +71,34 @@
           <tr>
             <td><%= link_to(task.title, task_path(task)) %></td>
             <!-- <td><%#= task.created_by %></td> -->
-            <td><%= task.deadline.to_date %></td>
-            <td><%= task.group %></td>
-
-            <td>
-              <% if user == nil %>
-                <%= %>
+            <% if user != nil %>
+              <% if user.name == @current_user.name %>
+                <td style="color: #1C8FC0"><strong><%= task.deadline.to_date %></strong></td>
+                <td style="color: #1C8FC0"><strong><%= task.group %></strong></td>
+                <td style="color: #1C8FC0"><strong><%= user.name %></strong></td>
               <% else %>
-                <%= user.name %>
+                <td><%= task.deadline.to_date %></td>
+                <td><%= task.group %></td>
+                <td>
+                  <% if user == nil %>
+                    <%= %>
+                  <% else %>
+                    <%= user.name %>
+                  <% end %>
+                </td>
               <% end %>
-            </td>
+            <% else %>
+              <td><%= task.deadline.to_date %></td>
+              <td><%= task.group %></td>
+              <td>
+                <% if user == nil %>
+                  <%= %>
+                <% else %>
+                  <%= user.name %>
+                <% end %>
+              </td>
+            <% end %>
+
             <!-- <td><%#= link_to 'Show', task %></td> -->
             <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
             <td>

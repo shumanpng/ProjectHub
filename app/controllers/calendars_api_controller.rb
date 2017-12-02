@@ -36,6 +36,8 @@ class CalendarsApiController < ApplicationController
         # @alltasks << @tasks
       end
 
+      @current_user
+
       # @tasks = Task.all
       client = Signet::OAuth2::Client.new(client_options)
       client.update!(session[:authorization])
@@ -110,8 +112,6 @@ class CalendarsApiController < ApplicationController
      taskid = params[:taskid]
      # eventid = params[:eventid]
      @task = Task.where(:id => taskid).take
-     # @event = Event.where(:id => eventid).take
-     # @tasks = Task.where(:group => "CMPT 300")
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
 
@@ -121,10 +121,7 @@ class CalendarsApiController < ApplicationController
      today = Date.today
      # @tasks.each do |task|
        # datetime = DateTime.parse(task.deadline.localtime)
-
      datetime = @task.deadline
-
-
      datetimestring = datetime.to_s(:db)
      datetimeparsed = DateTime.parse(datetimestring)
      formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
@@ -138,18 +135,11 @@ class CalendarsApiController < ApplicationController
           date_time: formatted_datetime
           # time_zone: 'America/Los_Angeles',
        },
-     #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
-     # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
-       # summary: params[:summary],
          summary: @task.title,
          description: @task.description
-
-
      })
 
       service.insert_event('primary', event)
-     # end
-     # service.insert_event(params[:calendar_id], event)
      redirect_to calendar_events_url(calendar_id: params[:calendar_id])
    end
 
