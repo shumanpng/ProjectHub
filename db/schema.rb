@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126105350) do
+ActiveRecord::Schema.define(version: 20171127051138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,20 +37,18 @@ ActiveRecord::Schema.define(version: 20171126105350) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "courses", force: :cascade do |t|
-    t.integer  "course_id"
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "enrolls", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "course_id"
-    t.decimal  "percentage"
-    t.string   "lettergrade"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "date"
+    t.string   "location_name"
+    t.string   "location_address"
+    t.string   "location_city"
+    t.string   "location_country"
+    t.string   "location_postal_code"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "location_province"
   end
 
   create_table "group_memberships", force: :cascade do |t|
@@ -71,9 +69,10 @@ ActiveRecord::Schema.define(version: 20171126105350) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
+    t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "description"
+    t.date     "deadline"
   end
 
   create_table "points", force: :cascade do |t|
@@ -82,20 +81,6 @@ ActiveRecord::Schema.define(version: 20171126105350) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "user_email"
-  end
-
-  create_table "polls", force: :cascade do |t|
-    t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "students", force: :cascade do |t|
-    t.integer  "student_id"
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "task_comments", force: :cascade do |t|
@@ -141,6 +126,7 @@ ActiveRecord::Schema.define(version: 20171126105350) do
     t.datetime "date_created"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "avatar"
   end
 
   create_table "votes", force: :cascade do |t|

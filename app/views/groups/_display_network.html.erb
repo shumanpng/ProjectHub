@@ -1,15 +1,21 @@
 <div class="display-members">
   <% curr_user.get_network(curr_user).each do |user| %>
     <!-- get date user joined ProjectHub, in Jan 1, '17 format -->
-    <% date_joined = user.created_at.strftime("%b %d, '%y") %>
+    <% date_joined = user.created_at.localtime.strftime("%b. %-d, '%y") %>
 
     <div class="member-container">
       <!-- displays a circle with the first letter of the user's name. the group admin's
       circle is a different color. -->
-      <button type="button" class="letter-container" data-toggle="popover" data-placement="top" data-html="true"
-      data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>">
-        <p><%= user.name[0] %></p>
-      </button>
+      <% if user.avatar.blank? %>
+        <button type="button" class="letter-container" data-toggle="popover" data-placement="top" data-html="true"
+        data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>">
+          <p><%= user.name[0] %></p>
+        </button>
+      <% else %>
+        <input type="image" class="letter-container sm-avatar" data-toggle="popover" data-placement="top" data-html="true"
+        data-content="<b><%= user.name %></b><br><%= user.email %><br><em>Joined on: </em><%= date_joined %>" src="<%= user.avatar %>" onerror="this.onerror=null;this.src='../assets/not-found-small.png'">
+        </input>
+      <% end %>
       <!-- the split method splits a string by whitespaces into an array -->
       <p><%= user.name.split[0] %></p>
     </div>

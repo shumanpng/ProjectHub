@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+
+  get 'calendars/redirect'
+
+  get 'calendars/callback'
+
+  get 'calendars/calendars'
+
+  get 'calendars/events'
+
+  get 'calendars/new_event'
+
+
+  resources :events
   resources :change_passwords
   resources :group_requests
   resources :group_memberships
@@ -12,6 +25,8 @@ Rails.application.routes.draw do
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp
+  get '/add_member', to: 'groups#add_member', as: :add_member
+  post '/update_comment', to: 'task_comments#update_comment', as: :update_comment
 
   resources :users do
     member do
@@ -25,6 +40,14 @@ Rails.application.routes.draw do
       get "vote_for_points" => 'tasks#vote_for_points'
     end
   end
+
+  get '/redirect', to: 'calendars_api#redirect', as: 'redirect'
+  get '/callback', to: 'calendars_api#callback', as: 'callback'
+  get '/calendars', to: 'calendars_api#calendars', as: 'calendars'
+  get '/calendar_events/:calendar_id', to: 'calendars_api#calendar_events', as: 'calendar_events', calendar_id: /[^\/]+/
+  # get '/events/:calendar_id', to: 'users#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  get '/calendar_event/:id', to: 'calendars_api#show_calendar_event', as:'show_calendar_event', id: /[^\/]+/
+  post '/calendar_events/:calendar_id', to: 'calendars_api#new_calendar_event', as: 'new_calendar_event', calendar_id: /[^\/]+/
 
   resources :points do
     member do

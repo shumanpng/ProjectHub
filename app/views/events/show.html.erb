@@ -1,0 +1,48 @@
+<script>
+  $(function() {
+    var test = <%= @event.to_json.html_safe %>;
+    var googleUrl = "https://www.google.com/maps/embed/v1/place?&q=";
+    googleUrl += test.location_address + "," + test.location_city + "," + test.location_province;
+    googleUrl += "&key=AIzaSyDS06Rjt-jlkZAihJl63Zh_r25-gnBYPB8";
+    var iframe = document.getElementById('location_map');
+    iframe.src = googleUrl;
+  });
+</script>
+<div class="bg-dark">
+  <br>
+  <div class="container bg-dark" style="color:white">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="bd-pageheader">
+          <h1>
+            <%= @event.name %>
+          </h1>
+          <h2 class="lead">Event.</h2>
+            <p class="lead">
+              <small class="text-muted">
+                <%= @event.date %> | <%= @event.description %>
+              </small>
+            </p>
+        </div>
+      </div>
+      <div class="col-md-4 text-right">
+        <%= link_to 'Edit', edit_event_path(@event), :class=>"btn btn-sm btn-warning" %>
+        <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-sm btn-danger" %>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <p>
+    <strong><%= @event.location_name %></strong><br>
+    <%= @event.location_address %>
+    <%= @event.location_city %>
+    <%= @event.location_province %>
+    <%= @event.location_country %>
+    <%= @event.location_postal_code %>
+
+  <iframe id="location_map" width="100%" height="150">
+  </iframe>
+</div>
