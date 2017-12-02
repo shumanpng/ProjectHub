@@ -20,9 +20,13 @@ Rails.application.routes.draw do
   resources :user_logins
   resources :active_users
   resources :companies
-  resources :users
   resources :task_comments
 
+  resources :users do
+    member do
+      get "user_graphs" => 'users#user_graphs', as: :graphs
+    end
+  end
 
   get '/respond_to_request', to: 'group_requests#respond_to_request', as: :respond_to_request
   post '/process_leave_grp', to: 'groups#process_leave_grp', as: :process_leave_grp

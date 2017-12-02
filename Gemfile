@@ -45,3 +45,7 @@ gem 'acts_as_votable', '~> 0.11.1'
 
 # gem for using google API for google calendar
 gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'
+
+# gem for charts/graphs
+gem "chartkick"
+gem "groupdate"

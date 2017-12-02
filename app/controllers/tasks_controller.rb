@@ -182,17 +182,14 @@ class TasksController < ApplicationController
       @point = Point.new
       @point.update_attribute(:user_email, @user_login.email)
       @point.update_attribute(:task_id, @task.id)
-      @point.update_attribute(:voted_points, 0 )
+      @point.update_attribute(:voted_points, @average )
 
     end
 
     # calculate the average of points based on users that has voted for the task
     @average = Point.where('task_id = (?)', @task.id).average(:voted_points).round
 
-
-
     @task.update_attribute(:points,@average)
-
 
   end
 
@@ -218,6 +215,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id, :assigned_to, :total_points, :voters_count)
+      params.require(:task).permit(:title, :description, :created_by, :deadline, :points, :group, :state, :task_type, :group_id, :assigned_to)
     end
 end

@@ -40,6 +40,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
     builder (3.2.3)
+    chartkick (2.2.5)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -73,6 +74,8 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    groupdate (3.2.0)
+      activesupport (>= 3)
     httpclient (2.8.3)
     i18n (0.8.1)
     jbuilder (2.6.3)
@@ -186,9 +189,11 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_votable (~> 0.11.1)
+  chartkick
   coffee-rails (~> 4.0.0)
   font-awesome-rails
   google-api-client (~> 0.11)
+  groupdate
   jbuilder (~> 2.0)
   jquery-rails
   pg
