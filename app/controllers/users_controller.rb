@@ -75,6 +75,8 @@ class UsersController < ApplicationController
 
     @in_progress_tasks =  Task.where(:assigned_to => @user.id , :state => "In Progress")
 
+    @open_tasks = Task.where(:assigned_to => @user.id , :state => "Open")
+
   end
 
   private

@@ -1,27 +1,47 @@
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
 
-
 <body>
   <div id="container" style="height: 400px">
 
     <p><strong> Tasks Completed By <%= @user_name%>:</strong></p>
-    <!-- like this one -->
-    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, stacked:true %>
+
+    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Tasks Compeleted', ytitle: 'Time', stacked:true %>
     </br>
-    <!-- <%= line_chart  Task.group(:points).count, library: {backgroundColor: "#0d233a"}%> -->
-    <!-- <%= line_chart Task.group(:points).count %> -->
-    <!-- <%= scatter_chart Task.pluck(:updated_at, :points), xtitle: "Time", ytitle: "Points received" %> -->
+
+    <%= bar_chart @completed_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%>
+    </br>
+
+    <% data = @completed_tasks.pluck(:title, :created_at, :updated_at) %>
+    <%= timeline data %>
+
+
+
 
     <p><strong> Tasks Still In Progress Assigned to <%= @user_name%>:</strong></p>
 
-    <%= line_chart @in_progress_tasks.group(:tasks).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, stacked:true %>
+    <%= column_chart @in_progress_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Tasks Compeleted', ytitle: 'Time', stacked:true %>
     </br>
 
+    <%= bar_chart @in_progress_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%>
+    </br>
+
+
+
+    <p>Tasks Completed:</p>
     <% @completed_tasks.each do |task| %>
       <p><%=  task.updated_at %> ==> <%=  task.points %></p>
-
     </br>
     <% end %>
+
+    <p>Tasks In progress:</p>
+    <% @in_progress_tasks.each do |task| %>
+      <p><%=  task.updated_at %> ==> <%=  task.points %></p>
+    </br>
+    <% end %>
+
+
+
+    open_tasks
 
   </div>
 </body>
