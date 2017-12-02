@@ -78,17 +78,30 @@
       </thead>
 
       <tbody>
+
+        <!-- only show tasks with upcoming deadlines  -->
         <% @alltasks.each do |task| %>
           <% user = User.where(:id => task.assigned_to).take %>
-
-          <tr>
-            <td><%= link_to(task.title, task_path(task)) %></td>
-            <!-- <td><%#= task.created_by %></td> -->
-            <% if user != nil %>
-              <% if user.name == @current_user.name %>
-                <td style="color: #1C8FC0"><strong><%= task.deadline.to_date %></strong></td>
-                <td style="color: #1C8FC0"><strong><%= task.group %></strong></td>
-                <td style="color: #1C8FC0"><strong><%= user.name %></strong></td>
+          <% if task.deadline >= Date.today %>
+            <tr>
+              <td><%= link_to(task.title, task_path(task)) %></td>
+              <!-- <td><%#= task.created_by %></td> -->
+              <% if user != nil %>
+                <% if user.name == @current_user.name %>
+                  <td style="color: #1C8FC0"><strong><%= task.deadline.to_date %></strong></td>
+                  <td style="color: #1C8FC0"><strong><%= task.group %></strong></td>
+                  <td style="color: #1C8FC0"><strong><%= user.name %></strong></td>
+                <% else %>
+                  <td><%= task.deadline.to_date %></td>
+                  <td><%= task.group %></td>
+                  <td>
+                    <% if user == nil %>
+                      <%= %>
+                    <% else %>
+                      <%= user.name %>
+                    <% end %>
+                  </td>
+                <% end %>
               <% else %>
                 <td><%= task.deadline.to_date %></td>
                 <td><%= task.group %></td>
@@ -100,30 +113,20 @@
                   <% end %>
                 </td>
               <% end %>
-            <% else %>
-              <td><%= task.deadline.to_date %></td>
-              <td><%= task.group %></td>
+
+              <!-- <td><%#= link_to 'Show', task %></td> -->
+              <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
               <td>
-                <% if user == nil %>
-                  <%= %>
-                <% else %>
-                  <%= user.name %>
+                <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
+                <%#= submit_tag 'Add event' %>
+                <%= form_tag new_calendar_task_url(:taskid => task.id) do %>
+                  <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
+                  <%= submit_tag('Add to calendar', class: "btn btn-info btn-sm cursor-pointer") %>
                 <% end %>
               </td>
-            <% end %>
 
-            <!-- <td><%#= link_to 'Show', task %></td> -->
-            <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
-            <td>
-              <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
-              <%#= submit_tag 'Add event' %>
-              <%= form_tag new_calendar_task_url(:taskid => task.id) do %>
-                <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
-                <%= submit_tag('Add to calendar', class: "btn btn-info btn-sm cursor-pointer") %>
-              <% end %>
-            </td>
-
-          </tr>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

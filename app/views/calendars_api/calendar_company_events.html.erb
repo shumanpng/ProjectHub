@@ -75,27 +75,29 @@
       </thead>
 
       <tbody>
+        <!-- only show upcoming events -->
         <% @events.each do |event| %>
           <%# user = User.where(:id => task.assigned_to).take %>
+          <% if event.date >= Date.today %>
+            <tr>
+              <td><%= link_to(event.name, event_path(event)) %></td>
+              <!-- <td><%#= task.created_by %></td> -->
+              <td><%= event.date.to_date %></td>
+              <td><%= event.location_name %></td>
 
-          <tr>
-            <td><%= link_to(event.name, event_path(event)) %></td>
-            <!-- <td><%#= task.created_by %></td> -->
-            <td><%= event.date.to_date %></td>
-            <td><%= event.location_name %></td>
+              <!-- <td><%#= link_to 'Show', task %></td> -->
+              <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+              <td>
+                <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
+                <%#= submit_tag 'Add event' %>
+                <%= form_tag new_calendar_event_url(:eventid => event.id) do %>
+                  <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
+                  <%= submit_tag('Add to calendar', class: "btn btn-info btn-sm cursor-pointer") %>
+                <% end %>
+              </td>
 
-            <!-- <td><%#= link_to 'Show', task %></td> -->
-            <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
-            <td>
-              <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
-              <%#= submit_tag 'Add event' %>
-              <%= form_tag new_calendar_event_url(:eventid => event.id) do %>
-                <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
-                <%= submit_tag('Add to calendar', class: "btn btn-info btn-sm cursor-pointer") %>
-              <% end %>
-            </td>
-
-          </tr>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
