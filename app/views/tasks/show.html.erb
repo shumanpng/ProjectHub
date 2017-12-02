@@ -19,7 +19,12 @@
 
     <p style="text-align:center">
       <strong>Deadline:</strong>
-      <%= @task.deadline.to_formatted_s(:long)  %>
+      <% deadline = @task.deadline.localtime %>
+      <% deadlinestring = deadline.to_s(:db) %>
+      <% deadlineparsed = DateTime.parse(deadlinestring) %>
+      <% formatted_datetime = deadlineparsed.strftime('%a %b %d, %Y   %I:%M%P') %>
+      <%#= @task.deadline.to_formatted_s(:long)  %>
+      <%= formatted_datetime %>
     </p>
 
     <p>
