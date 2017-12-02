@@ -18,11 +18,16 @@
 
           <!-- only show upcoming events (i.e. days_till_event >= 0) -->
           <% if days_till_event >= 0 %>
-            <li class="list-group-item justify-content-between">
-              <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
+            <li class="list-group-item justify-content-between" >
+
+              <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>
+                <%#= event.summary %>
+                 <%#= event.id %>
               <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
-              <span class="badge badge-default badge-pill"><%= days_till_event %> days from today</span>
+              <span class="badge badge-default badge-pill"><%= days_till_event %> day(s) away</span>
             </li>
+
+
           <% end %>
         <% end %>
 
@@ -31,6 +36,9 @@
         "btn btn-info") %>
         <%= link_to('View and Add Company Events to Calendar', calendar_company_events_url, class:
         "btn btn-warning") %>
+
+
+
 
       <!-- <%#= link_to 'Create new event', new_event_path %> -->
       <%#= form_tag new_event_url(:summary => "Hello") do %>
@@ -52,15 +60,15 @@
 
   <div class="col-md-9 center">
     <h4> Add Tasks to Calendar </h4>
-    <table>
-      <thead class="thead-dark">
+    <table class="table">
+      <thead class="thead-light">
         <tr>
           <th>Task</th>
           <!-- <th>Created by</th> -->
           <th>Deadline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
           <th>Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
           <th>Assignee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-
+          <th>       </th>
         </tr>
       </thead>
 
@@ -105,7 +113,7 @@
               <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
               <%#= submit_tag 'Add event' %>
               <%= form_tag new_calendar_task_url(:taskid => task.id) do %>
-                <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                <i class="fa fa-calendar-plus-o" aria-hidden="true">
                 <%= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
               <% end %>
             </td>
