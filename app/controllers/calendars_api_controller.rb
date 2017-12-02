@@ -34,9 +34,7 @@ class CalendarsApiController < ApplicationController
         @tasks = Task.where(:group => group.name).order(:deadline)
         @alltasks.concat @tasks
         # @alltasks << @tasks
-    end
-
-      @events = Event.all
+      end
 
       # @tasks = Task.all
       client = Signet::OAuth2::Client.new(client_options)
@@ -69,6 +67,42 @@ class CalendarsApiController < ApplicationController
         end
 
       retry
+  end
+
+  def calendar_company_events
+
+    # @tasks = Task.all
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    @calendar_event_list = service.list_events(params[:calendar_id])
+
+    @events = Event.all
+    # @event_list = service.list_events('primary')
+
+    # refresh authorization
+    rescue Google::Apis::AuthorizationError
+      if client.expired?
+        # client.authorization_uri.fetch_access_token!
+        redirect_to redirect_path
+        # response = client.fetch_access_token!
+
+        # session[:authorization] = response
+      # end
+      # if client.invalid?
+      #   redirect_to redirect_uri
+      # elsif session[:authorization].invalid?
+      #   redirect_to redirect_url
+      else
+        response = client.refresh!
+        session[:authorization] = session[:authorization].merge(response)
+
+      end
+
+    retry
   end
 
   # adding an event from web app to Google Calendar through API
@@ -116,10 +150,57 @@ class CalendarsApiController < ApplicationController
       service.insert_event('primary', event)
      # end
      # service.insert_event(params[:calendar_id], event)
-
-
      redirect_to calendar_events_url(calendar_id: params[:calendar_id])
    end
+
+   # adding an event from web app to Google Calendar through API
+   def new_calendar_event
+      eventid = params[:eventid]
+      # eventid = params[:eventid]
+      @event = Event.where(:id => eventid).take
+      # @event = Event.where(:id => eventid).take
+      # @tasks = Task.where(:group => "CMPT 300")
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+
+      today = Date.today
+      # @tasks.each do |task|
+        # datetime = DateTime.parse(task.deadline.localtime)
+
+      datetime = @event.date
+
+
+      datetimestring = datetime.to_s(:db)
+      datetimeparsed = DateTime.parse(datetimestring)
+      formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
+      event = Google::Apis::CalendarV3::Event.new({
+
+        start: {
+           date_time: formatted_datetime
+           # time_zone: 'America/Los_Angeles',
+        },
+        end: {
+           date_time: formatted_datetime
+           # time_zone: 'America/Los_Angeles',
+        },
+      #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
+      # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
+        # summary: params[:summary],
+        summary: @event.name,
+        description: @event.description,
+        location: @event.location_name
+
+
+      })
+
+       service.insert_event('primary', event)
+      # end
+      redirect_to calendar_events_url(calendar_id: params[:calendar_id])
+   end
+
 
    def show_calendar_event
      event_id = params[:id]
