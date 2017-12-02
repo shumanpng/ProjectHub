@@ -6,19 +6,21 @@
 
 <body>
   <div class="col-md-6 text-align: center">
-  <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
-
-    <h5><strong> Tasks Completed By <%= @user_name%></strong></h5>
-
-    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Time', ytitle: 'Number of Tasks', stacked:true %>
-    </br>
-
-    </div>
-
     <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
     <h5><strong> Points Earned By <%= @user_name%></strong></h5>
-    <%= bar_chart @completed_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%>
+
+    <!-- <%= bar_chart @completed_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%> -->
+    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Time", ytitle: "Points received", stacked:true %>
+
     </br>
+  </div>
+
+  <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
+    <h5><strong> Tasks Completed By <%= @user_name%></strong></h5>
+
+    <%= area_chart @completed_tasks.group(:group).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%B %d, %Y ").count, xtitle: 'Time', ytitle: 'Number of Tasks', stacked:true %>
+    </br>
+
     </div>
 
 
@@ -27,19 +29,14 @@
 
     <%= column_chart @in_progress_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Time', ytitle: 'Number of Tasks', stacked:true %>
     </br>
+
     </div>
-
-
 
     <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
     <h5><strong> Tasks Timeline</strong></h5>
     <p> (Tasks Completed by <%= @user_name%>)</p>
     <% data_1 = @completed_tasks.pluck(:title, :created_at, :updated_at) %>
     <%= timeline data_1 ,xtitle: 'Time', ytitle: 'Number of Tasks'%>
-
-    <!-- <p><strong> Still In Progress By <%= @user_name%></strong></p>
-    <% data_2 = @in_progress_tasks.pluck(:title, :created_at, :updated_at) %>
-    <%= timeline data_2 ,xtitle: 'Time', ytitle: 'Number of Tasks'%> -->
 
     </br>
     </div>
