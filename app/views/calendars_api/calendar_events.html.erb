@@ -19,12 +19,17 @@
           <!-- only show upcoming events (i.e. days_till_event >= 0) -->
           <% if days_till_event >= 0 %>
             <li class="list-group-item justify-content-between" >
-
+              <ul>
+              <div style="float: left">
               <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>
+            </div>
                 <%#= event.summary %>
                  <%#= event.id %>
+                 <div style="float: right">
               <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
               <span class="badge badge-default badge-pill"><%= days_till_event %> day(s) away</span>
+            </div>
+            </ul>
             </li>
 
 

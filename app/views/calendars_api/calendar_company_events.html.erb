@@ -1,6 +1,6 @@
-<div class="container mt-5 ">
+<div class="container mt-5">
   <div class="col-md-9 center">
-    <div class="list-group ">
+    <div class="list-group">
         <h4> Upcoming Tasks/Events in Calendar </h4>
         <% @today = Date.today %>
         <% todaystring = @today.to_s(:db) %>
@@ -8,23 +8,36 @@
         <% formatted_today = todayparsed.strftime('%a %b %d, %Y') %>
         <h6 class="lead">Today is: <%= formatted_today %> </h6>
         <!-- <%# @event_list.items.sort_by(&:start) %> -->
-        <% @calendar_event_list.items.each do |event| %>
-          <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
-          <% eventtime = event.start.date_time.localtime %>
-          <% eventtimestring = eventtime.to_s(:db) %>
-          <% eventtimeparsed = DateTime.parse(eventtimestring) %>
-          <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
-          <% days_till_event = (eventtime - Time.zone.now).to_i / 1.day %>
 
-          <!-- only show upcoming events (i.e. days_till_event >= 0) -->
-          <% if days_till_event >= 0 %>
-            <li class="list-group-item justify-content-between">
-              <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>  <%#= event.id %>
-              <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
-              <span class="badge badge-default badge-pill"><%= days_till_event %> days from today</span>
-            </li>
-          <% end %>
+      <% @calendar_event_list.items.each do |event| %>
+        <!-- <li><%#= event.summary %> (<%#= event.id %>)</li> -->
+        <% eventtime = event.start.date_time.localtime %>
+        <% eventtimestring = eventtime.to_s(:db) %>
+        <% eventtimeparsed = DateTime.parse(eventtimestring) %>
+        <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
+        <% days_till_event = (eventtime - Time.zone.now).to_i / 1.day %>
+
+        <!-- only show upcoming events (i.e. days_till_event >= 0) -->
+        <% if days_till_event >= 0 %>
+
+          <li class="list-group-item justify-content-between" >
+            <ul>
+            <div style="float: left">
+            <%= link_to(event.summary, show_calendar_event_path(:id => event.id)) %>
+          </div>
+              <%#= event.summary %>
+               <%#= event.id %>
+               <div style="float: right">
+            <span class="badge badge-default badge-pill"><%= formatted_datetime %></span>
+            <span class="badge badge-default badge-pill"><%= days_till_event %> day(s) away</span>
+          </div>
+          </ul>
+          </li>
+
         <% end %>
+      <% end %>
+
+
 
       </br>
         <%= link_to('Go to Google Calendar', 'https://calendar.google.com/calendar', class:
@@ -48,7 +61,7 @@
 
   <div class="col-md-9 center">
     <h4> Add Company Events to Calendar </h4>
-    <table class="table">
+    <table class="table table-hover">
       <thead class="thead-light">
         <tr>
           <th>Event</th>
