@@ -14,6 +14,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
 
     </tr>
   </thead>
@@ -44,6 +45,13 @@
         </td>
         <!-- <td><%#= link_to 'Show', task %></td> -->
         <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+        <td>
+        <% if task.state == 'Open' %>
+
+            <%= link_to '<i class="fa fa-check fa-fw"></i>Points Poll'.html_safe, vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
+
+        <% end %>
+        </td>
         <td>
           <% @comment_count = task.comment_count(task) %>
           <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#b4dbf7'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
