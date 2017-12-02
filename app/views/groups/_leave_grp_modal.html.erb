@@ -55,15 +55,15 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger cursor-pointer" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger btn-sm cursor-pointer form-control" data-dismiss="modal">Cancel</button>
 
           <!-- send data to groups#process_leave_grp -->
           <!-- disable submit for case c. to prevent from submitting form without selecting
           a new group admin (validated in js file) -->
           <% if @user_status == 'many left' %>
-            <%= submit_tag 'Confirm', disabled: true, class: 'btn btn-success cursor-pointer submit-btn cursor-not-allowed' %>
+            <%= submit_tag 'Confirm', disabled: true, class: 'btn btn-success btn-sm form-control cursor-pointer submit-btn cursor-not-allowed' %>
           <% else %>
-            <%= submit_tag 'Confirm', disabled: false, class: 'btn btn-success cursor-pointer submit-btn' %>
+            <%= submit_tag 'Confirm', disabled: false, class: 'btn btn-success btn-sm form-control cursor-pointer submit-btn' %>
           <% end %>
         </div>
       <% end %>

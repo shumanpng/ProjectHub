@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129025051) do
+ActiveRecord::Schema.define(version: 20171201220011) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +34,26 @@ ActiveRecord::Schema.define(version: 20171129025051) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "description"
+    t.string   "logo"
+    t.string   "city"
+    t.string   "country"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "date"
+    t.string   "location_name"
+    t.string   "location_address"
+    t.string   "location_city"
+    t.string   "location_country"
+    t.string   "location_postal_code"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "location_province"
   end
 
   create_table "group_memberships", force: :cascade do |t|
@@ -63,9 +82,10 @@ ActiveRecord::Schema.define(version: 20171129025051) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
+    t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "description"
+    t.date     "deadline"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -128,6 +148,7 @@ ActiveRecord::Schema.define(version: 20171129025051) do
     t.datetime "date_created"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "avatar"
   end
 
   create_table "votes", force: :cascade do |t|

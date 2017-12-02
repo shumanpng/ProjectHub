@@ -35,7 +35,45 @@ class GroupsController < ApplicationController
     #get group Notifications
     @group_notifications = Group.find(params[:id]).group_notifications
 
+    # get name of group admin
+    @admin_name = User.find(@group.get_admin(@group)).name
 
+    # variables for display of the project deadline progress bar
+    if @group.deadline != nil
+      project_length = (@group.deadline - @group.created_at.localtime.to_date).to_i
+      @days_left = (@group.deadline - Date.today).to_i
+      days_passed = (Date.today - @group.created_at.localtime.to_date).to_i
+
+      if project_length == 0
+        # eg. start and end on same day, calc would result in infinity
+        @percent_completed = 100
+      else
+        @percent_completed = ((days_passed.to_f / project_length.to_f) * 100).round
+        if @percent_completed < 1
+          @percent_completed = 1  # so that progress bar is never totally empty
+        end
+      end
+
+      # warning message inside popover (triggered by hovering over alert icon) if the project is overdue
+      if @days_left <= 0
+        @overdue = true
+
+        if @days_left == 0
+          @warning = 'The deadline to complete this project is today!'
+        else
+          @warning = 'The deadline for this project has passed!'
+        end
+
+        if @is_grp_admin
+          @warning_addition = "If necessary, you may extend the deadline under 'Group Settings'."
+        else
+          @warning_addition = 'If necessary, please get the group admin to extend the deadline.'
+        end
+
+      else
+        @overdue = false
+      end
+    end
   end
 
   # GET /groups/new
@@ -51,6 +89,13 @@ class GroupsController < ApplicationController
     #@members = GroupMembership.eager_load(:users)
     #@members = User.joins(:group_memberships).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, users.name")
     @members = GroupMembership.joins(:user).where(group_memberships:{group_id:@group.id}).select("group_memberships.id, group_memberships.user_id, users.name")
+
+    @non_members = []
+    User.where(:is_admin => false).each do |u|
+      if @group.users.exclude?(u)
+        @non_members << u
+      end
+    end
   end
 
   # POST /groups
@@ -208,6 +253,20 @@ class GroupsController < ApplicationController
     redirect_to :action => :index
   end
 
+  def add_member
+    # get new member and current group
+    current_group = Group.find(params[:id])
+    new_member = User.find(params[:user_id])
+
+    # create new membership and associate it with the group and the user
+    new_membership = GroupMembership.create(:user_id => new_member.id, :group_id => current_group.id, :is_admin => false)
+    current_group.group_memberships << new_membership
+    new_member.group_memberships << new_membership
+
+    # re-load group settings
+    redirect_to edit_group_path(params[:id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
@@ -229,6 +288,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name,:description)
+      params.require(:group).permit(:name,:description,:deadline)
     end
 end

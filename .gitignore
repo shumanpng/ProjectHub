@@ -17,3 +17,6 @@
 
 # Ignore ruby-version
 /.ruby-version
+
+
+# Ignore secrets.yml file

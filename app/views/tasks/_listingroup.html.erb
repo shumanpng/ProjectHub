@@ -1,24 +1,20 @@
 
-<table class="table table-sm">
+<table class="table table-sm table-hover">
   <thead class="thead-dark">
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Created by</th>
-      <th>Deadline</th>
+      <th style="font-weight:normal;width:225px">Title</th>
+      <th style="font-weight:normal">Created by</th>
+      <th style="font-weight:normal">Deadline</th>
       <!-- This is the average points based on the users that have voted for each task
       (The intial average points would be the points that the first user assigns to the task)  -->
-      <th>Average Points</th>
-      <th>Group</th>
-      <th>State</th>
-      <th>Assignee</th>
+      <th style="font-weight:normal">State</th>
+      <th style="font-weight:normal">Assignee</th>
+      <th style="font-weight:normal">Avg. Points</th>
       <% if !@current_user.is_admin %>
-        <th colspan="2"></th>
-      <% else %>
-        <th colspan="1"></th>
+        <th></th>
       <% end %>
-
-
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -28,34 +24,36 @@
 
       <tr>
         <td><%= link_to(task.title, task_path(task)) %></td>
-        <td><%= task.description %></td>
         <td><%= task.created_by %></td>
         <td><%= task.deadline.to_date %></td>
-        <td><%= task.points %></td>
-        <td><%= task.group %></td>
         <td><%= task.state %></td>
 
         <td>
           <% if user == nil %>
-            <%= %>
+            n/a
           <% else %>
             <%= user.name %>
           <% end %>
         </td>
+        <td>
+          <% if task.points.blank? %>n/a
+          <% else %><%= task.points %>
+          <% end %>
+        </td>
         <!-- <td><%#= link_to 'Show', task %></td> -->
         <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
-        <td>
-          <i class="fa fa-trash-o "></i>
-          <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
 
         <% if !@current_user.is_admin %>
               <td>
-                <i class="fa fa-check" ></i>
-                <%= link_to 'Vote for Points!', vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
+                <%= link_to '<i class="fa fa-check fa-fw"></i>Points Poll'.html_safe, vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
               </td>
-
         <% end %>
+        <td>
+          <%= link_to '<i class="fa fa-pencil fa-fw"></i>'.html_safe, edit_task_path(task.id, :groupname => params[:groupname]) %>
+        </td>
+        <td>
+          <%= link_to '<i class="fa fa-trash-o fa-fw"></i>'.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
 
       </tr>
     <% end %>

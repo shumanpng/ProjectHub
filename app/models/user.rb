@@ -1,6 +1,11 @@
 class UserValidation < ActiveModel::Validator
     def validate(record)
         if record.check_password
+            puts record.confirm_password
+            puts record.password
+            if record.password != record.confirm_password
+                record.errors[:base] << "Passwords do not match."
+            end
             if record.password =~ /\d/         # Calling String's =~ method.
                 # valid contains number
             else
@@ -25,6 +30,7 @@ class User < ActiveRecord::Base
 
   validates_with UserValidation
   attr_accessor :check_password
+  attr_accessor :confirm_password
 
   has_many :ActiveUsers
   has_many :tasks
@@ -37,6 +43,7 @@ class User < ActiveRecord::Base
   EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
   validates :name, :presence => true, :length => { :maximum => 50 }
   validates :email, :presence => true, :format => { :with => EMAIL_REGEX }, :uniqueness => true
+  validates :is_admin, :inclusion => { :in => [true, false] }
 
 
   # takes a user object as input and returns user's network (all the users with whom

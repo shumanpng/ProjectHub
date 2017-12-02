@@ -7,6 +7,12 @@ class Task < ActiveRecord::Base
   # validates_length_of :title, :minimum => 1
   validates :title, :presence => true
   validates :created_by, :presence => true
-  validates :state, :presence => true
+  validates :state, :presence => true, :inclusion => { :in => ['Open', 'In Progress', 'Completed'] }
+  validates :points, :presence => true, :inclusion => { :in => [1, 2, 3, 4, 5] }
+  validates :deadline, :presence => true
 
+  # takes a task object as input and returns number of comments it has
+  def comment_count(task)
+    return TaskComment.where(:task_id => task.id).count
+  end
 end

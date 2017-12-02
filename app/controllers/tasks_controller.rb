@@ -24,6 +24,12 @@ class TasksController < ApplicationController
     # # @task = Task.select("title, description, created_by, due_date, points, group,
     # #   state, task_type").where(:group_id => groupid)
     # @task = Task.where(group_id: groupid)
+
+    # new task comment
+    @task_comment = TaskComment.new()
+
+    # find current group
+    @group = Group.where(:name => @task.group).take
   end
 
   # GET /tasks/new
@@ -71,6 +77,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
 
+
         @point = Point.new
         @user_login = UserLogin.where('token = (?)', session[:current_user_token]).take
         @point.update_attribute(:user_email, @user_login.email)
@@ -95,6 +102,7 @@ class TasksController < ApplicationController
 
         message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by #{@task.created_by}"
         GroupNotification.create(message: message, group_id: @task.group_id, status: false)
+
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
         # # @group = Group.find(:id => groupID)
@@ -106,6 +114,10 @@ class TasksController < ApplicationController
         # # associate new membership with the group and the user
         # @group.task << @new_task
         # @current_user.tasks << @task
+
+        # add task to calendar
+        new_event_url(:summary => @task.title, :calendar_id => 'primary')
+
 
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }

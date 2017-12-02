@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    puts user_params
     respond_to do |format|
       @user.check_password = true
       if @user.save
@@ -48,7 +49,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_path(:id => @user.id), notice: 'User was successfully updated.' }
+        format.html { redirect_to user_path(:id => @user.id), notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -66,6 +67,8 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 
 
   private
@@ -89,7 +92,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :is_admin, :password, :email, :date_created)
+      params.require(:user).permit(:name, :is_admin, :password, :confirm_password, :email, :date_created, :avatar)
     end
 
 end

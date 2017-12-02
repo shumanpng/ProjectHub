@@ -1,8 +1,78 @@
 <div class="container">
-<h1>New Task</h1>
-<%= render 'form' %>
+<%#= render 'form' %>
 
+<%= form_for(@task) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-</br>
-<%= link_to 'Back', group_path(@group.id), :class => 'btn btn-warning btn-sm' %>
+      <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container mt-5">
+    <div class="col-md-6 center">
+      <h2 style="text-align:center">Task.</h2>
+      <div class="field form-group">
+        <%= f.label :title %><br>
+        <%= f.text_field :title, required: true, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :created_by %><br>
+        <%= f.text_field :created_by, :readonly => true, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :deadline %><br>
+        <%#= f.datetime_select :deadline %>
+        <%= f.datetime_local_field :deadline, min: Date.today, class: 'form-control', required: true %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :points, 'How many points is this task worth? (1..5)' %><br>
+        <%= f.number_field :points, class: 'form-control', min: 1, max: 5 %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :group %><br>
+        <%= f.text_field :group, :readonly => true, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :state %><br>
+        <!-- <%= f.text_field :state %> -->
+        <%= f.radio_button(:state, "Open") %>
+        &nbsp;<%= label_tag(:state, "Open") %>&nbsp;&nbsp;&nbsp;
+        <%= f.radio_button(:state, "In Progress", :required => true) %>
+        &nbsp;<%= label_tag(:state, "In Progress") %>&nbsp;&nbsp;&nbsp;
+        <%= f.radio_button(:state, "Completed") %>
+        &nbsp;<%= label_tag(:state, "Completed") %>
+      </div>
+
+      <div class="field form-group">
+        <% if @groupmemberships != nil %>
+          <%= f.label :Assignee %><br>
+          <% @groupmemberships.each do |g| %>
+            <% user = User.where(:id => g.user_id).take %>
+            <%= f.radio_button(:assigned_to, user.id) %>
+            &nbsp;<%= label_tag(:assigned_to, user.name) %>
+            <br>
+          <% end %>
+        <% else %>
+          <% tasks_path %>
+        <% end %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit(class: 'btn btn-sm btn-success cursor-pointer form-control') %>
+        <br></br><%= link_to 'Back', group_path(@group.id), :class => 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<br>
 </div>

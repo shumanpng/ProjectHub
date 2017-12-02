@@ -1,28 +1,94 @@
 <div class="container">
-    <h1>Editing Group</h1>
+  <%#= render 'form' %>
 
-    <%= render 'form' %>
-    <br>
-  	<h2>Group Members</h2>
-    <table>
-	    <thead>
-	      <tr>
-	        <th>Name</th>
-	      </tr>
-	    </thead>
+  <%= form_for(@group) do |f| %>
+    <% if @group.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-	    <tbody>
-	      <% @members.each do |member| %>
-	       	<tr>
-	          <td><%= member.name %></td>
-	          <% if @current_user.id.to_i != member.user_id.to_i%>
-	          <td><%= link_to 'Remove', group_membership_path(:id => member.id, :user_id => params[:user_id]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	          <% end %>
-	      	</tr>
-	      <% end %>
-	  	</tbody>
-	</table>
+        <ul>
+        <% @group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
+    <div class="container mt-5">
+      <div class="col-md-6 center">
+        <h2 style="text-align:center">Group Settings</h2>
+        <div class="field form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control', required: true %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :description %><br>
+          <%= f.text_field :description, class: 'form-control' %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :deadline, 'Project Deadline' %><br>
+          <%= f.date_field :deadline, min: Date.today, class: 'form-control', required: true %>
+        </div>
+        <%= f.hidden_field :token, value: @user_login.token %>
+        <%= f.hidden_field :id, value: @group.id %>
+        <%= hidden_field_tag 'token', @user_login.token %>
+        <div class="actions">
+          <%= f.submit('Save Changes', class: 'btn btn-warning btn-sm cursor-pointer form-control') %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-    <%= link_to 'Back', group_path %>
+  <div class="container mt-5">
+    <div class="col-md-6 center">
+    	<p class="lead">Group Members</p>
+      <table>
+  	    <thead>
+  	      <tr>
+  	        <th>Name</th>
+  	      </tr>
+  	    </thead>
+
+  	    <tbody>
+  	      <% @members.each do |member| %>
+  	       	<tr>
+  	          <% if @current_user.id.to_i != member.user_id.to_i%>
+                <td><%= member.name %></td>
+  	            <td><%= link_to 'Remove', group_membership_path(:id => member.id, :user_id => params[:user_id]), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ml-3' %></td>
+              <% else %>
+                <td><%= member.name %> (You)</td>
+              <% end %>
+  	      	</tr>
+  	      <% end %>
+  	  	</tbody>
+  	  </table>
+      <br>
+
+      <p class="lead">Non-Members</p>
+      <% if @non_members.any? %>
+        <table>
+    	    <thead>
+    	      <tr>
+    	        <th>Name</th>
+    	      </tr>
+    	    </thead>
+
+    	    <tbody>
+    	      <% @non_members.each do |user| %>
+    	       	<tr>
+                <td><%= user.name %></td>
+                <td><%= link_to 'Add', add_member_path(:id => @group.id, :user_id => user.id), class: 'ml-3' %>
+    	      	</tr>
+    	      <% end %>
+    	  	</tbody>
+    	  </table>
+      <% else %>
+        All users are already members of this group!<br>
+      <% end %>
+      <br>
+
+      <%= link_to 'Back', group_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+  <br>
 </div>

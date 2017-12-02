@@ -12,28 +12,35 @@
           <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' %>
           <%= csrf_meta_tags %>
 
-          <!-- Google Fonts -->
-          <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600|Roboto" rel="stylesheet">
-      </head>
-      <body>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600|Roboto" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">ProjectHub</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <% @current_url = request.fullpath %>
+                    <% if @current_url.exclude? "user_logins" %>
+                        <% if @current_url.exclude? "users/new" %>
+                            <div class="navbar-nav">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item">
+                                        <%= link_to 'Dashboard', groups_path, :class => 'nav-link' %>
+                                    </li>
+                                    <li class="nav-item">
+                                        <%= link_to 'Events', events_path, :class => 'nav-link' %>
+                                    </li>
+                                    <li class="nav-item">
+                                        <%= link_to 'Calendar', redirect_path, :class => 'nav-link' %>
+                                    </li>
+                                </ul>
+                            </div>
+                            
 
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <div class="container">
-                  <a class="navbar-brand" href="#">ProjectHub</a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                      <% @current_url = request.fullpath %>
-                      <% if @current_url.exclude? "user_logins" %>
-                          <% if @current_url.exclude? "users/new" %>
-                              <div class="navbar-nav">
-                                  <ul class="navbar-nav mr-auto">
-                                      <li class="nav-item">
-                                          <%= link_to 'Dashboard', groups_path, :class => 'nav-link' %>
-                                      </li>
-                                  </ul>
-                              </div>
                               <ul class="navbar-nav ml-auto">
                                   <li class="nav-item dropdown">
                                       <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +56,6 @@
                                           <!-- check if notification is read or not -->
                                           <% if user_notification.status == false %>
                                             <p class="dropdown-item" onmouseover="readNotification('<%= user_notification.id %>')"> <i class="fa fa-exclamation-circle"></i><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
-
                                             <% else %>
                                             <p class="dropdown-item"><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
 
@@ -64,15 +70,20 @@
                                       </div>
                                   </li>
                               </ul>
-                              <ul class="navbar-nav ml-auto">
-                                  <li class="nav-item dropdown">
-                                      <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          Profile
-                                      </a>
-                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          
+          
+                              <ul class="navbar-nav ml-auto mr-5">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                                        
 
                                       <%= link_to '<i class="fa fa-gear fa-fw"></i>Settings'.html_safe, user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
-
+                                      <% if Company.where(:name => 'Simon Fraser University').exists? %>
+                                        <%= link_to '<i class="fa fa-briefcase fa-fw"></i>Your Company'.html_safe, company_path(Company.where(:name => 'Simon Fraser University').take.id), class: 'dropdown-item' %>
+                                      <% end %>   
+                                      
                                       <%= link_to '<i class="fa fa-sign-out fa-fw"></i>Logout'.html_safe, new_user_login_path, :class=>"dropdown-item" %>
                                       </div>
                                   </li>
@@ -86,3 +97,4 @@
           <%= yield %>
       </body>
   </html>
+
