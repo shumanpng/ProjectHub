@@ -17,6 +17,12 @@
       <% end %>
     </p>
 
+    <p><strong>Stats:</strong>
+      <strong class="text-primary" style="font-size:19px"><%= @num_members %></strong> members,
+      <strong class="text-primary" style="font-size:19px"><%= @num_groups %></strong> total projects, and
+      <strong class="text-primary" style="font-size:19px"><%= @num_tasks_completed %></strong> completed task<%= 's' if @num_tasks_completed != 1 %>.
+    </p>
+
     <br>
     <!-- only admins can access Company Settings -->
     <% if @current_user.is_admin %>

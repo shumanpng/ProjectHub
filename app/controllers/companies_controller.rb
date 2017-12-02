@@ -11,6 +11,9 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
+    @num_members = User.all.count
+    @num_groups = Group.all.count
+    @num_tasks_completed = Task.where(:state => 'Completed').count
   end
 
   # GET /companies/new
