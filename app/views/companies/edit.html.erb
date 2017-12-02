@@ -1,6 +1,47 @@
-<h1>Editing Company</h1>
+<%= form_for(@company) do |f| %>
+  <% if @company.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
 
-<%= render 'form' %>
+      <ul>
+      <% @company.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= link_to 'Show', @company %> |
-<%= link_to 'Back', companies_path %>
+<div class="container mt-5">
+  <div class="col-md-6 center">
+    <h2 style="text-align:center">Update Your Company's Profile</h2>
+    <p class="text-muted" style="text-align:center">(Information here will be displayed on the front page of your ProjectHub site)</p>
+    <div class="field form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: 'form-control', readonly: true %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :description, 'Tagline' %><br>
+      <small class="text-muted">Max: 140 characters</small>
+      <%= f.text_field :description, class: 'form-control', maxlength: 140 %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :logo, 'Logo URL' %><br>
+      <%= f.url_field :logo, class: 'form-control', placeholder: 'https://' %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :city, 'Where is your company based?' %><br>
+      <%= f.text_field :city, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit('Save Changes', class: 'form-control cursor-pointer btn btn-warning btn-sm') %>
+      <br></br><%= link_to 'Back', company_path(1), class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+  <br>
+</div>
+
+<% end %>
