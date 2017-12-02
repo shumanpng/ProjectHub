@@ -6,7 +6,7 @@
 
   <% if @user.avatar.blank? %>
     <!-- user has no avatar; display default (first letter of name)-->
-    <div class="letter-container avatar <%= 'admin-color' if @user.is_admin %>" style="margin-left:57px">
+    <div class="letter-container avatar center <%= 'admin-color' if @user.is_admin %>">
       <p><%= @user.name[0] %></p>
     </div>
   <% else %>
