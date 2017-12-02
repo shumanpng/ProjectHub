@@ -1,12 +1,10 @@
 <div>
   <h1><%= "History for group #{@group.name}" %></h1>
-  <br>
   <ul class="list-group">
     <% @all_group_notifications.reverse.each do |notification|%>
-    <li class="list_group_item">
+    <li class="list-group-item">
       <%= notification.message %> <br>
       <%= notification.created_at %>
-      <hr>
     </li>
     <% end %>
   </ul>
