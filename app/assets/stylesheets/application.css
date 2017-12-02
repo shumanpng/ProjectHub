@@ -1,133 +1,135 @@
 /*
- 
+
  * This is a manifest file that'll be compiled into application.css, which will include all the files
- 
+
  * listed below.
- 
+
  *
- 
+
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- 
+
  * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- 
+
  *
- 
+
  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- 
+
  * compiled file so the styles you add here take precedence over styles defined in any styles
- 
+
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- 
+
  * file per style scope.
- 
+
  *
- 
+
  *= require_tree .
- 
+
  *= require_self
- 
+
  *= require font-awesome
- 
+
+ *= require dataTables/jquery.dataTables
+
  */
- 
 
- 
 
- 
+
+
+
 .like:hover{
- 
+
   text-decoration: none;
- 
-}
- 
 
- 
+}
+
+
+
 .fa {
- 
+
   color: #8bc2ef;
- 
+
   margin-right: 4px;
- 
-}
- 
 
- 
+}
+
+
+
 .all-tasks-table{
- 
-  margin-left: 10px;
- 
-}
- 
 
- 
+  margin-left: 10px;
+
+}
+
+
+
 .all-tasks-view-back-button {
- 
+
   margin-left: 10px;
- 
-}
- 
 
- 
+}
+
+
+
 /*div.scroll {
- 
+
   width: 100px;
- 
+
   height: 10px;
- 
+
   overflow: scroll;
- 
+
 }*/
- 
 
- 
+
+
 .table-scroll {
- 
+
   height:300px;
- 
+
   overflow:auto;
- 
+
   margin-top:10px;
- 
+
   width: 600px;
- 
-  /*position: absolute;*/
- 
-}
- 
 
- 
+  /*position: absolute;*/
+
+}
+
+
+
 .open-tasks-table {
- 
+
   /*margin-left: 580px;
- 
+
   margin-top: -450px;*/
- 
+
   /*margin-top: 0px;*/
- 
+
   /*position: absolute;*/
- 
-  margin-left: 70px;
- 
-}
- 
 
- 
+  margin-left: 70px;
+
+}
+
+
+
 .in-progress-tasks-table {
- 
-  /*margin-left: 580px;*/
- 
-  margin-left: 70px;
- 
-}
- 
 
- 
-.completed-tasks-table {
- 
   /*margin-left: 580px;*/
- 
+
   margin-left: 70px;
- 
+
+}
+
+
+
+.completed-tasks-table {
+
+  /*margin-left: 580px;*/
+
+  margin-left: 70px;
+
 }
 
 
