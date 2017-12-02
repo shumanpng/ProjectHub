@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <table class="table table-sm">
+  <table class="table table-sm table-hover">
     <thead class="thead-dark">
       <tr>
         <th>Name</th>
@@ -19,7 +19,7 @@
         <th>Location</th>
       </tr>
     </thead>
-  
+
     <tbody>
       <% @events.each do |event| %>
         <tr>
@@ -41,9 +41,8 @@
       <% end %>
     </tbody>
   </table>
-  
+
   <br>
-  
+
   <%= link_to 'New Event', new_event_path, :class=>"btn btn-primary" %>
 </div>
-
