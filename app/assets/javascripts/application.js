@@ -31,7 +31,6 @@ setInterval(()=>{
   }).then((text)=>{
     document.getElementById("alert").innerHTML = text;
   });
-  console.log("test");
 }, 2000)
 
 function readNotification(nid){
