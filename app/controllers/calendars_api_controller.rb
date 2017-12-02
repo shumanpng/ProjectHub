@@ -198,7 +198,7 @@ class CalendarsApiController < ApplicationController
 
        service.insert_event('primary', event)
       # end
-      redirect_to calendar_events_url(calendar_id: params[:calendar_id])
+      redirect_to calendar_company_events_url(calendar_id: params[:calendar_id])
    end
 
 

@@ -32,10 +32,6 @@
         <%= link_to('View and Add Group Tasks to Calendar', calendar_events_url, class:
         "btn btn-warning") %>
 
-      <!-- <%#= link_to 'Create new event', new_event_path %> -->
-      <%#= form_tag new_event_url(:summary => "Hello") do %>
-        <%#= submit_tag 'Add event' %>
-      <%# end %>
     </div>
   </div>
 
@@ -72,17 +68,17 @@
             <td><%= link_to(event.name, event_path(event)) %></td>
             <!-- <td><%#= task.created_by %></td> -->
             <td><%= event.date.to_date %></td>
-            <td><%= event.location_city %></td>
+            <td><%= event.location_name %></td>
 
             <!-- <td><%#= link_to 'Show', task %></td> -->
             <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
             <td>
               <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
               <%#= submit_tag 'Add event' %>
-              <%#= form_tag new_calendar_event_url(:eventid => event.id) do %>
-                <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
-                <%#= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
-              <%# end %>
+              <%= form_tag new_calendar_event_url(:eventid => event.id) do %>
+                <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                <%= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
+              <% end %>
             </td>
 
           </tr>
