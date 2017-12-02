@@ -48,14 +48,15 @@
 
   <div class="col-md-9 center">
     <h4> Add Company Events to Calendar </h4>
-    <table>
-      <thead class="thead-dark">
+    <table class="table">
+      <thead class="thead-light">
         <tr>
           <th>Event</th>
           <!-- <th>Created by</th> -->
           <!-- <th>Deadline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
           <th>Date & Time &nbsp;&nbsp&nbsp;&nbsp;</th>
           <th>Location</th>
+          <th>      </th>
 
         </tr>
       </thead>
@@ -76,8 +77,8 @@
               <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
               <%#= submit_tag 'Add event' %>
               <%= form_tag new_calendar_event_url(:eventid => event.id) do %>
-                <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                <%= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
+                <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
+                <%= submit_tag('Add to calendar', class: "btn btn-info btn-sm cursor-pointer") %>
               <% end %>
             </td>
 

@@ -113,8 +113,8 @@
               <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
               <%#= submit_tag 'Add event' %>
               <%= form_tag new_calendar_task_url(:taskid => task.id) do %>
-                <i class="fa fa-calendar-plus-o" aria-hidden="true">
-                <%= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
+                <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
+                <%= submit_tag('Add to calendar', class: "btn btn-info btn-sm cursor-pointer") %>
               <% end %>
             </td>
 
