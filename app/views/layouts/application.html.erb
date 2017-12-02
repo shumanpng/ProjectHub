@@ -47,7 +47,9 @@
 
                                     <%= link_to '<i class="fa fa-gear fa-fw"></i>Settings'.html_safe, user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
 
-                                    <%= link_to '<i class="fa fa-briefcase fa-fw"></i>Your Company'.html_safe, company_path(Company.where(:name => 'Simon Fraser University').take.id), class: 'dropdown-item' %>
+                                    <% if Company.where(:name => 'Simon Fraser University').exists? %>
+                                      <%= link_to '<i class="fa fa-briefcase fa-fw"></i>Your Company'.html_safe, company_path(Company.where(:name => 'Simon Fraser University').take.id), class: 'dropdown-item' %>
+                                    <% end %>
 
                                     <%= link_to '<i class="fa fa-sign-out fa-fw"></i>Logout'.html_safe, new_user_login_path, :class=>"dropdown-item" %>
                                     </div>
