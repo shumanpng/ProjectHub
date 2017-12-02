@@ -36,6 +36,17 @@
                                     <li class="nav-item">
                                         <%= link_to 'Calendar', redirect_path, :class => 'nav-link' %>
                                     </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Stats
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                          <%= link_to '<i class="fa fa-line-chart" aria-hidden="true"></i> User Graphs'.html_safe, graphs_user_path(User.where(:email => @user_login.email).first), :class=>"dropdown-item" if @user_login.try(:email) %>
+
+                                        </div>
+                                    </li>
+
                                 </ul>
                             </div>
                             <ul class="navbar-nav ml-auto">
