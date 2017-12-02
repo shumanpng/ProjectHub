@@ -33,6 +33,16 @@ setInterval(()=>{
   });
 }, 2000)
 
+setInterval(()=>{
+  fetch("/getallnotifications",{
+    credentials:"same-origin"
+  }).then((resp)=>{
+    return resp.text();
+  }).then((text)=>{
+    document.getElementById("allNotifications").innerHTML = text;
+  });
+}, 10000)
+
 function readNotification(nid){
   nid = parseInt(nid);
 

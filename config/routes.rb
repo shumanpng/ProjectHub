@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   put "/readnotification", to: "notifications#readNotification"
   get "/getnotifications", to: "notifications#getNotifications"
+  get "/getallnotifications", to: "notifications#getAllNotifications"
   get "/notifications", to: "notifications#index"
   get "/group_notifications", to: "group_notifications#index"
   get "/notificationalert", to: "notifications#alertNotification"

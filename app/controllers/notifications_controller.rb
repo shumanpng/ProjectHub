@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:readNotification]
-  before_action :authenticate, only: [:index, :getNotifications, :alertNotification, :readNotification, :show, :edit, :update, :destroy, :new, :process_leave_grp]
+  before_action :authenticate, only: [:index, :getNotifications, :alertNotification, :readNotification, :getAllNotifications, :show, :edit, :update, :destroy, :new, :process_leave_grp]
 
   def index
     @all_notifications = @current_user.notifications.order(:id)
@@ -11,6 +11,10 @@ class NotificationsController < ApplicationController
 
   def getNotifications
     @user_notifications = @current_user.notifications.order(:id)
+  end
+
+  def getAllNotifications
+    @all_notifications = @current_user.notifications.order(:id)
   end
 
   def alertNotification
