@@ -16,6 +16,7 @@
 //= require_tree .
 
 setInterval(()=>{
+  //fetch notification for nav bar
   fetch("/getnotifications",{
     credentials:"same-origin"
   }).then((resp)=>{
@@ -23,7 +24,7 @@ setInterval(()=>{
   }).then((text)=>{
     document.getElementById("notifications").innerHTML = text;
   });
-
+  //fetch notification alert
   fetch("/notificationalert",{
     credentials:"same-origin"
   }).then((resp)=>{

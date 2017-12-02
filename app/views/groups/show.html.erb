@@ -23,7 +23,7 @@
       </div>
       <div class="dropdown">
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Group Notifications
+          Group History
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <% @group_notifications.reverse[0..4].each do |notification| %>
@@ -32,7 +32,7 @@
               <hr>
             <% end %>
           <% end %>
-          <p class="dropdown-item"><%= link_to "View all group notifications", group_notifications_path(:group_id => params[:id])%></p>
+          <p class="dropdown-item"><%= link_to "View full history", group_notifications_path(:group_id => params[:id])%></p>
 
         </div>
       </div>
