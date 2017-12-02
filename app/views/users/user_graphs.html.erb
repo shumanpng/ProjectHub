@@ -1,33 +1,37 @@
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
 
 <body>
-  <div id="container" style="height: 400px">
+  <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
 
     <p><strong> Tasks Completed By <%= @user_name%>:</strong></p>
 
-    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Tasks Compeleted', ytitle: 'Time', stacked:true %>
+    <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Time', ytitle: 'Number of Tasks', stacked:true %>
     </br>
 
+    </div>
+
+    <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
+    <p><strong> Points Earned By <%= @user_name%>:</strong></p>
     <%= bar_chart @completed_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%>
     </br>
+    </div>
 
+    <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
+    <p><strong> Tasks Timeline:</strong></p>
     <% data = @completed_tasks.pluck(:title, :created_at, :updated_at) %>
-    <%= timeline data %>
+    <%= timeline data ,xtitle: 'Time', ytitle: 'Number of Tasks'%>
+    </div>
 
 
-
-
+    <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
     <p><strong> Tasks Still In Progress Assigned to <%= @user_name%>:</strong></p>
 
     <%= column_chart @in_progress_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Tasks Compeleted', ytitle: 'Time', stacked:true %>
     </br>
-
-    <%= bar_chart @in_progress_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%>
-    </br>
+    </div>
 
 
-
-    <p>Tasks Completed:</p>
+    <!-- <p>Tasks Completed:</p>
     <% @completed_tasks.each do |task| %>
       <p><%=  task.updated_at %> ==> <%=  task.points %></p>
     </br>
@@ -37,11 +41,7 @@
     <% @in_progress_tasks.each do |task| %>
       <p><%=  task.updated_at %> ==> <%=  task.points %></p>
     </br>
-    <% end %>
-
-
-
-    open_tasks
+    <% end %> -->
 
   </div>
 </body>
