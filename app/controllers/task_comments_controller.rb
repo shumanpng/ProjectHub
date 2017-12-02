@@ -80,7 +80,7 @@ class TaskCommentsController < ApplicationController
         end
       else
         @current_user = User.where(:email => @user_login.email).take
-        @user_notifications = @current_user.notifications
+        @user_notifications = @current_user.notifications.order(:id)
       end
     end
 

@@ -11,5 +11,9 @@
       <% end %>
     <% end %>
   <% end %>
-  <p class="dropdown-item"><%= link_to "View all notifications", notifications_path %></p>
+  <% if @alert == true %>
+    <p class="dropdown-item" style="background-color: yellow;"><%= link_to "View all notifications", notifications_path %></p>
+  <% else %>
+    <p class="dropdown-item"><%= link_to "View all notifications", notifications_path %></p>
+  <% end %>
 </div>

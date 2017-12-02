@@ -22,8 +22,17 @@ setInterval(()=>{
     return resp.text();
   }).then((text)=>{
     document.getElementById("notifications").innerHTML = text;
-  })
-}, 1000)
+  });
+
+  fetch("/notificationalert",{
+    credentials:"same-origin"
+  }).then((resp)=>{
+    return resp.text();
+  }).then((text)=>{
+    document.getElementById("alert").innerHTML = text;
+  });
+  console.log("test");
+}, 2000)
 
 function readNotification(nid){
   nid = parseInt(nid);
