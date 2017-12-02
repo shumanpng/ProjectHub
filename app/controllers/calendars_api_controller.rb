@@ -27,52 +27,56 @@ class CalendarsApiController < ApplicationController
 
   # fetching calendar events
   def calendar_events
-    groups = @current_user.groups.order(:name)
-    @alltasks = Task.where(:group => nil)
-    # @alltasks = Task.where(:created_by => @current_user.name)
-    groups.each do |group|
-      @tasks = Task.where(:group => group.name).order(:deadline)
-      @alltasks.concat @tasks
-      # @alltasks << @tasks
+      groups = @current_user.groups.order(:name)
+      @alltasks = Task.where(:group => nil)
+      # @alltasks = Task.where(:created_by => @current_user.name)
+      groups.each do |group|
+        @tasks = Task.where(:group => group.name).order(:deadline)
+        @alltasks.concat @tasks
+        # @alltasks << @tasks
     end
 
-    # @tasks = Task.all
-    client = Signet::OAuth2::Client.new(client_options)
-    client.update!(session[:authorization])
+      @events = Event.all
 
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
+      # @tasks = Task.all
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
 
-    @calendar_event_list = service.list_events(params[:calendar_id])
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
 
-    # @event_list = service.list_events('primary')
+      @calendar_event_list = service.list_events(params[:calendar_id])
 
-    # refresh authorization
-    rescue Google::Apis::AuthorizationError
-      if client.expired?
-        # client.authorization_uri.fetch_access_token!
-        redirect_to redirect_path
-        # response = client.fetch_access_token!
+      # @event_list = service.list_events('primary')
 
-        # session[:authorization] = response
-      # end
-      # if client.invalid?
-      #   redirect_to redirect_uri
-      # elsif session[:authorization].invalid?
-      #   redirect_to redirect_url
-      else
-        response = client.refresh!
-        session[:authorization] = session[:authorization].merge(response)
+      # refresh authorization
+      rescue Google::Apis::AuthorizationError
+        if client.expired?
+          # client.authorization_uri.fetch_access_token!
+          redirect_to redirect_path
+          # response = client.fetch_access_token!
 
-      end
+          # session[:authorization] = response
+        # end
+        # if client.invalid?
+        #   redirect_to redirect_uri
+        # elsif session[:authorization].invalid?
+        #   redirect_to redirect_url
+        else
+          response = client.refresh!
+          session[:authorization] = session[:authorization].merge(response)
 
-    retry
+        end
+
+      retry
   end
 
   # adding an event from web app to Google Calendar through API
-  def new_calendar_event
+  def new_calendar_task
      taskid = params[:taskid]
+     # eventid = params[:eventid]
      @task = Task.where(:id => taskid).take
+     # @event = Event.where(:id => eventid).take
      # @tasks = Task.where(:group => "CMPT 300")
      client = Signet::OAuth2::Client.new(client_options)
      client.update!(session[:authorization])
@@ -83,7 +87,10 @@ class CalendarsApiController < ApplicationController
      today = Date.today
      # @tasks.each do |task|
        # datetime = DateTime.parse(task.deadline.localtime)
+
      datetime = @task.deadline
+
+
      datetimestring = datetime.to_s(:db)
      datetimeparsed = DateTime.parse(datetimestring)
      formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
@@ -100,8 +107,10 @@ class CalendarsApiController < ApplicationController
      #   start: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime),
      # end: Google::Apis::CalendarV3::EventDateTime.new(date_time: task.deadline.localtime + 30),
        # summary: params[:summary],
-       summary: @task.title,
-       description: @task.description
+         summary: @task.title,
+         description: @task.description
+
+
      })
 
       service.insert_event('primary', event)

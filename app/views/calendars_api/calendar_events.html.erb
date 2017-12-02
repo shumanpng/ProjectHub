@@ -46,8 +46,52 @@
 
   </br>
   </br>
-  </br>
-  </br>
+
+
+  <div class="col-md-9 center">
+    <h4> Add Company Events to Calendar </h4>
+    <table>
+      <thead class="thead-dark">
+        <tr>
+          <th>Event</th>
+          <!-- <th>Created by</th> -->
+          <!-- <th>Deadline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
+          <th>Date & Time &nbsp;&nbsp&nbsp;&nbsp;</th>
+          <th>Location</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @events.each do |event| %>
+          <%# user = User.where(:id => task.assigned_to).take %>
+
+          <tr>
+            <td><%= link_to(event.name, event_path(event)) %></td>
+            <!-- <td><%#= task.created_by %></td> -->
+            <td><%= event.date.to_date %></td>
+            <td><%= event.location_city %></td>
+
+            <!-- <td><%#= link_to 'Show', task %></td> -->
+            <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+            <td>
+              <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
+              <%#= submit_tag 'Add event' %>
+              <%#= form_tag new_calendar_event_url(:eventid => event.id) do %>
+                <!-- <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> -->
+                <%#= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
+              <%# end %>
+            </td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</br>
+</br>
+
 
   <div class="col-md-9 center">
     <h4> Add Tasks to Calendar </h4>
@@ -85,7 +129,7 @@
             <td>
               <%#= link_to 'Add to calendar', new_event_path(:taskid => task.id) %>
               <%#= submit_tag 'Add event' %>
-              <%= form_tag new_calendar_event_url(:taskid => task.id) do %>
+              <%= form_tag new_calendar_task_url(:taskid => task.id) do %>
                 <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                 <%= submit_tag('Add to calendar', class: "btn btn-info cursor-pointer") %>
               <% end %>
