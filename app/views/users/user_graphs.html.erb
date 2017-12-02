@@ -1,32 +1,46 @@
+<head>
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<!-- <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %> -->
+<!-- <%= javascript_include_tag "application", "chartkick" %> -->
+</head>
 
 <body>
-  <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
+  <div class="col-md-6 text-align: center">
+  <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
 
-    <p><strong> Tasks Completed By <%= @user_name%>:</strong></p>
+    <h5><strong> Tasks Completed By <%= @user_name%></strong></h5>
 
     <%= column_chart @completed_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Time', ytitle: 'Number of Tasks', stacked:true %>
     </br>
 
     </div>
 
-    <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
-    <p><strong> Points Earned By <%= @user_name%>:</strong></p>
+    <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
+    <h5><strong> Points Earned By <%= @user_name%></strong></h5>
     <%= bar_chart @completed_tasks.group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").sum(:points), xtitle: "Points received", ytitle: "Time"%>
     </br>
     </div>
 
-    <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
-    <p><strong> Tasks Timeline:</strong></p>
-    <% data = @completed_tasks.pluck(:title, :created_at, :updated_at) %>
-    <%= timeline data ,xtitle: 'Time', ytitle: 'Number of Tasks'%>
+
+    <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
+    <h5><strong> Tasks Still In Progress Assigned to <%= @user_name%></strong></h5>
+
+    <%= column_chart @in_progress_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Time', ytitle: 'Number of Tasks', stacked:true %>
+    </br>
     </div>
 
 
-    <div class="jumbotron text-center bg-grey" style="width: 900px; height: 400px;">
-    <p><strong> Tasks Still In Progress Assigned to <%= @user_name%>:</strong></p>
 
-    <%= column_chart @in_progress_tasks.group(:points).group_by_day(:updated_at, time_zone: "Pacific Time (US & Canada)", format: "%b %d").count, xtitle: 'Tasks Compeleted', ytitle: 'Time', stacked:true %>
+    <div class="jumbotron text-center bg-##350" style="width: 1250px; height: 430px;">
+    <h5><strong> Tasks Timeline</strong></h5>
+    <p> (Tasks Completed by <%= @user_name%>)</p>
+    <% data_1 = @completed_tasks.pluck(:title, :created_at, :updated_at) %>
+    <%= timeline data_1 ,xtitle: 'Time', ytitle: 'Number of Tasks'%>
+
+    <!-- <p><strong> Still In Progress By <%= @user_name%></strong></p>
+    <% data_2 = @in_progress_tasks.pluck(:title, :created_at, :updated_at) %>
+    <%= timeline data_2 ,xtitle: 'Time', ytitle: 'Number of Tasks'%> -->
+
     </br>
     </div>
 
@@ -43,5 +57,6 @@
     </br>
     <% end %> -->
 
+  </div>
   </div>
 </body>
