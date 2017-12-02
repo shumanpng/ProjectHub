@@ -41,7 +41,7 @@ gem 'puma'
 gem 'font-awesome-rails'
 
 # acts_as_votable (Gem for keeping track of points)
-# gem 'acts_as_votable', '~> 0.11.1'
+gem 'acts_as_votable', '~> 0.11.1'
 
 gem "chartkick"
 gem "groupdate"
