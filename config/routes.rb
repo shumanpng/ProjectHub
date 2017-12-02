@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :users
   resources :task_comments
 
+  put "/readnotification", to: "notifications#readNotification"
   get "/getnotifications", to: "notifications#getNotifications"
   get "/notifications", to: "notifications#index"
   get "/group_notifications", to: "group_notifications#index"

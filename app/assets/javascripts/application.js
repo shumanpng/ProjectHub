@@ -23,5 +23,23 @@ setInterval(()=>{
   }).then((text)=>{
     document.getElementById("notifications").innerHTML = text;
   })
-  console.log("HelloTroll");
-}, 10000)
+}, 1000)
+
+function readNotification(nid){
+  nid = parseInt(nid);
+
+  $.ajax({
+
+    url : "/readnotification",
+    type : "put",
+    data : { notification_id: nid}
+  })
+
+  // var fd = new FormData();
+  // fd.append("notification_id",nid);
+  // fetch("/readnotification",{
+  //   credentials:"same-origin",
+  //   method:"post",
+  //   body:fd
+  // })
+}

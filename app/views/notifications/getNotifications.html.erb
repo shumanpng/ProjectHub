@@ -1,8 +1,14 @@
 <div>
   <% @user_notifications.reverse[0..4].each do |user_notification| %>
     <%= link_to group_path(user_notification.group_id) do %>
-      <p class="dropdown-item" ><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
+    <!-- check if notification is read or not -->
+    <% if user_notification.status == false %>
+      <p class="dropdown-item" style="background-color:red;" onmouseover="readNotification('<%= user_notification.id %>')"><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
       <hr>
+      <% else %>
+      <p class="dropdown-item"><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
+      <hr>
+      <% end %>
     <% end %>
   <% end %>
   <p class="dropdown-item"><%= link_to "View all notifications", notifications_path %></p>

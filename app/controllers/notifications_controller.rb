@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate, only: [:index, :getNotifications, :show, :edit, :update, :destroy, :new, :process_leave_grp]
+  skip_before_action :verify_authenticity_token, only: [:readNotification]
+  before_action :authenticate, only: [:index, :getNotifications, :readNotification, :show, :edit, :update, :destroy, :new, :process_leave_grp]
 
   def index
     @all_notifications = @current_user.notifications
@@ -7,6 +8,15 @@ class NotificationsController < ApplicationController
 
   def getNotifications
     @user_notifications = @current_user.notifications
+  end
+
+  def readNotification
+    respond_to do |format|
+      format.js { render nothing: true }
+
+      @updatenotification = Notification.where(:id => params[:notification_id]).take
+      @updatenotification.update_attribute(:status ,true)
+    end
   end
 
   def authenticate
