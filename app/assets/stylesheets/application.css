@@ -96,6 +96,12 @@
 
 
 
+.tbody{
+  height:200px;
+  overflow-y:auto;
+  width: 100%;
+}
+
 .open-tasks-table {
 
   /*margin-left: 580px;
