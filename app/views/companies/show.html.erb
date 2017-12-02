@@ -1,7 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <div class="container mt-5">
   <div class="col-md-6 center" style="text-align:center">
+    <% if flash[:notice] -%>
+      <div class = "alert alert-success" style="text-align:center"><%= flash[:notice] %></div><br>
+    <% end %>
+
     <img class="logo" src="<%= @company.logo %>" onerror="this.onerror=null;this.src='../assets/not-found.png';this.style.width='200px'">
 
     <br></br><h3><%= @company.name %></h3>
@@ -15,8 +17,13 @@
       <% end %>
     </p>
 
-    <br><%= link_to 'Edit Company Profile', edit_company_path(@company), class: 'btn btn-warning btn-sm' %>
+    <br>
+    <!-- only admins can access Company Settings -->
+    <% if @current_user.is_admin %>
+      <%= link_to 'Edit Company Profile', edit_company_path(@company), class: 'btn btn-warning btn-sm' %>
+    <% else %>
+      <small class="text-muted">Note: Only admin users can make changes to your company's profile.</small><br></br>
+    <% end %>
     <%= link_to 'Back', groups_path, class: 'btn btn-primary btn-sm' %>
-
   </div>
 </div>
