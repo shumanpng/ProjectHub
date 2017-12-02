@@ -48,15 +48,19 @@
                                           <%= link_to group_path(user_notification.group_id) do %>
                                           <!-- check if notification is read or not -->
                                           <% if user_notification.status == false %>
-                                            <p class="dropdown-item" style="background-color:red;" onmouseover="readNotification('<%= user_notification.id %>')"><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
-                                            <hr>
+                                            <p class="dropdown-item" onmouseover="readNotification('<%= user_notification.id %>')"> <i class="fa fa-exclamation-circle"></i><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
+
                                             <% else %>
                                             <p class="dropdown-item"><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
-                                            <hr>
+
                                             <% end %>
                                           <% end %>
                                         <% end %>
-                                        <p class="dropdown-item"><%= link_to "View all notifications", notifications_path %></p>
+                                        <% if @alert == true %>
+                                          <p class="dropdown-item"><%= link_to "<i class='fa fa-exclamation-circle'></i>View all notifications".html_safe, notifications_path %></p>
+                                        <% else %>
+                                          <p class="dropdown-item"><%= link_to "View all notifications", notifications_path %></p>
+                                        <% end %>
                                       </div>
                                   </li>
                               </ul>
