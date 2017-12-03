@@ -1,5 +1,65 @@
-<div class="container">
-    <h1>New Event</h1>
+<div class="container mt-5">
+  <div class="col-md-6 center">
+    <%#= render 'form' %>
 
-    <%= render 'form' %>
+    <%= form_for(@event) do |f| %>
+      <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+          <ul>
+          <% @event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h2 style="text-align:center">Event.</h2>
+      <div class="field form-group">
+        <%= f.label :name, 'Event Name' %><br>
+        <%= f.text_field :name, required: true, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :date %><br>
+        <%= f.datetime_local_field :date, required: true, class: 'form-control' %>
+      </div>
+
+      <p class="mt-4 lead" style="text-align:center">Location:</p>
+      <div class="field form-group">
+        <%= f.label :location_name, 'Name' %><br>
+        <%= f.text_field :location_name, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :location_address, 'Address' %><br>
+        <%= f.text_field :location_address, required: true, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :location_city, 'City', class: '' %><br>
+        <%= f.text_field :location_city, required: true, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :location_province, 'Province' %><br>
+        <%= f.text_field :location_province, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :location_country, 'Country' %><br>
+        <%= f.text_field :location_country, class: 'form-control' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :location_postal_code, 'Postal Code' %><br>
+        <%= f.text_field :location_postal_code, class: 'form-control' %>
+      </div>
+      <br>
+      <div class="actions">
+        <%= f.submit(:class=>"btn btn-success btn-sm form-control cursor-pointer") %>
+        <br></br><%= link_to 'Back', events_path, class: 'btn btn-sm btn-primary' %>
+      </div>
+    <% end %>
+    <br>
+  </div>
 </div>
