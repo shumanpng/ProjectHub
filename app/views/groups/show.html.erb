@@ -2,7 +2,7 @@
   <br>
   <div class="container bg-dark" style="color:white">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="bd-pageheader">
           <h1><%= @group.name %></h1>
           <p><span class="lead">Group.</span> &nbsp;(Admin: <%= @admin_name %>)</p>
@@ -13,10 +13,8 @@
           <% end %>
         </div>
       </div>
-      <div class="ml-3">
-        <% if @is_grp_admin %>
-          <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
-        <% end %>
+      <div class="col-md-6">
+
           <%= link_to 'New Task', new_task_path( :groupname => @group.name, :group_id => @group.id), :class=>"btn btn-success btn-sm"%>
           <%= link_to 'View All Tasks', tasks_path(:groupid => @group.id, :groupname => @group.name), :class => 'btn btn-primary btn-sm'%>
           <%= link_to 'View Calendar', redirect_path, :class => 'btn btn-primary btn-sm'%>
@@ -34,6 +32,9 @@
               <p class="dropdown-item"><%= link_to "View full history", group_notifications_path(:group_id => params[:id])%></p>
             </div>
           </div>
+          <% if @is_grp_admin %>
+            <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm mt-2' %>
+          <% end %>
       </div>
     </div>
   </div>
