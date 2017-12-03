@@ -93,6 +93,18 @@ class GroupRequestsController < ApplicationController
       # associate new membership with the group and the user who submitted the request
       @curr_group.group_memberships << @new_membership
       @requester.group_memberships << @new_membership
+
+      @notification_targets = Group.find(params[:group_id]).group_memberships
+      @notification_targets.each do |notify|
+        if @requester.id == notify.user_id
+          message = "You joined the group #{@curr_group.name}"
+        else
+          message = "#{@requester.name} joined the group #{@curr_group.name}"
+        end
+        Notification.create(message: message, group_id: params[:group_id], user_id: notify.user_id,  status: false)
+      end
+      message = "#{@requester.name} joined the group #{@curr_group.name}"
+      GroupNotification.create(message: message, group_id: params[:group_id], status: false)
     else
       # change status of request
       @curr_request.update_attribute(:status, 'denied')
@@ -117,6 +129,7 @@ class GroupRequestsController < ApplicationController
         end
       else
         @current_user = User.where(:email => @user_login.email).take
+        @user_notifications = @current_user.notifications.order(:id)
       end
     end
 

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'group_notifications/index'
+
+  get 'notifications/index'
 
   get 'calendars/redirect'
 
@@ -21,6 +24,13 @@ Rails.application.routes.draw do
   resources :active_users
   resources :companies
   resources :task_comments
+
+  put "/readnotification", to: "notifications#readNotification"
+  get "/getnotifications", to: "notifications#getNotifications"
+  get "/getallnotifications", to: "notifications#getAllNotifications"
+  get "/notifications", to: "notifications#index"
+  get "/group_notifications", to: "group_notifications#index"
+  get "/notificationalert", to: "notifications#alertNotification"
 
   resources :users do
     member do

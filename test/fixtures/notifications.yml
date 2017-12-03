@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyText
+  user_id: 1
+  group_id: 1
+  status: false
+
+two:
+  message: MyText
+  user_id: 1
+  group_id: 1
+  status: false

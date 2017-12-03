@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20171201220011) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +80,14 @@ ActiveRecord::Schema.define(version: 20171201220011) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "group_notifications", force: :cascade do |t|
+    t.text     "message"
+    t.integer  "group_id"
+    t.boolean  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "group_requests", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
@@ -93,6 +102,15 @@ ActiveRecord::Schema.define(version: 20171201220011) do
     t.datetime "updated_at",  null: false
     t.string   "description"
     t.date     "deadline"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.text     "message"
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.boolean  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "points", force: :cascade do |t|

@@ -64,7 +64,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     groupname = params[:groupname]
-
     # @current_user.tasks << @task
 
 
@@ -84,6 +83,25 @@ class TasksController < ApplicationController
         @point.update_attribute(:user_email, @user_login.email)
         @point.update_attribute(:task_id, @task.id)
         @point.update_attribute(:voted_points, @task.points)
+
+        @assigned_user = User.where(:id => @task.assigned_to).take
+
+        @notification_targets = Group.find(@task.group_id).group_memberships
+        @notification_targets.each do |notify|
+          if @assigned_user.id == notify.user_id && @task.created_by != @assigned_user.name
+            message = "Task #{@task.title} has been assigned to you by #{@task.created_by}"
+          elsif @assigned_user.id == notify.user_id && @task.created_by == @assigned_user.name
+            message = "You assigned task #{@task.title} to yourself"
+          # elsif @assigned_user.id != notify.user_id && @current_user.id == notify.user_id
+          #   message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by you"
+          else
+            message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by #{@task.created_by}"
+          end
+          Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
+        end
+
+        message = "Task #{@task.title} has been assigned to #{@assigned_user.name} by #{@task.created_by}"
+        GroupNotification.create(message: message, group_id: @task.group_id, status: false)
 
         # @group = Group.find(:id => groupID)
         # @task.group_id = group.id
@@ -115,6 +133,35 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        if @task.state == "Completed"
+          message = "#{@task.title} has been completed"
+
+          @notification_targets = Group.find(@task.group_id).group_memberships
+          @notification_targets.each do |notify|
+            Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
+          end
+
+          GroupNotification.create(message: message, group_id: @task.group_id, status: false)
+        else
+          @assigned_user = User.where(:id => @task.assigned_to).take
+
+          @notification_targets = Group.find(@task.group_id).group_memberships
+          @notification_targets.each do |notify|
+            if @assigned_user.id == notify.user_id && @current_user.id != @assigned_user.id
+              message = "Task #{@task.title} has been edited and assigned to you by #{@current_user.name}"
+            elsif @assigned_user.id == notify.user_id && @current_user.id == @assigned_user.id
+              message = "Task #{@task.title} has been edited and assigned to you by yourself"
+            elsif @assigned_user.id != notify.user_id && @current_user.id == notify.user_id
+              message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by you"
+            else
+              message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by #{@current_user.name}"
+            end
+            Notification.create(message: message, group_id: @task.group_id, user_id: notify.user_id,  status: false)
+          end
+
+          message = "Task #{@task.title} has been edited and assigned to #{@assigned_user.name} by #{@current_user.name}"
+          GroupNotification.create(message: message, group_id: @task.group_id, status: false)
+        end
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -210,6 +257,7 @@ class TasksController < ApplicationController
         end
       else
         @current_user = User.where(:email => @user_login.email).take
+        @user_notifications = @current_user.notifications.order(:id)
       end
     end
 

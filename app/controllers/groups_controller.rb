@@ -32,6 +32,9 @@ class GroupsController < ApplicationController
       @is_grp_admin = false
     end
 
+    #get group Notifications
+    @group_notifications = Group.find(params[:id]).group_notifications
+
     # get name of group admin
     @admin_name = User.find(@group.get_admin(@group)).name
 
@@ -156,6 +159,18 @@ class GroupsController < ApplicationController
     # get status of user relative to group by calling method in group model
     @user_status = @current_group.get_user_status(@current_group, @current_user)
 
+    # create notification for user leaving group
+    message = "#{@current_user.name} has left the group #{@current_group.name}"
+
+    @notification_targets = Group.find(@current_group.id).group_memberships
+    @notification_targets.each do |notify|
+      if @current_user.id != notify.user_id
+        Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+      end
+    end
+
+    GroupNotification.create(message: message, group_id: @current_group.id, status: false)
+
     if @user_status == 'not admin'
       # case a.: user is not the group admin, so can leave with no side-effects
 
@@ -171,6 +186,23 @@ class GroupsController < ApplicationController
       @new_admin_membership = @current_group.group_memberships.where(:is_admin => false).first
       @new_admin_membership.update_attribute(:is_admin, true)
 
+      @new_admin = User.where(:id => @new_admin_membership.user_id).take
+
+      @notification_targets = Group.find(@current_group.id).group_memberships
+      @notification_targets.each do |notify|
+        if @new_admin.id == notify.user_id
+          message = "You became the admin of #{@current_group.name}"
+        else
+          message = "#{@new_admin.name} became the admin of #{@current_group.name}"
+        end
+        if notify.user_id != @current_user.id
+          Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+        end
+      end
+
+      message = "#{@new_admin.name} became the admin of #{@current_group.name}"
+      GroupNotification.create(message: message, group_id: @current_group.id, status: false)
+
       # destroy current user's group membership
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
       @membership.destroy
@@ -182,6 +214,24 @@ class GroupsController < ApplicationController
       # get group membership of the member the user selected and make them the new admin
       @new_admin_membership = GroupMembership.where(:user_id => params[:new_admin_id], :group_id => @current_group.id).take
       @new_admin_membership.update_attribute(:is_admin, true)
+
+      @new_admin = User.where(:id => params[:new_admin_id]).take
+
+      @notification_targets = Group.find(@current_group.id).group_memberships
+      @notification_targets.each do |notify|
+        if @new_admin.id == notify.user_id
+          message = "You became the admin of #{@current_group.name}"
+        else
+          message = "#{@new_admin.name} has became admin of #{@current_group.name}"
+        end
+        if notify.user_id != @current_user.id
+          Notification.create(message: message, group_id: @current_group.id, user_id: notify.user_id,  status: false)
+        end
+      end
+
+
+      message = "#{@new_admin.name} became the admin of #{@current_group.name}"
+      GroupNotification.create(message: message, group_id: @current_group.id, status: false)
 
       # destroy current user's group membership
       @membership = GroupMembership.where(:user_id => @current_user.id, :group_id => @current_group.id).take
@@ -232,6 +282,7 @@ class GroupsController < ApplicationController
         end
       else
         @current_user = User.where(:email => @user_login.email).take
+        @user_notifications = @current_user.notifications.order(:id)
       end
     end
 

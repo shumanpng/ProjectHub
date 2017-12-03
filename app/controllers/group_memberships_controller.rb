@@ -54,7 +54,7 @@ class GroupMembershipsController < ApplicationController
 
   # DELETE /group_memberships/1
   # DELETE /group_memberships/1.json
-  def destroy 
+  def destroy
     @group_membership = GroupMembership.find(params[:id])
     @group_membership.destroy
     respond_to do |format|
@@ -78,6 +78,7 @@ class GroupMembershipsController < ApplicationController
         end
       else
         @current_user = User.where(:email => @user_login.email).take
+        @user_notifications = @current_user.notifications.order(:id)
       end
     end
 

@@ -13,7 +13,8 @@
       </ul>
     </div>
   <% end %>
-
+  <!-- hidden field for group_id -->
+  <%= f.hidden_field :group_id, :value => params[:group_id]%>
   <div class = "bgcolor">
     <div class="field">
       <%= f.label :title %><br>
@@ -55,7 +56,7 @@
         <%= f.label :Assignee %><br>
         <% @groupmemberships.each do |g| %>
           <% user = User.where(:id => g.user_id).take %>
-          <%= f.radio_button(:assigned_to, user.id) %>
+          <%= f.radio_button(:assigned_to, user.id, :required => true) %>
           <%= label_tag(:assigned_to, user.name) %>
         <% end %>
       <% else %>
