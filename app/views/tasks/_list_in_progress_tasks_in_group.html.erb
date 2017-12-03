@@ -1,15 +1,16 @@
 
-<b>(IN PROGRESS)</b>
+<b class="text-muted">IN PROGRESS</b>
   <table class="table table-sm table-hover">
     <thead class="thead-dark">
       <tr>
-        <th style="font-weight:normal;width:300px">Title</th>
+        <th style="font-weight:normal;width:225px">Title</th>
         <!-- <th style="width:200px">Description</th> -->
-        <th style="font-weight:normal;width:200px">Created by</th>
-        <th style="font-weight:normal;width:175px">Deadline</th>
+        <th style="font-weight:normal;width:175px">Created by</th>
+        <th style="font-weight:normal;width:150px">Deadline</th>
         <!-- <th style="wdith:180px">Group</th> -->
-        <th style="font-weight:normal;width:200px">Assignee</th>
+        <th style="font-weight:normal;width:175px">Assignee</th>
         <th style="font-weight:normal;width:125px">Avg. Points</th>
+        <th style="width:150px"></th>
         <th></th>
         <th></th>
         <th></th>
@@ -41,6 +42,7 @@
           </td>
           <!-- <td><%#= link_to 'Show', task %></td> -->
           <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
+          <td></td>
           <td>
             <% @comment_count = task.comment_count(task) %>
             <%= link_to "<span class='badge badge-primary'><i class='fa fa-comments fa-fw' style='color:#b4dbf7'></i>#{@comment_count}</span>".html_safe, task_path(task.id, anchor: 'comment_title') %>
