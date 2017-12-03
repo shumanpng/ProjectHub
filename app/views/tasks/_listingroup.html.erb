@@ -44,9 +44,11 @@
         <!-- <td><%#= link_to 'Edit', edit_task_path(task, :groupname => task.group) %></td> -->
 
         <% if !@current_user.is_admin %>
-              <td>
-                <%= link_to '<i class="fa fa-check fa-fw"></i>Points Poll'.html_safe, vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
-              </td>
+          <% if task.state == 'Open' %>
+            <td>
+              <%= link_to '<i class="fa fa-check fa-fw"></i>Points Poll'.html_safe, vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
+            </td>
+          <% end %>
         <% end %>
         <td>
           <%= link_to '<i class="fa fa-pencil fa-fw"></i>'.html_safe, edit_task_path(task.id, :groupname => params[:groupname]) %>
