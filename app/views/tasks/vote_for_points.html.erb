@@ -1,7 +1,7 @@
   <head>
     <title>Voting Poll</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/main.css">
+    <!-- <link rel="stylesheet" href="/css/main.css"> -->
     <link rel="stylesheet" href="/css/examples.css">
 
     <%= csrf_meta_tags %>
@@ -31,12 +31,13 @@
   </head>
   <body>
 
-    <div style="margin: 40px 0 0 40px">
+    <div class="container mt-5">
+      <div class="col-md-6 center">
       <!-- <% if @voted %>
           <p id="voted_message">You have already voted! Thank you!</p>
         <% else %> -->
         <div id="message">
-            <h4> How many points do you think should be assigned to this task?</h4><br>
+            <h4 style="text-align:center"> How many points do you think should be assigned to this task?</h4><br>
 
           <div class="col">
             <div class="box box-blue box-example-square">
@@ -63,7 +64,7 @@
     all the votes to each other and dividing them by the number of votes
     (The first vote would be the user that creates a task and assigns a point to
     that task) -->
-    <p>Points Average = <%= @average %> </p>
+    <br></br></br><p class="lead" style="text-align:center">Average points for this task: <%= @average %> </p>
 
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
@@ -74,7 +75,8 @@
     <%javascript_include_tag "/js/examples.js"%> -->
 
 
-    </br></br></br>
-    <%= link_to 'Back to Tasks Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-warning"%>
+    </br></br>
+    <%= link_to 'Back to Tasks Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-primary" %>
+    </div>
     </div>
   </body>

@@ -13,7 +13,7 @@
           <% end %>
         </div>
       </div>
-      <div class="text-right <%= 'non-admin-extra-margin text-left' if !@is_grp_admin %>">
+      <div class="text-right">
         <% if @is_grp_admin %>
           <%= link_to 'Group Settings', edit_group_path(:group_id => @group.id), :class => 'btn btn-warning btn-sm' %>
         <% end %>
