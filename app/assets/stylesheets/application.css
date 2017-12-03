@@ -156,3 +156,7 @@
 .logo {
   width: 350px;
 }
+
+.btn-default:hover {
+  background-color: #dddddd;
+}
