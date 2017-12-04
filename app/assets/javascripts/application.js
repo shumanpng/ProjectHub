@@ -16,6 +16,7 @@
 //= require Chart.bundle
 //= require chartkick
 //= require_tree .
+//= require_self
 
 setInterval(()=>{
   //fetch notification for nav bar
