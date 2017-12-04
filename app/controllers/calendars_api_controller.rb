@@ -124,7 +124,7 @@ class CalendarsApiController < ApplicationController
      datetime = @task.deadline
      datetimestring = datetime.to_s(:db)
      datetimeparsed = DateTime.parse(datetimestring)
-     formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-08:00')
+     formatted_datetime = datetimeparsed.strftime('%Y-%m-%dT%H:%M:00-00:00')
      event = Google::Apis::CalendarV3::Event.new({
 
        start: {

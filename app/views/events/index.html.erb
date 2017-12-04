@@ -27,7 +27,11 @@
             <%= link_to event.name, event %>
           </td>
           <td><%= event.description %></td>
-          <td><%= event.date %></td>
+          <% eventtime = event.date %>
+          <% eventtimestring = eventtime.to_s(:db) %>
+          <% eventtimeparsed = DateTime.parse(eventtimestring) %>
+          <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y | %I:%M%P') %>
+          <td><%= formatted_datetime %></td>
           <td>
             <small>
               <strong><%= event.location_name %></strong><br>
