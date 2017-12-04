@@ -72,7 +72,7 @@
 
   <!-- only give regular users (not admins) ability to create a new group -->
   <% if @current_user.is_admin == false %>
-    <%= link_to '<i class="fa fa-plus fa-fw" style="color:#b4dbf7"></i>New Group'.html_safe, new_group_path, :class=>"btn btn-primary btn-sm" %>
+    <%= link_to 'New Group', new_group_path, :class=>"btn btn-success btn-sm" %>
   <% end %>
 
   <% if @current_user.is_admin %>
