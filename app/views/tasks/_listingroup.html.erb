@@ -46,7 +46,7 @@
         <% if !@current_user.is_admin %>
           <td>
             <% if task.state == 'Open' %>
-                <%= link_to '<i class="fa fa-check fa-fw"></i>Points Poll'.html_safe, vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name)%>
+                <%= link_to '<i class="fa fa-check fa-fw"></i>Points Poll'.html_safe, vote_for_points_task_path(:id => task.id, :group_id => @group.id, :groupname => @group.name, :from => 'view all tasks')%>
             <% end %>
           </td>
         <% end %>

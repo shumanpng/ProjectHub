@@ -76,7 +76,13 @@
 
 
     </br></br>
-    <%= link_to 'Back to Tasks Page', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-primary" %>
+    <div style="text-align:center">
+      <% if params[:from] == 'view all tasks' %>
+        <%= link_to 'Back', tasks_path(:groupname => @group.name), :class=>"btn btn-sm btn-primary" %>
+      <% else %>
+        <%= link_to 'Back', group_path(params[:group_id]), :class=>"btn btn-sm btn-primary" %>
+      <% end %>
+    </div>
     </div>
     </div>
   </body>
