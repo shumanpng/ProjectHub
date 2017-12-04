@@ -21,7 +21,7 @@
 
     <p style="text-align:center">
       <strong>Deadline:</strong>
-      <% deadline = @task.deadline.localtime %>
+      <% deadline = @task.deadline %>
       <% deadlinestring = deadline.to_s(:db) %>
       <% deadlineparsed = DateTime.parse(deadlinestring) %>
       <% formatted_datetime = deadlineparsed.strftime('%a %b %d, %Y   %I:%M%P') %>

@@ -20,7 +20,11 @@
           <h2 class="lead">Event.</h2>
             <p class="lead">
               <small class="text-muted">
-                <%= @event.date %> | <%= @event.description %>
+                <% eventtime = @event.date %>
+                <% eventtimestring = eventtime.to_s(:db) %>
+                <% eventtimeparsed = DateTime.parse(eventtimestring) %>
+                <% formatted_datetime = eventtimeparsed.strftime('%a %b %d, %Y  %I:%M%P') %>
+                <%= formatted_datetime %> | <%= @event.description %>
               </small>
             </p>
         </div>
