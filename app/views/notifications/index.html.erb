@@ -7,12 +7,12 @@
         <li class="list-group-item">
           <%= notification.message%> <br>
           <% @time = notification.created_at.localtime %>
-          <em style="color:#a3a3a3"><%= distance_of_time_in_words(Time.now, @time) %> ago</em>
+          <em style="color:#a3a3a3;font-size:14px"><%= distance_of_time_in_words(Time.now, @time) %> ago</em>
           <%#= notification.created_at%>
         </li>
       <% end %>
       </ul>
-      <br><%= link_to 'Go to Dashboard', groups_path, class: 'btn btn-primary btn-sm' %>
+      <br><%= link_to 'Back to Dashboard', groups_path, class: 'btn btn-primary btn-sm' %>
     </div>
   </div>
 </div>

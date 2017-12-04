@@ -24,7 +24,8 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <% @group_notifications.reverse[0..4].each do |notification| %>
-                <p class="dropdown-item" ><%= notification.message %><br><i><%= notification.created_at %></i></p>
+                <% @time = notification.created_at.localtime %>
+                <p class="dropdown-item" ><%= notification.message %><br><i style="color:#a3a3a3;font-size:14px"><%= distance_of_time_in_words(Time.now, @time) %> ago</i></p>
                 <% if notification != @group_notifications.first %>
                   <hr>
                 <% end %>

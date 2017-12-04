@@ -65,11 +65,13 @@
                                         <% if !@user_notifications.nil? %>
                                           <% @user_notifications.reverse[0..4].each do |user_notification| %>
                                             <%= link_to group_path(user_notification.group_id) do %>
+                                            <% @time = user_notification.created_at.localtime %>
+
                                             <!-- check if notification is read or not -->
                                             <% if user_notification.status == false %>
-                                              <p class="dropdown-item" onmouseover="readNotification('<%= user_notification.id %>')"> <i class="fa fa-exclamation-circle"></i><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
+                                              <p class="dropdown-item" onmouseover="readNotification('<%= user_notification.id %>')"> <i class="fa fa-exclamation-circle"></i><%= user_notification.message %><br><i style="color:#a3a3a3;font-size:14px"><%= distance_of_time_in_words(Time.now, @time) %> ago</i></p>
                                               <% else %>
-                                              <p class="dropdown-item"><%= user_notification.message %><br><i><%= user_notification.created_at %></i></p>
+                                              <p class="dropdown-item"><%= user_notification.message %><br><i style="color:#a3a3a3;font-size:14px"><%= distance_of_time_in_words(Time.now, @time) %> ago</i></p>
 
                                               <% end %>
                                             <% end %>
