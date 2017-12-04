@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
     # variables for display of the project deadline progress bar
     if @group.deadline != nil
       project_length = (@group.deadline - @group.created_at.localtime.to_date).to_i
-      @days_left = (@group.deadline - Date.today).to_i
+      @days_left = (@group.deadline - Time.current.localtime.to_date).to_i
       days_passed = (Date.today - @group.created_at.localtime.to_date).to_i
 
       if project_length == 0

@@ -1,12 +1,18 @@
-<div id="allNotifications">
-  <h1>All Notifications</h1>
-  <ul class="list-group">
-  <% @all_notifications.each do |notification| %>
-  <li class="list-group-item">
-    <%= notification.message%> <br>
-    <%= notification.created_at%>
-  </li>
-  <% end %>
-  </ul>
-  <%= link_to 'Go to Dashboard', groups_path %>
+<div class="mt-5">
+  <div class="center">
+    <div id="allNotifications">
+      <h2 style="text-align:center">Your Notifications</h2><br>
+      <ul class="list-group">
+      <% @all_notifications.each do |notification| %>
+      <li class="list-group-item">
+        <%= notification.message%> <br>
+        <% @time = notification.created_at.localtime %>
+        <em style="color:#a3a3a3;font-size:14px"><%= distance_of_time_in_words(Time.now, @time) %> ago</em>
+        <%#= notification.created_at %>
+      </li>
+      <% end %>
+      </ul>
+      <br><%= link_to 'Back to Dashboard', groups_path, class: 'btn btn-primary btn-sm' %>
+    </div>
+  </div>
 </div>

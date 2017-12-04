@@ -1,12 +1,19 @@
-<div>
-  <h1><%= "History for group #{@group.name}" %></h1>
-  <ul class="list-group">
-    <% @all_group_notifications.reverse.each do |notification|%>
-    <li class="list-group-item">
-      <%= notification.message %> <br>
-      <%= notification.created_at %>
-    </li>
-    <% end %>
-  </ul>
-  <%= link_to 'Back to Group', group_path(params[:group_id]) %>
+<div class="container mt-5">
+  <div class="center col-md-6">
+    <div>
+      <h2 style="text-align:center"><%= "#{@group.name}" %> </h2>
+      <p class="lead" style="text-align:center">Group History.</p>
+      <ul class="list-group">
+        <% @all_group_notifications.reverse.each do |notification|%>
+        <li class="list-group-item">
+          <%= notification.message %> <br>
+          <% @time = notification.created_at.localtime %>
+          <em style="color:#a3a3a3;font-size:14px"><%= distance_of_time_in_words(Time.now, @time) %> ago</em>
+          <%#= notification.created_at %>
+        </li>
+        <% end %>
+      </ul>
+      <br><%= link_to 'Back to Group Page', group_path(params[:group_id]), class: 'btn btn-primary btn-sm' %>
+    </div>
+  </div>
 </div>
